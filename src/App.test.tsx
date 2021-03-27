@@ -4,12 +4,12 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 
-it("shows a button", () => {
+it("greets you if no name is set", () => {
   render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  expect(screen.getByText("Open room")).toBeInTheDocument();
+  expect(screen.getByText("Hi there!")).toBeInTheDocument();
 });

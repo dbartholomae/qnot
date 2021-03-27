@@ -6,7 +6,7 @@ function App() {
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
-        Let's play Qnot!
+        Hi there!
       </Typography>
 
       <Button variant="contained" color="secondary">
