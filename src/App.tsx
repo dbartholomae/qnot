@@ -3,7 +3,7 @@ import "./App.css";
 import { Container, Typography } from "@material-ui/core";
 import { NameForm } from "./Name/NameForm";
 
-function App() {
+export function App() {
   const [name, setName] = useState<string | null>(null);
   return (
     <Container>
@@ -14,5 +14,3 @@ function App() {
     </Container>
   );
 }
-
-export default App;
