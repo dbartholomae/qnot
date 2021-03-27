@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
+import en from "../locale/en.json";
 
 interface Props {
   onChooseName: (name: string) => void;
@@ -17,11 +18,11 @@ export const NameForm = ({ onChooseName }: Props) => {
       <TextField
         autoComplete="off"
         id="name"
-        label="Name"
+        label={en.MainView.nameLabel}
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
-      <Button type="submit">Save name</Button>
+      <Button type="submit">{en.MainView.saveName}</Button>
     </form>
   );
 };

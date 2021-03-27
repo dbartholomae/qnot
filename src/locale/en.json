@@ -1,0 +1,8 @@
+{
+  "MainView": {
+    "nameLabel": "Name",
+    "saveName": "Save name",
+    "roomCodeLabel": "Room code",
+    "joinRoom": "Join"
+  }
+}
