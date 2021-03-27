@@ -16,6 +16,7 @@ const RoomForm: FunctionComponent<{
       }}
     >
       <TextField
+        autoComplete="off"
         id="roomCode"
         label="Room code"
         value={roomCode}

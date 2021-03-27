@@ -15,6 +15,7 @@ export const NameForm = ({ onChooseName }: Props) => {
       }}
     >
       <TextField
+        autoComplete="off"
         id="name"
         label="Name"
         value={name}
