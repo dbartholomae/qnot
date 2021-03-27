@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Container, Typography } from "@material-ui/core";
+import { Button, Container, Typography } from "@material-ui/core";
 import { NameForm } from "./Name/NameForm";
 
 export function App() {
@@ -11,6 +11,7 @@ export function App() {
         Hi {name ?? "there"}!
       </Typography>
       <NameForm onChooseName={setName} />
+      {name && <Button>Join</Button>}
     </Container>
   );
 }

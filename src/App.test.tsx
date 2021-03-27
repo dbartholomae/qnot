@@ -29,4 +29,28 @@ describe("App", () => {
 
     expect(await screen.findByText("Hi Daniel!")).toBeInTheDocument();
   });
+
+  it("shows the choose room view after you set the name", async () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    const name = "Daniel";
+    userEvent.type(screen.getByLabelText("Name"), name);
+    userEvent.click(screen.getByText("Save name"));
+
+    expect(await screen.findByText("Join")).toBeInTheDocument();
+  });
+
+  it("does not show the choose room view", () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    expect(screen.queryByText("Join")).not.toBeInTheDocument();
+  });
 });
