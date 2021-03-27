@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Button, Container, Typography } from "@material-ui/core";
+import { Button, Container, TextField, Typography } from "@material-ui/core";
+
+const NameForm = ({
+  onChooseName,
+}: {
+  onChooseName: (name: string) => void;
+}) => {
+  const [name, setName] = useState("");
+  return (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        onChooseName(name);
+      }}
+    >
+      <TextField
+        id="name"
+        label="Name"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+      />
+      <Button type="submit">Save name</Button>
+    </form>
+  );
+};
 
 function App() {
+  const [name, setName] = useState<string | null>(null);
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
-        Hi there!
+        Hi {name ?? "there"}!
       </Typography>
-
-      <Button variant="contained" color="secondary">
-        Open room
-      </Button>
+      <NameForm onChooseName={setName} />
     </Container>
   );
 }
