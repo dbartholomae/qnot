@@ -44,7 +44,9 @@
     ]
   },
   "devDependencies": {
+    "@types/history": "^4.7.8",
     "@types/react-router-dom": "^5.1.7",
+    "history": "^4.10.1",
     "prettier": "^2.2.1"
   }
 }
