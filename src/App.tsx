@@ -1,24 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
-import { Container, Typography } from "@material-ui/core";
-import { NameForm } from "./Name/NameForm";
-import { useHistory } from "react-router-dom";
-import { ChooseRoomForm } from "./ChooseRoomForm";
+import { MainView } from "./MainView";
 
 export function App() {
-  const { push } = useHistory();
-  const [name, setName] = useState<string | null>(null);
-  return (
-    <Container>
-      <Typography variant="h3" gutterBottom>
-        Hi {name ?? "there"}!
-      </Typography>
-      <NameForm onChooseName={setName} />
-      {name && (
-        <ChooseRoomForm
-          onChooseRoomCode={(roomCode) => push(`/r/${roomCode}`)}
-        />
-      )}
-    </Container>
-  );
+  return <MainView />;
 }
