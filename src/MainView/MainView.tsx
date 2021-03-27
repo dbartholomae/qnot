@@ -1,8 +1,8 @@
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import { Container, Typography } from "@material-ui/core";
-import { NameForm } from "../Name/NameForm";
-import { ChooseRoomForm } from "../ChooseRoomForm";
+import { NameForm } from "./NameForm";
+import { ChooseRoomForm } from "./ChooseRoomForm";
 
 export function MainView() {
   const { push } = useHistory();

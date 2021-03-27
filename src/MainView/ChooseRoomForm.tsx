@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
-import en from "./locale/en.json";
+import en from "../locale/en.json";
 
 interface Props {
   onChooseRoomCode: (roomCode: string) => void;
