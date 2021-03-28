@@ -9,6 +9,8 @@ import { MainView } from "./MainView";
 import en from "../locale/en.json";
 import { getRoomPath } from "../Room/getRoomPath";
 
+const locale = en.MainView;
+
 describe("MainView", () => {
   let history: MemoryHistory;
   const name = "Daniel";
@@ -29,7 +31,6 @@ describe("MainView", () => {
     expect(screen.getByText("Hi there!")).toBeInTheDocument();
   });
 
-  const locale = en.MainView;
   it("greets you with your name if you set it", async () => {
     userEvent.type(screen.getByLabelText(locale.nameLabel), name);
     userEvent.click(screen.getByText(en.MainView.saveName));
