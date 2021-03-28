@@ -16,57 +16,62 @@ describe("MainView", () => {
   const name = "Daniel";
   const roomCode = "a-room-code";
 
-  beforeEach(() => {
-    history = createMemoryHistory();
-    render(
-      <Router history={history}>
-        <Provider store={createStore()}>
-          <MainView />
-        </Provider>
-      </Router>
-    );
-  });
+  describe("on the root path", () => {
+    beforeEach(() => {
+      history = createMemoryHistory({ initialEntries: ["/"] });
+      render(
+        <Router history={history}>
+          <Provider store={createStore()}>
+            <MainView />
+          </Provider>
+        </Router>
+      );
+    });
 
-  it("greets you if no name is set", () => {
-    expect(screen.getByText("Hi there!")).toBeInTheDocument();
-  });
+    it("greets you if no name is set", () => {
+      expect(screen.getByText("Hi there!")).toBeInTheDocument();
+    });
 
-  it("greets you with your name if you set it", async () => {
-    userEvent.type(screen.getByLabelText(locale.nameLabel), name);
-    userEvent.click(screen.getByText(en.MainView.saveName));
+    it("greets you with your name if you set it", async () => {
+      userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+      userEvent.click(screen.getByText(en.MainView.saveName));
 
-    expect(await screen.findByText("Hi Daniel!")).toBeInTheDocument();
-  });
+      expect(await screen.findByText("Hi Daniel!")).toBeInTheDocument();
+    });
 
-  it("shows the choose room view after you set the name", async () => {
-    userEvent.type(screen.getByLabelText(locale.nameLabel), name);
-    userEvent.click(screen.getByText(en.MainView.saveName));
+    it("shows the choose room view after you set the name", async () => {
+      userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+      userEvent.click(screen.getByText(en.MainView.saveName));
 
-    expect(await screen.findByText(en.MainView.joinRoom)).toBeInTheDocument();
-  });
+      expect(await screen.findByText(en.MainView.joinRoom)).toBeInTheDocument();
+    });
 
-  it("shows a random three-word room code on start", async () => {
-    userEvent.type(screen.getByLabelText(locale.nameLabel), name);
-    userEvent.click(screen.getByText(en.MainView.saveName));
+    it("shows a random three-word room code on start", async () => {
+      userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+      userEvent.click(screen.getByText(en.MainView.saveName));
 
-    expect(
-      ((await screen.findByLabelText(
-        en.MainView.roomCodeLabel
-      )) as HTMLInputElement).value
-    ).toMatch(/\w+-\w+-\w+/);
-  });
+      expect(
+        ((await screen.findByLabelText(
+          en.MainView.roomCodeLabel
+        )) as HTMLInputElement).value
+      ).toMatch(/\w+-\w+-\w+/);
+    });
 
-  it("does not show the choose room view", () => {
-    expect(screen.queryByText(en.MainView.joinRoom)).not.toBeInTheDocument();
-  });
+    it("does not show the choose room view", () => {
+      expect(screen.queryByText(en.MainView.joinRoom)).not.toBeInTheDocument();
+    });
 
-  it("redirects to the room page when joining a room", async () => {
-    userEvent.type(screen.getByLabelText(locale.nameLabel), name);
-    userEvent.click(screen.getByText(en.MainView.saveName));
+    it("redirects to the room page when joining a room", async () => {
+      userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+      userEvent.click(screen.getByText(en.MainView.saveName));
 
-    userEvent.type(screen.getByLabelText(en.MainView.roomCodeLabel), roomCode);
-    userEvent.click(await screen.findByText(en.MainView.joinRoom));
+      userEvent.type(
+        screen.getByLabelText(en.MainView.roomCodeLabel),
+        roomCode
+      );
+      userEvent.click(await screen.findByText(en.MainView.joinRoom));
 
-    expect(history.location.pathname).toEqual(getRoomPath(roomCode));
+      expect(history.location.pathname).toEqual(getRoomPath(roomCode));
+    });
   });
 });
