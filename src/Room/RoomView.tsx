@@ -11,8 +11,9 @@ interface Props {
 export function RoomView({ roomCode }: Props) {
   const myName = useSelector(selectName);
   if (myName === null) {
-    return <Redirect to="/" />;
+    return <Redirect to={`/?roomCode=${roomCode}`} />;
   }
+
   return (
     <Container>
       <Typography variant="h3">Room</Typography>

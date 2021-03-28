@@ -50,8 +50,12 @@ describe("RoomView", () => {
       );
     });
 
-    it("redirects to the main page", async () => {
+    it("redirects to the main page", () => {
       expect(history.location.pathname).toBe("/");
+    });
+
+    it("keeps the roomCode in the search", () => {
+      expect(history.location.search).toContain(`roomCode=${roomCode}`);
     });
   });
 });
