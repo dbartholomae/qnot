@@ -12,7 +12,7 @@ import { getRoomPath } from "../Room/getRoomPath";
 describe("MainView", () => {
   let history: MemoryHistory;
   const name = "Daniel";
-  const roomCode = "code";
+  const roomCode = "a-room-code";
 
   beforeEach(() => {
     history = createMemoryHistory();
