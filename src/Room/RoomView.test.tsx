@@ -5,32 +5,33 @@ import { Provider } from "react-redux";
 import { createStore } from "../app/store";
 import React from "react";
 import { RoomView } from "./RoomView";
-import { setName } from "../name/nameSlice";
 
 describe("RoomView", () => {
   let history: MemoryHistory;
   let store: ReturnType<typeof createStore>;
   const roomCode = "test-room-code";
 
-  beforeEach(() => {
-    history = createMemoryHistory();
-    store = createStore();
-    render(
-      <Router history={history}>
-        <Provider store={store}>
-          <RoomView roomCode={roomCode} />
-        </Provider>
-      </Router>
-    );
-  });
-
-  it("shows the room code", async () => {
-    expect(await screen.findByText(roomCode)).toBeInTheDocument();
-  });
-
-  it("shows my name", async () => {
+  describe("with a name set", () => {
     const myName = "Daniel";
-    store.dispatch(setName(myName));
-    expect(await screen.findByText(myName)).toBeInTheDocument();
+
+    beforeEach(() => {
+      history = createMemoryHistory();
+      store = createStore({ preloadedState: { name: myName } });
+      render(
+        <Router history={history}>
+          <Provider store={store}>
+            <RoomView roomCode={roomCode} />
+          </Provider>
+        </Router>
+      );
+    });
+
+    it("shows the room code", async () => {
+      expect(await screen.findByText(roomCode)).toBeInTheDocument();
+    });
+
+    it("shows my name", async () => {
+      expect(await screen.findByText(myName)).toBeInTheDocument();
+    });
   });
 });

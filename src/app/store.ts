@@ -1,4 +1,9 @@
-import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import {
+  Action,
+  configureStore,
+  ConfigureStoreOptions,
+  ThunkAction,
+} from "@reduxjs/toolkit";
 import nameReducer from "../name/nameSlice";
 import {
   TypedUseSelectorHook,
@@ -6,8 +11,11 @@ import {
   useSelector as useUntypedSelector,
 } from "react-redux";
 
-export function createStore() {
+export function createStore({
+  preloadedState,
+}: Omit<ConfigureStoreOptions, "reducer"> = {}) {
   return configureStore({
+    preloadedState,
     reducer: {
       name: nameReducer,
     },
