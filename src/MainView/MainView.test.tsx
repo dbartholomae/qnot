@@ -43,6 +43,17 @@ describe("MainView", () => {
     expect(await screen.findByText(en.MainView.joinRoom)).toBeInTheDocument();
   });
 
+  it("shows a random three-word room code on start", async () => {
+    userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+    userEvent.click(screen.getByText(en.MainView.saveName));
+
+    expect(
+      ((await screen.findByLabelText(
+        en.MainView.roomCodeLabel
+      )) as HTMLInputElement).value
+    ).toMatch(/\w+-\w+-\w+/);
+  });
+
   it("does not show the choose room view", () => {
     expect(screen.queryByText(en.MainView.joinRoom)).not.toBeInTheDocument();
   });
