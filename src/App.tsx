@@ -4,6 +4,7 @@ import "fontsource-roboto";
 import { Route, Switch } from "react-router-dom";
 import { getRoomPath } from "./Room/getRoomPath";
 import { RoomView } from "./Room/RoomView";
+import { getMainPath } from "./MainView/getMainPath";
 
 export function App() {
   return (
@@ -11,7 +12,7 @@ export function App() {
       <Route path={getRoomPath(":roomCode")}>
         {({ match }) => <RoomView roomCode={match!.params.roomCode} />}
       </Route>
-      <Route path="/">
+      <Route path={getMainPath()}>
         <MainView />
       </Route>
     </Switch>

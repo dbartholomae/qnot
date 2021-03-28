@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Container, Typography } from "@material-ui/core";
 import { useSelector } from "../app/store";
 import { selectName } from "../name/nameSlice";
+import { getMainPath } from "../MainView/getMainPath";
 
 interface Props {
   roomCode: string;
@@ -11,7 +12,7 @@ interface Props {
 export function RoomView({ roomCode }: Props) {
   const myName = useSelector(selectName);
   if (myName === null) {
-    return <Redirect to={`/?roomCode=${roomCode}`} />;
+    return <Redirect to={getMainPath(roomCode)} />;
   }
 
   return (
