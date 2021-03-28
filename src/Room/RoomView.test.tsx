@@ -5,17 +5,19 @@ import { Provider } from "react-redux";
 import { createStore } from "../app/store";
 import React from "react";
 import { RoomView } from "./RoomView";
+import { getRoomPath } from "./getRoomPath";
 
 describe("RoomView", () => {
   let history: MemoryHistory;
   let store: ReturnType<typeof createStore>;
   const roomCode = "test-room-code";
+  const initialPathname = getRoomPath(roomCode);
 
   describe("with a name set", () => {
     const myName = "Daniel";
 
     beforeEach(() => {
-      history = createMemoryHistory();
+      history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore({ preloadedState: { name: myName } });
       render(
         <Router history={history}>
@@ -32,6 +34,24 @@ describe("RoomView", () => {
 
     it("shows my name", async () => {
       expect(await screen.findByText(myName)).toBeInTheDocument();
+    });
+  });
+
+  describe("without a name set", () => {
+    beforeEach(() => {
+      history = createMemoryHistory({ initialEntries: [initialPathname] });
+      store = createStore();
+      render(
+        <Router history={history}>
+          <Provider store={store}>
+            <RoomView roomCode={roomCode} />
+          </Provider>
+        </Router>
+      );
+    });
+
+    it("redirects to the main page", async () => {
+      expect(history.location.pathname).toBe("/");
     });
   });
 });
