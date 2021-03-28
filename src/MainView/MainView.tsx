@@ -5,9 +5,10 @@ import { getRoomPath } from "../RoomView/getRoomPath";
 import { TextFieldForm } from "../components/TextFieldForm";
 import en from "../locale/en.json";
 import { useRandomRoomCode } from "./useRandomRoomCode";
-import { useDispatch, useSelector } from "../store/store";
 import { selectName, setName as setNameAction } from "../name/nameSlice";
 import { useQuery } from "../useQuery";
+import { useDispatch } from "../store/useDispatch";
+import { useSelector } from "../store/useSelector";
 
 export function MainView() {
   const { push } = useHistory();

@@ -1,9 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Typography } from "@material-ui/core";
-import { useSelector } from "../store/store";
 import { selectName } from "../name/nameSlice";
 import { getMainPath } from "../MainView/getMainPath";
+import { useSelector } from "../store/useSelector";
 
 interface Props {
   roomCode: string;

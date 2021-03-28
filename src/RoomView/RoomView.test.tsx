@@ -1,6 +1,6 @@
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen } from "@testing-library/react";
-import { createStore } from "../store/store";
+import { createStore, Store } from "../store/store";
 import React from "react";
 import { RoomView } from "./RoomView";
 import { getRoomPath } from "./getRoomPath";
@@ -8,7 +8,7 @@ import { createTestProviders } from "../testUtils/createTestProviders";
 
 describe("RoomView", () => {
   let history: MemoryHistory;
-  let store: ReturnType<typeof createStore>;
+  let store: Store;
   const roomCode = "test-room-code";
   const initialPathname = getRoomPath(roomCode);
 

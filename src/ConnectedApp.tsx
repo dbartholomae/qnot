@@ -1,12 +1,12 @@
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { createStore } from "./store/store";
 import { App } from "./App";
 import React from "react";
 
 export const ConnectedApp = () => (
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={createStore()}>
       <App />
     </Provider>
   </BrowserRouter>
