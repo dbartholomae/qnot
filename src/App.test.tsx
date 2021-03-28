@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { createStore } from "./app/store";
 import React from "react";
 import { App } from "./App";
-import { getRoomPath } from "./Room/getRoomPath";
+import { getRoomPath } from "./RoomView/getRoomPath";
 import { createTestProviders } from "./testUtils/createTestProviders";
 
 describe("App", () => {

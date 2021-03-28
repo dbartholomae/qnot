@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import React from "react";
 import { Container, Typography } from "@material-ui/core";
-import { getRoomPath } from "../Room/getRoomPath";
+import { getRoomPath } from "../RoomView/getRoomPath";
 import { TextFieldForm } from "../components/TextFieldForm";
 import en from "../locale/en.json";
 import { useRandomRoomCode } from "./useRandomRoomCode";
