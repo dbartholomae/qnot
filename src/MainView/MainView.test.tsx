@@ -7,6 +7,7 @@ import { createMemoryHistory, MemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { MainView } from "./MainView";
 import en from "../locale/en.json";
+import { getRoomPath } from "../Room/getRoomPath";
 
 describe("MainView", () => {
   let history: MemoryHistory;
@@ -65,6 +66,6 @@ describe("MainView", () => {
     userEvent.type(screen.getByLabelText(en.MainView.roomCodeLabel), roomCode);
     userEvent.click(await screen.findByText(en.MainView.joinRoom));
 
-    expect(history.location.pathname).toContain(roomCode);
+    expect(history.location.pathname).toEqual(getRoomPath(roomCode));
   });
 });

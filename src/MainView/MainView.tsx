@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Container, Typography } from "@material-ui/core";
 import { NameForm } from "./NameForm";
 import { ChooseRoomForm } from "./ChooseRoomForm";
+import { getRoomPath } from "../Room/getRoomPath";
 
 export function MainView() {
   const { push } = useHistory();
@@ -14,7 +15,9 @@ export function MainView() {
       </Typography>
       <NameForm onChooseName={setName} />
       {name && (
-        <ChooseRoomForm onChooseRoomCode={(roomCode) => push(`/${roomCode}`)} />
+        <ChooseRoomForm
+          onChooseRoomCode={(roomCode) => push(getRoomPath(roomCode))}
+        />
       )}
     </Container>
   );
