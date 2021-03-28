@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { MainView } from "./MainView/MainView";
 import React from "react";
+import { App } from "./App";
 
 describe("App", () => {
   let history: MemoryHistory;
@@ -14,14 +14,19 @@ describe("App", () => {
     render(
       <Router history={history}>
         <Provider store={store}>
-          <MainView />
+          <App />
         </Provider>
       </Router>
     );
   });
 
-  it("renders the main view on root path", () => {
+  it("renders the main view on root path", async () => {
     history.push("/");
-    expect(screen.getByText("Hi there!")).toBeInTheDocument();
+    expect(await screen.findByText("Hi there!")).toBeInTheDocument();
+  });
+
+  it("renders the room lobby on lobby path", async () => {
+    history.push("/r/test-room-code");
+    expect(await screen.findByText("Room")).toBeInTheDocument();
   });
 });
