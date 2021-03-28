@@ -23,15 +23,22 @@ export const TextFieldForm = ({
         event.preventDefault();
         onConfirmValue(value);
       }}
+      style={{
+        display: "flex",
+        gap: 12,
+      }}
     >
       <TextField
         autoComplete="off"
         id={id}
         label={label}
         value={value}
+        variant="filled"
         onChange={(event) => setValue(event.target.value)}
       />
-      <Button type="submit">{confirmLabel}</Button>
+      <Button type="submit" variant="contained" color="primary">
+        {confirmLabel}
+      </Button>
     </form>
   );
 };
