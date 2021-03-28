@@ -5,7 +5,7 @@ import { getRoomPath } from "../Room/getRoomPath";
 import { TextFieldForm } from "../components/TextFieldForm";
 import en from "../locale/en.json";
 import { useRandomRoomCode } from "./useRandomRoomCode";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../app/store";
 import { selectName, setName as setNameAction } from "./nameSlice";
 
 export function MainView() {

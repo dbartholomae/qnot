@@ -1,5 +1,10 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import nameReducer from "../MainView/nameSlice";
+import {
+  TypedUseSelectorHook,
+  useDispatch as useUntypedDispatch,
+  useSelector as useUntypedSelector,
+} from "react-redux";
 
 export function createStore() {
   return configureStore({
@@ -18,3 +23,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+export type AppDispatch = typeof store.dispatch;
+
+export const useDispatch = () => useUntypedDispatch<AppDispatch>();
+export const useSelector: TypedUseSelectorHook<RootState> = useUntypedSelector;
