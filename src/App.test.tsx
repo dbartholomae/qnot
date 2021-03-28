@@ -29,4 +29,10 @@ describe("App", () => {
     history.push("/r/test-room-code");
     expect(await screen.findByText("Room")).toBeInTheDocument();
   });
+
+  it("shows the room code", async () => {
+    const roomCode = "test-room-code";
+    history.push(`/r/${roomCode}`);
+    expect(await screen.findByText(roomCode)).toBeInTheDocument();
+  });
 });
