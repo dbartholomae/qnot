@@ -7,6 +7,7 @@ import en from "../locale/en.json";
 import { useRandomRoomCode } from "./useRandomRoomCode";
 import { useDispatch, useSelector } from "../app/store";
 import { selectName, setName as setNameAction } from "../name/nameSlice";
+import { useQuery } from "../useQuery";
 
 export function MainView() {
   const { push } = useHistory();
@@ -14,6 +15,8 @@ export function MainView() {
   const dispatch = useDispatch();
   const setName = (newName: string) => dispatch(setNameAction(newName));
   const randomRoomCode = useRandomRoomCode();
+  const query = useQuery();
+  const roomCodeFromQuery = query.get("roomCode");
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
@@ -36,7 +39,7 @@ export function MainView() {
           <TextFieldForm
             onConfirmValue={(roomCode) => push(getRoomPath(roomCode))}
             id="roomCode"
-            initialValue={randomRoomCode}
+            initialValue={roomCodeFromQuery ?? randomRoomCode}
             label={en.MainView.roomCodeLabel}
             confirmLabel={en.MainView.joinRoom}
           />

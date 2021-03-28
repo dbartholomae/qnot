@@ -74,4 +74,30 @@ describe("MainView", () => {
       expect(history.location.pathname).toEqual(getRoomPath(roomCode));
     });
   });
+
+  describe("on the root path with a room code in the search", () => {
+    beforeEach(() => {
+      history = createMemoryHistory({
+        initialEntries: [`/?roomCode=${roomCode}`],
+      });
+      render(
+        <Router history={history}>
+          <Provider store={createStore()}>
+            <MainView />
+          </Provider>
+        </Router>
+      );
+    });
+
+    it("loads the initial room name from the search", async () => {
+      userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+      userEvent.click(screen.getByText(en.MainView.saveName));
+
+      expect(
+        ((await screen.findByLabelText(
+          en.MainView.roomCodeLabel
+        )) as HTMLInputElement).value
+      ).toBe(roomCode);
+    });
+  });
 });
