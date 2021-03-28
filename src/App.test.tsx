@@ -1,6 +1,6 @@
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen } from "@testing-library/react";
-import { createStore } from "./app/store";
+import { createStore } from "./store/store";
 import React from "react";
 import { App } from "./App";
 import { getRoomPath } from "./RoomView/getRoomPath";

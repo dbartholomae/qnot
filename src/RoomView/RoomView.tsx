@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { Container, Typography } from "@material-ui/core";
-import { useSelector } from "../app/store";
+import { useSelector } from "../store/store";
 import { selectName } from "../name/nameSlice";
 import { getMainPath } from "../MainView/getMainPath";
 

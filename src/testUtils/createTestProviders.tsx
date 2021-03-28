@@ -1,6 +1,6 @@
 import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "../app/store";
+import { createStore } from "../store/store";
 import React, { FunctionComponent } from "react";
 import { createMemoryHistory } from "history";
 

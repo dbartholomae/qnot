@@ -5,7 +5,7 @@ import { getRoomPath } from "../RoomView/getRoomPath";
 import { TextFieldForm } from "../components/TextFieldForm";
 import en from "../locale/en.json";
 import { useRandomRoomCode } from "./useRandomRoomCode";
-import { useDispatch, useSelector } from "../app/store";
+import { useDispatch, useSelector } from "../store/store";
 import { selectName, setName as setNameAction } from "../name/nameSlice";
 import { useQuery } from "../useQuery";
 
