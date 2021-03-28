@@ -3,15 +3,7 @@ import { MainView } from "./MainView/MainView";
 import "fontsource-roboto";
 import { Route, Switch } from "react-router-dom";
 import { getRoomPath } from "./Room/getRoomPath";
-
-function RoomView({ roomCode }: { roomCode: string }) {
-  return (
-    <>
-      <div>Room</div>
-      <div>{roomCode}</div>
-    </>
-  );
-}
+import { RoomView } from "./Room/RoomView";
 
 export function App() {
   return (
