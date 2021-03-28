@@ -1,13 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { createStore } from "../app/store";
 import userEvent from "@testing-library/user-event";
 import { createMemoryHistory, MemoryHistory } from "history";
-import { Router } from "react-router-dom";
 import { MainView } from "./MainView";
 import en from "../locale/en.json";
 import { getRoomPath } from "../Room/getRoomPath";
+import { createTestProviders } from "../testUtils/createTestProviders";
 
 const locale = en.MainView;
 
@@ -19,13 +17,7 @@ describe("MainView", () => {
   describe("on the root path", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: ["/"] });
-      render(
-        <Router history={history}>
-          <Provider store={createStore()}>
-            <MainView />
-          </Provider>
-        </Router>
-      );
+      render(<MainView />, { wrapper: createTestProviders({ history }) });
     });
 
     it("greets you if no name is set", () => {
@@ -80,13 +72,7 @@ describe("MainView", () => {
       history = createMemoryHistory({
         initialEntries: [`/?roomCode=${roomCode}`],
       });
-      render(
-        <Router history={history}>
-          <Provider store={createStore()}>
-            <MainView />
-          </Provider>
-        </Router>
-      );
+      render(<MainView />, { wrapper: createTestProviders({ history }) });
     });
 
     it("loads the initial room name from the search", async () => {

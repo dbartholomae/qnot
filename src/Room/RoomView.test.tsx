@@ -1,11 +1,10 @@
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen } from "@testing-library/react";
-import { Router } from "react-router-dom";
-import { Provider } from "react-redux";
 import { createStore } from "../app/store";
 import React from "react";
 import { RoomView } from "./RoomView";
 import { getRoomPath } from "./getRoomPath";
+import { createTestProviders } from "../testUtils/createTestProviders";
 
 describe("RoomView", () => {
   let history: MemoryHistory;
@@ -19,13 +18,9 @@ describe("RoomView", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore({ preloadedState: { name: myName } });
-      render(
-        <Router history={history}>
-          <Provider store={store}>
-            <RoomView roomCode={roomCode} />
-          </Provider>
-        </Router>
-      );
+      render(<RoomView roomCode={roomCode} />, {
+        wrapper: createTestProviders({ history, store }),
+      });
     });
 
     it("shows the room code", async () => {
@@ -41,13 +36,9 @@ describe("RoomView", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore();
-      render(
-        <Router history={history}>
-          <Provider store={store}>
-            <RoomView roomCode={roomCode} />
-          </Provider>
-        </Router>
-      );
+      render(<RoomView roomCode={roomCode} />, {
+        wrapper: createTestProviders({ history, store }),
+      });
     });
 
     it("redirects to the main page", () => {

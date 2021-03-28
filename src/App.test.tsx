@@ -1,24 +1,17 @@
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen } from "@testing-library/react";
-import { Router } from "react-router-dom";
-import { Provider } from "react-redux";
-import { createStore, store } from "./app/store";
+import { createStore } from "./app/store";
 import React from "react";
 import { App } from "./App";
 import { getRoomPath } from "./Room/getRoomPath";
+import { createTestProviders } from "./testUtils/createTestProviders";
 
 describe("App", () => {
   let history: MemoryHistory;
 
   beforeEach(() => {
     history = createMemoryHistory();
-    render(
-      <Router history={history}>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </Router>
-    );
+    render(<App />, { wrapper: createTestProviders({ history }) });
   });
 
   it("renders the main view on root path", async () => {
@@ -31,13 +24,8 @@ describe("App", () => {
 
     beforeEach(() => {
       history = createMemoryHistory();
-      render(
-        <Router history={history}>
-          <Provider store={createStore({ preloadedState: { name } })}>
-            <App />
-          </Provider>
-        </Router>
-      );
+      const store = createStore({ preloadedState: { name } });
+      render(<App />, { wrapper: createTestProviders({ history, store }) });
     });
 
     it("renders the room lobby on lobby path", async () => {
