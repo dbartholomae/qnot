@@ -6,7 +6,7 @@ import { TextFieldForm } from "../components/TextFieldForm";
 import en from "../locale/en.json";
 import { useRandomRoomCode } from "./useRandomRoomCode";
 import { useDispatch, useSelector } from "../app/store";
-import { selectName, setName as setNameAction } from "./nameSlice";
+import { selectName, setName as setNameAction } from "../name/nameSlice";
 
 export function MainView() {
   const { push } = useHistory();

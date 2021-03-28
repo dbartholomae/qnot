@@ -1,5 +1,5 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import nameReducer from "../MainView/nameSlice";
+import nameReducer from "../name/nameSlice";
 import {
   TypedUseSelectorHook,
   useDispatch as useUntypedDispatch,
