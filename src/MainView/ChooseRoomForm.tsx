@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Button, TextField } from "@material-ui/core";
 import en from "../locale/en.json";
-import createRandomWords from "random-words";
+import { useRoomCode } from "./useRoomCode";
 
 interface Props {
   onChooseRoomCode: (roomCode: string) => void;
@@ -10,10 +10,7 @@ interface Props {
 export const ChooseRoomForm: FunctionComponent<Props> = ({
   onChooseRoomCode,
 }) => {
-  const [roomCode, setRoomCode] = useState("");
-  useEffect(() => {
-    setRoomCode((createRandomWords(3) as string[]).join("-"));
-  }, []);
+  const { roomCode, setRoomCode } = useRoomCode();
 
   return (
     <form
