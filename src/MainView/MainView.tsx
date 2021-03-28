@@ -1,14 +1,18 @@
 import { useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
 import { Container, Typography } from "@material-ui/core";
 import { getRoomPath } from "../Room/getRoomPath";
 import { TextFieldForm } from "../components/TextFieldForm";
 import en from "../locale/en.json";
 import { useRandomRoomCode } from "./useRandomRoomCode";
+import { useDispatch, useSelector } from "react-redux";
+import { selectName, setName as setNameAction } from "./nameSlice";
 
 export function MainView() {
   const { push } = useHistory();
-  const [name, setName] = useState<string | null>(null);
+  const name = useSelector(selectName);
+  const dispatch = useDispatch();
+  const setName = (newName: string) => dispatch(setNameAction(newName));
   const randomRoomCode = useRandomRoomCode();
   return (
     <Container>

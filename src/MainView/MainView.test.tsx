@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { store } from "../app/store";
+import { createStore } from "../app/store";
 import userEvent from "@testing-library/user-event";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { Router } from "react-router-dom";
@@ -18,7 +18,7 @@ describe("MainView", () => {
     history = createMemoryHistory();
     render(
       <Router history={history}>
-        <Provider store={store}>
+        <Provider store={createStore()}>
           <MainView />
         </Provider>
       </Router>
