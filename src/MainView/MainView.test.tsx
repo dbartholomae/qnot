@@ -53,6 +53,23 @@ describe("MainView", () => {
       expect(screen.queryByText(en.MainView.joinRoom)).not.toBeInTheDocument();
     });
 
+    it("creates a new room code when pressing the reload room code button", async () => {
+      userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+      userEvent.click(screen.getByText(en.MainView.saveName));
+
+      const oldRoomCode = ((await screen.findByLabelText(
+        en.MainView.roomCodeLabel
+      )) as HTMLInputElement).value;
+
+      userEvent.click(screen.getByText(en.MainView.createNewRoomCode));
+
+      expect(
+        ((await screen.findByLabelText(
+          en.MainView.roomCodeLabel
+        )) as HTMLInputElement).value
+      ).not.toBe(oldRoomCode);
+    });
+
     it("redirects to the room page when joining a room", async () => {
       userEvent.type(screen.getByLabelText(locale.nameLabel), name);
       userEvent.click(screen.getByText(en.MainView.saveName));

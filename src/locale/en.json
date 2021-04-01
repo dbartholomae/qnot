@@ -1,5 +1,6 @@
 {
   "MainView": {
+    "createNewRoomCode": "New code",
     "nameLabel": "Name",
     "saveName": "Save name",
     "roomCodeLabel": "Room code",
