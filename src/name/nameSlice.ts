@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
+import { getFromLocalStorage } from "../localStorage";
 
 type NameState = string | null;
 
-const initialState: NameState = null as NameState;
+const initialState: NameState = getFromLocalStorage("name");
 
 export const nameSlice = createSlice({
   name: "name",

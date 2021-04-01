@@ -13,6 +13,7 @@ describe("MainView", () => {
   const name = "Daniel";
 
   beforeEach(() => {
+    localStorage.clear();
     history = createMemoryHistory({ initialEntries: ["/"] });
     render(<MainView />, { wrapper: createTestProviders({ history }) });
   });
