@@ -4,10 +4,8 @@ import { createStore } from "./store/store";
 import { App } from "./App";
 import React from "react";
 
-const basename = window.location.pathname;
-
 export const ConnectedApp = () => (
-  <BrowserRouter basename={basename}>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={createStore()}>
       <App />
     </Provider>
