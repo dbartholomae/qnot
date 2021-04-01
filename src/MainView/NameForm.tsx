@@ -1,16 +1,33 @@
-import { TextFieldForm } from "../components/TextFieldForm";
 import { en } from "../locale";
-import React from "react";
+import React, { useState } from "react";
 import { useName } from "./useName";
+import { Button, TextField } from "@material-ui/core";
 
 export function NameForm() {
-  const [_, setName] = useName();
+  const [_, saveName] = useName();
+  const [nameDraft, setNameDraft] = useState("");
   return (
-    <TextFieldForm
-      onConfirmValue={setName}
-      id="name"
-      label={en.MainView.nameLabel}
-      confirmLabel={en.MainView.saveName}
-    />
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        saveName(nameDraft);
+      }}
+      style={{
+        display: "flex",
+        gap: 12,
+      }}
+    >
+      <TextField
+        autoComplete="off"
+        id={"name"}
+        label={en.MainView.nameLabel}
+        value={nameDraft}
+        variant="filled"
+        onChange={(event) => setNameDraft(event.target.value)}
+      />
+      <Button type="submit" variant="contained" color="primary">
+        {en.MainView.saveName}
+      </Button>
+    </form>
   );
 }

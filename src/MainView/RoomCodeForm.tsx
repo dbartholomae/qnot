@@ -32,6 +32,7 @@ export function RoomCodeForm() {
     >
       <TextField
         autoComplete="off"
+        autoFocus
         id={"roomCode"}
         label={en.MainView.roomCodeLabel}
         value={roomCode}
