@@ -1,12 +1,11 @@
 import React from "react";
 import { Container, Typography } from "@material-ui/core";
-import { selectName } from "../name/nameSlice";
-import { useSelector } from "../store/useSelector";
 import { RoomCodeForm } from "./RoomCodeForm";
 import { NameForm } from "./NameForm";
+import { useName } from "./useName";
 
 export function MainView() {
-  const name = useSelector(selectName);
+  const [name] = useName();
   return (
     <Container>
       <Typography variant="h3" gutterBottom>

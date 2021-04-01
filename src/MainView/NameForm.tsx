@@ -1,12 +1,10 @@
-import { useDispatch } from "../store/useDispatch";
-import { setName as setNameAction } from "../name/nameSlice";
 import { TextFieldForm } from "../components/TextFieldForm";
 import { en } from "../locale";
 import React from "react";
+import { useName } from "./useName";
 
 export function NameForm() {
-  const dispatch = useDispatch();
-  const setName = (newName: string) => dispatch(setNameAction(newName));
+  const [_, setName] = useName();
   return (
     <TextFieldForm
       onConfirmValue={setName}
