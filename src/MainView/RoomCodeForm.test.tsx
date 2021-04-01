@@ -42,7 +42,7 @@ describe("RoomCodeForm", () => {
     });
 
     it("redirects to the room page when joining a room", async () => {
-      userEvent.type(
+      await userEvent.type(
         screen.getByLabelText(en.MainView.roomCodeLabel),
         roomCode
       );

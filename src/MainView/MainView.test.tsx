@@ -22,14 +22,14 @@ describe("MainView", () => {
   });
 
   it("greets you with your name if you set it", async () => {
-    userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+    await userEvent.type(screen.getByLabelText(locale.nameLabel), name);
     userEvent.click(screen.getByText(en.MainView.saveName));
 
     expect(await screen.findByText("Hi Daniel!")).toBeInTheDocument();
   });
 
   it("shows the choose room view after you set the name", async () => {
-    userEvent.type(screen.getByLabelText(locale.nameLabel), name);
+    await userEvent.type(screen.getByLabelText(locale.nameLabel), name);
     userEvent.click(screen.getByText(en.MainView.saveName));
 
     expect(await screen.findByText(en.MainView.joinRoom)).toBeInTheDocument();
