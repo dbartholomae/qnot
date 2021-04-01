@@ -7,9 +7,12 @@ Qnot is a word game for 5 to 9 players. It also showcases simple real-time inter
 * Clone the repo
 * Set up an [ably](https://www.ably.io/) account
 * Copy the `.env.template` file to `.env` and insert your API key
-* If you want to take advantage of the automatic deployment on GitHub, you also need to copy the env variable to your GitHub repo
 * Install locally via `npm i`
 * Run with `npm start`
+
+## Deployment
+
+If you want to take advantage of the automatic deployment on GitHub, you also need to copy the env variable to your GitHub repo and update the package.json homepage field
 
 ## Available Scripts
 
