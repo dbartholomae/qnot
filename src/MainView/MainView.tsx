@@ -1,23 +1,16 @@
-import { useHistory } from "react-router-dom";
 import React from "react";
 import { Container, Typography } from "@material-ui/core";
-import { getRoomPath } from "../RoomView/getRoomPath";
 import { TextFieldForm } from "../components/TextFieldForm";
 import { en } from "../locale";
-import { useRandomRoomCode } from "./useRandomRoomCode";
 import { selectName, setName as setNameAction } from "../name/nameSlice";
-import { useQuery } from "../useQuery";
 import { useDispatch } from "../store/useDispatch";
 import { useSelector } from "../store/useSelector";
+import { RoomCodeForm } from "./RoomCodeForm";
 
 export function MainView() {
-  const { push } = useHistory();
   const name = useSelector(selectName);
   const dispatch = useDispatch();
   const setName = (newName: string) => dispatch(setNameAction(newName));
-  const randomRoomCode = useRandomRoomCode();
-  const query = useQuery();
-  const roomCodeFromQuery = query.get("roomCode");
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
@@ -36,15 +29,7 @@ export function MainView() {
           label={en.MainView.nameLabel}
           confirmLabel={en.MainView.saveName}
         />
-        {name && (
-          <TextFieldForm
-            onConfirmValue={(roomCode) => push(getRoomPath(roomCode))}
-            id="roomCode"
-            initialValue={roomCodeFromQuery ?? randomRoomCode}
-            label={en.MainView.roomCodeLabel}
-            confirmLabel={en.MainView.joinRoom}
-          />
-        )}
+        {name && <RoomCodeForm />}
       </div>
     </Container>
   );
