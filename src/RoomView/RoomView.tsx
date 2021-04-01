@@ -7,7 +7,6 @@ import { getMainPath } from "../MainView/getMainPath";
 import { useSelector } from "../store/useSelector";
 import { Wifi } from "@material-ui/icons";
 import { en } from "../locale";
-import { getRoomPath } from "./getRoomPath";
 
 interface Props {
   roomCode: string;
@@ -23,7 +22,7 @@ export function RoomView({ roomCode }: Props) {
     <Container>
       <Typography variant="h3">Room</Typography>
       <CopyToClipboard
-        text={`${process.env.PUBLIC_URL}${getRoomPath(roomCode)}`}
+        text={`${process.env.PUBLIC_URL}${getMainPath(roomCode)}`}
       >
         <Button variant="contained" color="primary">
           {en.RoomView.copyInviteLink}
