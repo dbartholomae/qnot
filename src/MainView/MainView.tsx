@@ -3,7 +3,7 @@ import React from "react";
 import { Container, Typography } from "@material-ui/core";
 import { getRoomPath } from "../RoomView/getRoomPath";
 import { TextFieldForm } from "../components/TextFieldForm";
-import en from "../locale/en.json";
+import { en } from "../locale";
 import { useRandomRoomCode } from "./useRandomRoomCode";
 import { selectName, setName as setNameAction } from "../name/nameSlice";
 import { useQuery } from "../useQuery";

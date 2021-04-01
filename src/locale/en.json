@@ -4,5 +4,8 @@
     "saveName": "Save name",
     "roomCodeLabel": "Room code",
     "joinRoom": "Join"
+  },
+  "RoomView": {
+    "online": "online"
   }
 }

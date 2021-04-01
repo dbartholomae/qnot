@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { MainView } from "./MainView";
-import en from "../locale/en.json";
+import { en } from "../locale";
 import { getRoomPath } from "../RoomView/getRoomPath";
 import { createTestProviders } from "../testUtils/createTestProviders";
 
