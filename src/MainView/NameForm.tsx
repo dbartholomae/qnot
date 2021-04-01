@@ -4,8 +4,8 @@ import { useName } from "./useName";
 import { Button, TextField } from "@material-ui/core";
 
 export function NameForm() {
-  const [_, saveName] = useName();
-  const [nameDraft, setNameDraft] = useState("");
+  const [name, saveName] = useName();
+  const [nameDraft, setNameDraft] = useState(name ?? "");
   return (
     <form
       onSubmit={(event) => {
