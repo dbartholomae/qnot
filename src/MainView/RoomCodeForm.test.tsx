@@ -22,17 +22,17 @@ describe("RoomCodeForm", () => {
     it("shows a random three-word room code on start", async () => {
       expect(
         ((await screen.findByLabelText(
-          en.MainView.roomCodeLabel
+          locale.roomCodeLabel
         )) as HTMLInputElement).value
       ).toMatch(/\w+-\w+-\w+/);
     });
 
     it("creates a new room code when pressing the reload room code button", async () => {
       const oldRoomCode = ((await screen.findByLabelText(
-        en.MainView.roomCodeLabel
+        locale.roomCodeLabel
       )) as HTMLInputElement).value;
 
-      userEvent.click(screen.getByLabelText(en.MainView.createNewRoomCode));
+      userEvent.click(screen.getByLabelText(locale.createNewRoomCode));
 
       expect(
         ((await screen.findByLabelText(
@@ -43,10 +43,10 @@ describe("RoomCodeForm", () => {
 
     it("redirects to the room page when joining a room", async () => {
       await userEvent.type(
-        screen.getByLabelText(en.MainView.roomCodeLabel),
+        screen.getByLabelText(locale.roomCodeLabel),
         roomCode
       );
-      userEvent.click(await screen.findByText(en.MainView.joinRoom));
+      userEvent.click(await screen.findByText(locale.joinRoom));
 
       expect(history.location.pathname).toEqual(getRoomPath(roomCode));
     });
@@ -63,7 +63,7 @@ describe("RoomCodeForm", () => {
     it("loads the initial room name from the search", async () => {
       expect(
         ((await screen.findByLabelText(
-          en.MainView.roomCodeLabel
+          locale.roomCodeLabel
         )) as HTMLInputElement).value
       ).toBe(roomCode);
     });

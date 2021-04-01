@@ -23,19 +23,19 @@ describe("MainView", () => {
 
   it("greets you with your name if you set it", async () => {
     await userEvent.type(screen.getByLabelText(locale.nameLabel), name);
-    userEvent.click(screen.getByText(en.MainView.saveName));
+    userEvent.click(screen.getByText(locale.saveName));
 
     expect(await screen.findByText("Hi Daniel!")).toBeInTheDocument();
   });
 
   it("shows the choose room view after you set the name", async () => {
     await userEvent.type(screen.getByLabelText(locale.nameLabel), name);
-    userEvent.click(screen.getByText(en.MainView.saveName));
+    userEvent.click(screen.getByText(locale.saveName));
 
-    expect(await screen.findByText(en.MainView.joinRoom)).toBeInTheDocument();
+    expect(await screen.findByText(locale.joinRoom)).toBeInTheDocument();
   });
 
   it("does not show the choose room view", () => {
-    expect(screen.queryByText(en.MainView.joinRoom)).not.toBeInTheDocument();
+    expect(screen.queryByText(locale.joinRoom)).not.toBeInTheDocument();
   });
 });

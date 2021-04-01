@@ -8,6 +8,8 @@ import { createTestProviders } from "../testUtils/createTestProviders";
 import { en } from "../locale";
 import userEvent from "@testing-library/user-event";
 
+const locale = en.RoomView;
+
 describe("RoomView", () => {
   let history: MemoryHistory;
   let store: Store;
@@ -31,7 +33,7 @@ describe("RoomView", () => {
 
     it("copies the room link to my clipboard when clicking the copy invite link button", async () => {
       document.execCommand = jest.fn();
-      userEvent.click(await screen.findByText(en.RoomView.copyInviteLink));
+      userEvent.click(await screen.findByText(locale.copyInviteLink));
       expect(document.execCommand).toHaveBeenCalled();
     });
 
@@ -40,9 +42,7 @@ describe("RoomView", () => {
     });
 
     it("shows me as online", async () => {
-      expect(
-        await screen.findByLabelText(en.RoomView.online)
-      ).toBeInTheDocument();
+      expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
   });
 
