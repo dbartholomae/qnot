@@ -5,6 +5,7 @@ import React from "react";
 import { RoomView } from "./RoomView";
 import { getRoomPath } from "./getRoomPath";
 import { createTestProviders } from "../testUtils/createTestProviders";
+import { en } from "../locale";
 
 describe("RoomView", () => {
   let history: MemoryHistory;
@@ -29,6 +30,12 @@ describe("RoomView", () => {
 
     it("shows my name", async () => {
       expect(await screen.findByText(myName)).toBeInTheDocument();
+    });
+
+    it("shows me as online", async () => {
+      expect(
+        await screen.findByLabelText(en.RoomView.online)
+      ).toBeInTheDocument();
     });
   });
 
