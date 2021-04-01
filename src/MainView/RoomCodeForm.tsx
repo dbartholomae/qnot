@@ -4,7 +4,13 @@ import { useQuery } from "../useQuery";
 import { getRoomPath } from "../RoomView/getRoomPath";
 import { en } from "../locale";
 import React, { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@material-ui/core";
+import { Cached } from "@material-ui/icons";
 
 export function RoomCodeForm() {
   const { push } = useHistory();
@@ -24,13 +30,6 @@ export function RoomCodeForm() {
         gap: 12,
       }}
     >
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => setRoomCode(createRandomRoomCode())}
-      >
-        {en.MainView.createNewRoomCode}
-      </Button>
       <TextField
         autoComplete="off"
         id={"roomCode"}
@@ -38,6 +37,18 @@ export function RoomCodeForm() {
         value={roomCode}
         variant="filled"
         onChange={(event) => setRoomCode(event.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label={en.MainView.createNewRoomCode}
+                onClick={() => setRoomCode(createRandomRoomCode())}
+              >
+                <Cached />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       <Button type="submit" variant="contained" color="primary">
         {en.MainView.joinRoom}

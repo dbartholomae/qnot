@@ -61,7 +61,7 @@ describe("MainView", () => {
         en.MainView.roomCodeLabel
       )) as HTMLInputElement).value;
 
-      userEvent.click(screen.getByText(en.MainView.createNewRoomCode));
+      userEvent.click(screen.getByLabelText(en.MainView.createNewRoomCode));
 
       expect(
         ((await screen.findByLabelText(
