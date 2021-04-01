@@ -6,6 +6,7 @@
     "joinRoom": "Join"
   },
   "RoomView": {
+    "copyInviteLink": "Copy invite link",
     "online": "online"
   }
 }
