@@ -27,10 +27,6 @@ describe("RoomView", () => {
       });
     });
 
-    it("shows the room code", async () => {
-      expect(await screen.findByText(roomCode)).toBeInTheDocument();
-    });
-
     it("copies the room link to my clipboard when clicking the copy invite link button", async () => {
       document.execCommand = jest.fn();
       userEvent.click(await screen.findByText(locale.copyInviteLink));

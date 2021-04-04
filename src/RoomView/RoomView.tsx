@@ -28,7 +28,6 @@ export function RoomView({ roomCode }: Props) {
           {en.RoomView.copyInviteLink}
         </Button>
       </CopyToClipboard>
-      <Typography variant="body1">{roomCode}</Typography>
       <Wifi aria-label={en.RoomView.online} />
       <Typography variant="body1">{myName}</Typography>
     </Container>

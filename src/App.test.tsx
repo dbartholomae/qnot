@@ -32,11 +32,5 @@ describe("App", () => {
       history.push(getRoomPath("test-room-code"));
       expect(await screen.findByText("Room")).toBeInTheDocument();
     });
-
-    it("shows the room code", async () => {
-      const roomCode = "test-room-code";
-      history.push(getRoomPath(roomCode));
-      expect(await screen.findByText(roomCode)).toBeInTheDocument();
-    });
   });
 });
