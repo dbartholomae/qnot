@@ -5,18 +5,15 @@ import {
   Container,
   Grid,
   List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   ListSubheader,
   Paper,
   Typography,
 } from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getMainPath } from "../MainView/getMainPath";
-import { Wifi } from "@material-ui/icons";
 import { en } from "../locale";
 import { useName } from "../name";
+import { PlayerListItem } from "./PlayerListItem";
 
 interface Props {
   roomCode: string;
@@ -52,12 +49,7 @@ export function RoomView({ roomCode }: Props) {
             <ListSubheader>{en.RoomView.playersListHeader}</ListSubheader>
           }
         >
-          <ListItem>
-            <ListItemIcon>
-              <Wifi aria-label={en.RoomView.online} />
-            </ListItemIcon>
-            <ListItemText primary={myName} />
-          </ListItem>
+          <PlayerListItem name={myName} />
         </List>
       </Paper>
     </Container>
