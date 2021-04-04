@@ -41,14 +41,14 @@ describe("RoomView", () => {
       expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
 
-    describe("with another player online", () => {
+    describe("with another player offline", () => {
       const otherPlayerName = "Jill";
       beforeEach(() => {
         history = createMemoryHistory({ initialEntries: [initialPathname] });
         store = createStore({
           preloadedState: {
             name: myName,
-            players: [{ name: otherPlayerName, isOnline: true }],
+            players: [{ name: otherPlayerName, isOnline: false }],
           },
         });
         render(<RoomView roomCode={roomCode} />, {
@@ -58,6 +58,12 @@ describe("RoomView", () => {
 
       it("shows the player", async () => {
         expect(await screen.findByText(otherPlayerName)).toBeInTheDocument();
+      });
+
+      it("shows the player as offline", async () => {
+        expect(
+          await screen.findByLabelText(locale.offline)
+        ).toBeInTheDocument();
       });
     });
   });
