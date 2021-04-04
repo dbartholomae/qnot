@@ -41,6 +41,10 @@ describe("RoomView", () => {
       expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
 
+    it("shows me as host", async () => {
+      expect(await screen.findByLabelText(locale.host)).toBeInTheDocument();
+    });
+
     describe("with another player offline", () => {
       const otherPlayerName = "Jill";
       beforeEach(() => {

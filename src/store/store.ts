@@ -1,6 +1,7 @@
 import { configureStore, ConfigureStoreOptions } from "@reduxjs/toolkit";
 import { reducer as nameReducer } from "../name/";
 import { reducer as playersReducer } from "../players";
+import { reducer as roomSettingsReducer } from "../roomSettings";
 
 export function createStore({
   preloadedState,
@@ -10,6 +11,7 @@ export function createStore({
     reducer: {
       name: nameReducer,
       players: playersReducer,
+      roomSettings: roomSettingsReducer,
     },
   });
 }

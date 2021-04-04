@@ -1,15 +1,22 @@
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Wifi, WifiOff } from "@material-ui/icons";
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
+import { Home, Wifi, WifiOff } from "@material-ui/icons";
 import { en } from "../locale";
 import React, { FunctionComponent } from "react";
 import { Player } from "../players";
 
 interface Props {
+  isHost: boolean;
   player: Player;
 }
 
 export const PlayerListItem: FunctionComponent<Props> = ({
   player: { name, isOnline },
+  isHost,
 }) => {
   return (
     <ListItem>
@@ -21,6 +28,11 @@ export const PlayerListItem: FunctionComponent<Props> = ({
         )}
       </ListItemIcon>
       <ListItemText primary={name} />
+      {isHost && (
+        <ListItemSecondaryAction>
+          <Home aria-label={en.RoomView.host} />
+        </ListItemSecondaryAction>
+      )}
     </ListItem>
   );
 };

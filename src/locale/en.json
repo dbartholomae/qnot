@@ -8,6 +8,7 @@
   },
   "RoomView": {
     "copyInviteLink": "Copy invite link",
+    "host": "host",
     "offline": "offline",
     "online": "online",
     "playersListHeader": "Players"
