@@ -1,2 +1,2 @@
-export { reducer } from "./nameSlice";
+export { reducer, selectName } from "./nameSlice";
 export { useName } from "./useName";

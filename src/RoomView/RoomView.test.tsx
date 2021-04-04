@@ -40,6 +40,26 @@ describe("RoomView", () => {
     it("shows me as online", async () => {
       expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
+
+    describe("with another player online", () => {
+      const otherPlayerName = "Jill";
+      beforeEach(() => {
+        history = createMemoryHistory({ initialEntries: [initialPathname] });
+        store = createStore({
+          preloadedState: {
+            name: myName,
+            players: [{ name: otherPlayerName, isOnline: true }],
+          },
+        });
+        render(<RoomView roomCode={roomCode} />, {
+          wrapper: createTestProviders({ history, store }),
+        });
+      });
+
+      it("shows the player", async () => {
+        expect(await screen.findByText(otherPlayerName)).toBeInTheDocument();
+      });
+    });
   });
 
   describe("without a name set", () => {

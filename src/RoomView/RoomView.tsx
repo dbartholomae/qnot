@@ -14,6 +14,7 @@ import { getMainPath } from "../MainView/getMainPath";
 import { en } from "../locale";
 import { useName } from "../name";
 import { PlayerListItem } from "./PlayerListItem";
+import { usePlayers } from "../players";
 
 interface Props {
   roomCode: string;
@@ -21,6 +22,7 @@ interface Props {
 
 export function RoomView({ roomCode }: Props) {
   const [myName] = useName();
+  const players = usePlayers();
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }
@@ -49,7 +51,9 @@ export function RoomView({ roomCode }: Props) {
             <ListSubheader>{en.RoomView.playersListHeader}</ListSubheader>
           }
         >
-          <PlayerListItem name={myName} />
+          {players.map((player) => (
+            <PlayerListItem key={player.name} name={player.name} />
+          ))}
         </List>
       </Paper>
     </Container>
