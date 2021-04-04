@@ -52,11 +52,7 @@ export function RoomView({ roomCode }: Props) {
           }
         >
           {players.map((player) => (
-            <PlayerListItem
-              key={player.name}
-              name={player.name}
-              isOnline={player.isOnline}
-            />
+            <PlayerListItem key={player.name} player={player} />
           ))}
         </List>
       </Paper>

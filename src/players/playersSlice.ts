@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { selectName } from "../name";
-
-interface Player {
-  name: string;
-  isOnline: boolean;
-}
+import { Player } from "./Player";
 
 type PlayersState = Player[];
 

@@ -2,15 +2,14 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { Wifi, WifiOff } from "@material-ui/icons";
 import { en } from "../locale";
 import React, { FunctionComponent } from "react";
+import { Player } from "../players";
 
 interface Props {
-  isOnline: boolean;
-  name: string;
+  player: Player;
 }
 
 export const PlayerListItem: FunctionComponent<Props> = ({
-  name,
-  isOnline,
+  player: { name, isOnline },
 }) => {
   return (
     <ListItem>
