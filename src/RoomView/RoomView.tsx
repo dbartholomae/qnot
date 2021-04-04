@@ -1,6 +1,17 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { Button, Container, Typography } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { selectName } from "../name/nameSlice";
 import { getMainPath } from "../MainView/getMainPath";
@@ -20,16 +31,36 @@ export function RoomView({ roomCode }: Props) {
 
   return (
     <Container>
-      <Typography variant="h3">Room</Typography>
-      <CopyToClipboard
-        text={`${process.env.PUBLIC_URL}${getMainPath(roomCode)}`}
-      >
-        <Button variant="contained" color="primary">
-          {en.RoomView.copyInviteLink}
-        </Button>
-      </CopyToClipboard>
-      <Wifi aria-label={en.RoomView.online} />
-      <Typography variant="body1">{myName}</Typography>
+      <Grid container justify="space-between" alignItems="center">
+        <Grid item>
+          <Typography variant="h3" gutterBottom>
+            Room
+          </Typography>
+        </Grid>
+        <Grid item>
+          <CopyToClipboard
+            text={`${process.env.PUBLIC_URL}${getMainPath(roomCode)}`}
+          >
+            <Button variant="contained" color="primary">
+              {en.RoomView.copyInviteLink}
+            </Button>
+          </CopyToClipboard>
+        </Grid>
+      </Grid>
+      <Paper>
+        <List
+          subheader={
+            <ListSubheader>{en.RoomView.playersListHeader}</ListSubheader>
+          }
+        >
+          <ListItem>
+            <ListItemIcon>
+              <Wifi aria-label={en.RoomView.online} />
+            </ListItemIcon>
+            <ListItemText primary={myName} />
+          </ListItem>
+        </List>
+      </Paper>
     </Container>
   );
 }
