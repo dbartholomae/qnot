@@ -1,5 +1,5 @@
 import { useDispatch } from "../store/useDispatch";
-import { selectName, setName as setNameAction } from "../name/nameSlice";
+import { selectName, setName as setNameAction } from "./nameSlice";
 import { useSelector } from "../store/useSelector";
 import { useEffect } from "react";
 import { getFromLocalStorage, saveToLocalStorage } from "../localStorage";
