@@ -14,8 +14,7 @@ export const nameSlice = createSlice({
   },
 });
 
-export const { setName } = nameSlice.actions;
-
 export const selectName = (state: RootState) => state.name;
 
-export default nameSlice.reducer;
+export const { setName } = nameSlice.actions;
+export const reducer = nameSlice.reducer;

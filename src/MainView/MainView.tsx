@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Typography } from "@material-ui/core";
 import { RoomCodeForm } from "./RoomCodeForm";
 import { NameForm } from "./NameForm";
-import { useName } from "../name/useName";
+import { useName } from "../name";
 
 export function MainView() {
   const [name] = useName();

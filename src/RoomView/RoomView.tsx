@@ -13,18 +13,17 @@ import {
   Typography,
 } from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { selectName } from "../name/nameSlice";
 import { getMainPath } from "../MainView/getMainPath";
-import { useSelector } from "../store/useSelector";
 import { Wifi } from "@material-ui/icons";
 import { en } from "../locale";
+import { useName } from "../name";
 
 interface Props {
   roomCode: string;
 }
 
 export function RoomView({ roomCode }: Props) {
-  const myName = useSelector(selectName);
+  const [myName] = useName();
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }

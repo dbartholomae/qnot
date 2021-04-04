@@ -1,5 +1,5 @@
 import { configureStore, ConfigureStoreOptions } from "@reduxjs/toolkit";
-import nameReducer from "../name/nameSlice";
+import { reducer as nameReducer } from "../name/";
 
 export function createStore({
   preloadedState,

@@ -1,6 +1,6 @@
 import { en } from "../locale";
 import React, { useState } from "react";
-import { useName } from "../name/useName";
+import { useName } from "../name";
 import { Button, TextField } from "@material-ui/core";
 
 export function NameForm() {
