@@ -3,6 +3,7 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
+  Tooltip,
 } from "@material-ui/core";
 import { Home, Wifi, WifiOff } from "@material-ui/icons";
 import { en } from "../locale";
@@ -30,7 +31,9 @@ export const PlayerListItem: FunctionComponent<Props> = ({
       <ListItemText primary={name} />
       {isHost && (
         <ListItemSecondaryAction>
-          <Home aria-label={en.RoomView.host} />
+          <Tooltip title={en.RoomView.host}>
+            <Home aria-label={en.RoomView.host} />
+          </Tooltip>
         </ListItemSecondaryAction>
       )}
     </ListItem>
