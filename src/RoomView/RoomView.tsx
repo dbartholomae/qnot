@@ -25,9 +25,6 @@ interface Props {
 export function RoomView({ roomCode }: Props) {
   const [myName] = useName();
   const otherPlayers = usePlayers();
-  const players = [new Player({ name: myName, isOnline: true })].concat(
-    otherPlayers
-  );
   const eventBus = useEventBus();
   useEffect(() => {
     eventBus.publish("joinRoom", { name: myName });
@@ -35,6 +32,9 @@ export function RoomView({ roomCode }: Props) {
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }
+  const players = [new Player({ name: myName, isOnline: true })].concat(
+    otherPlayers
+  );
 
   return (
     <Container>
