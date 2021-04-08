@@ -15,6 +15,7 @@ import { en } from "../locale";
 import { useName } from "../name";
 import { PlayerListItem } from "./PlayerListItem";
 import { usePlayers } from "../players";
+import { getInvitePath } from "../JoinRoomView/getInvitePath";
 
 interface Props {
   roomCode: string;
@@ -37,7 +38,7 @@ export function RoomView({ roomCode }: Props) {
         </Grid>
         <Grid item>
           <CopyToClipboard
-            text={`${process.env.PUBLIC_URL}${getMainPath(roomCode)}`}
+            text={`${process.env.PUBLIC_URL}${getInvitePath(roomCode)}`}
           >
             <Button variant="contained" color="primary">
               {en.RoomView.copyInviteLink}

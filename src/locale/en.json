@@ -12,5 +12,8 @@
     "offline": "offline",
     "online": "online",
     "playersListHeader": "Players"
+  },
+  "JoinRoomView": {
+    "heading": "Welcome to Qnot!"
   }
 }
