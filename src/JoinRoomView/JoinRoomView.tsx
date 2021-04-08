@@ -19,12 +19,26 @@ export const JoinRoomView: FunctionComponent<Props> = ({ roomCode }) => {
       <Typography variant="h3" gutterBottom>
         {locale.heading}
       </Typography>
-      <NameForm />
-      {name && (
-        <Button component={Link} to={getRoomPath(roomCode)}>
-          {locale.joinGame}
-        </Button>
-      )}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          flexDirection: "column",
+          gap: 12,
+        }}
+      >
+        <NameForm />
+        {name && (
+          <Button
+            color="primary"
+            variant="contained"
+            component={Link}
+            to={getRoomPath(roomCode)}
+          >
+            {locale.joinGame}
+          </Button>
+        )}
+      </div>
     </Container>
   );
 };
