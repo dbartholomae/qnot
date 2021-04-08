@@ -12,7 +12,7 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getMainPath } from "../MainView/getMainPath";
 import { en } from "../locale";
-import { useName } from "../name";
+import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
 import { Player, usePlayers } from "../otherPlayers";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";

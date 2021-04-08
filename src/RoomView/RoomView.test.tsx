@@ -10,6 +10,9 @@ import userEvent from "@testing-library/user-event";
 import { setHost } from "../roomSettings";
 import { EventBus } from "../eventBus/EventBus";
 import { MockEventBus } from "../eventBus/MockEventBus";
+import { Player } from "../otherPlayers";
+import { addPlayer } from "../otherPlayers/otherPlayersSlice";
+import { setName } from "../me/meSlice";
 
 const locale = en.RoomView;
 
@@ -26,7 +29,8 @@ describe("RoomView", () => {
     beforeEach(() => {
       eventBus = new MockEventBus();
       history = createMemoryHistory({ initialEntries: [initialPathname] });
-      store = createStore({ preloadedState: { name: myName } });
+      store = createStore();
+      store.dispatch(setName(myName));
       render(<RoomView roomCode={roomCode} />, {
         wrapper: createTestProviders({ eventBus, history, store }),
       });
@@ -54,12 +58,11 @@ describe("RoomView", () => {
       const otherPlayerName = "Jill";
       beforeEach(() => {
         history = createMemoryHistory({ initialEntries: [initialPathname] });
-        store = createStore({
-          preloadedState: {
-            name: myName,
-            players: [{ name: otherPlayerName, isOnline: false }],
-          },
-        });
+        store = createStore();
+        store.dispatch(setName(myName));
+        store.dispatch(
+          addPlayer(new Player({ name: otherPlayerName, isOnline: false }))
+        );
         render(<RoomView roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });

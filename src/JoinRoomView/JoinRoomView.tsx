@@ -2,7 +2,7 @@ import { Button, Container, Typography } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 import { NameForm } from "../MainView/NameForm";
 import { en } from "../locale";
-import { useName } from "../name";
+import { useName } from "../me";
 import { Link } from "../router";
 import { getRoomPath } from "../RoomView/getRoomPath";
 

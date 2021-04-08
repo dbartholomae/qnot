@@ -7,6 +7,7 @@ import { createTestProviders } from "./testUtils/createTestProviders";
 import { getInvitePath } from "./JoinRoomView/getInvitePath";
 import { en } from "./locale";
 import { getRoomPath } from "./RoomView/getRoomPath";
+import { setName } from "./me/meSlice";
 
 describe("App", () => {
   let history: MemoryHistory;
@@ -34,7 +35,8 @@ describe("App", () => {
 
     beforeEach(() => {
       history = createMemoryHistory();
-      const store = createStore({ preloadedState: { name } });
+      const store = createStore();
+      store.dispatch(setName(name));
       render(<App />, { wrapper: createTestProviders({ history, store }) });
     });
 

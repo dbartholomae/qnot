@@ -1,5 +1,5 @@
 import { useDispatch } from "../store/useDispatch";
-import { selectName, setName as setNameAction } from "./nameSlice";
+import { selectName, setName as setNameAction } from "./meSlice";
 import { useSelector } from "../store/useSelector";
 import { saveToLocalStorage } from "../localStorage";
 

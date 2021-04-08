@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { NameForm } from "./NameForm";
 import { createStore, Store } from "../store/store";
 import { createTestProviders } from "../testUtils/createTestProviders";
+import { setName } from "../me/meSlice";
 
 describe("NameForm", () => {
   const name = "Daniel";
@@ -10,7 +11,8 @@ describe("NameForm", () => {
 
   describe("with a name already set", () => {
     beforeEach(() => {
-      store = createStore({ preloadedState: { name } });
+      store = createStore();
+      store.dispatch(setName(name));
       render(<NameForm />, { wrapper: createTestProviders({ store }) });
     });
 

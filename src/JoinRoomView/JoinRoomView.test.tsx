@@ -9,6 +9,7 @@ import { getRoomPath } from "../RoomView/getRoomPath";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { getInvitePath } from "./getInvitePath";
 import { selectIsHost } from "../roomSettings";
+import { setName } from "../me/meSlice";
 
 const locale = en.MainView;
 
@@ -39,11 +40,13 @@ describe("JoinRoomView", () => {
   });
 
   describe("with a name set", () => {
+    const name = "Daniel";
     let store: Store;
 
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
-      store = createStore({ preloadedState: { name: "Daniel" } });
+      store = createStore();
+      store.dispatch(setName(name));
       render(<JoinRoomView roomCode={roomCode} />, {
         wrapper: createTestProviders({
           history,
