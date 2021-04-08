@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "./router";
 import { Provider } from "react-redux";
 import { createStore } from "./store/store";
 import { App } from "./App";

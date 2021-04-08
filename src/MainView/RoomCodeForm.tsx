@@ -1,6 +1,5 @@
-import { useHistory } from "react-router-dom";
 import { createRandomRoomCode, useRandomRoomCode } from "./useRandomRoomCode";
-import { useQuery } from "../useQuery";
+import { useHistory, useQuery } from "../router";
 import { getRoomPath } from "../RoomView/getRoomPath";
 import { en } from "../locale";
 import React, { useState } from "react";
