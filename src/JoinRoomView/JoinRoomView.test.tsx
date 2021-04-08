@@ -3,11 +3,12 @@ import { en } from "../locale";
 import { createTestProviders } from "../testUtils/createTestProviders";
 import React from "react";
 import { JoinRoomView } from "./JoinRoomView";
-import { createStore } from "../store/store";
+import { createStore, Store } from "../store/store";
 import userEvent from "@testing-library/user-event";
 import { getRoomPath } from "../RoomView/getRoomPath";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { getInvitePath } from "./getInvitePath";
+import { selectIsHost } from "../roomSettings";
 
 const locale = en.MainView;
 
@@ -38,12 +39,15 @@ describe("JoinRoomView", () => {
   });
 
   describe("with a name set", () => {
+    let store: Store;
+
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
+      store = createStore({ preloadedState: { name: "Daniel" } });
       render(<JoinRoomView roomCode={roomCode} />, {
         wrapper: createTestProviders({
           history,
-          store: createStore({ preloadedState: { name: "Daniel" } }),
+          store,
         }),
       });
     });
@@ -51,6 +55,11 @@ describe("JoinRoomView", () => {
     it("redirects to the invited room when clicking the join button", async () => {
       userEvent.click(screen.getByText(en.JoinRoomView.joinGame));
       expect(history.location.pathname).toBe(getRoomPath(roomCode));
+    });
+
+    it("does not make you host when clicking the join button", async () => {
+      userEvent.click(screen.getByText(en.JoinRoomView.joinGame));
+      expect(selectIsHost(store.getState())).toBe(false);
     });
   });
 });
