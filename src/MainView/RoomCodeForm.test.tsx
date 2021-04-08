@@ -9,6 +9,12 @@ import { RoomCodeForm } from "./RoomCodeForm";
 
 const locale = en.MainView;
 
+async function getRoomCode() {
+  return ((await screen.findByLabelText(
+    locale.roomCodeLabel
+  )) as HTMLInputElement).value;
+}
+
 describe("RoomCodeForm", () => {
   let history: MemoryHistory;
 
@@ -19,31 +25,17 @@ describe("RoomCodeForm", () => {
     });
 
     it("shows a random three-word room code on start", async () => {
-      expect(
-        ((await screen.findByLabelText(
-          locale.roomCodeLabel
-        )) as HTMLInputElement).value
-      ).toMatch(/\w+-\w+-\w+/);
+      expect(await getRoomCode()).toMatch(/\w+-\w+-\w+/);
     });
 
     it("creates a new room code when pressing the reload room code button", async () => {
-      const oldRoomCode = ((await screen.findByLabelText(
-        locale.roomCodeLabel
-      )) as HTMLInputElement).value;
-
+      const oldRoomCode = await getRoomCode();
       userEvent.click(screen.getByLabelText(locale.createNewRoomCode));
-
-      expect(
-        ((await screen.findByLabelText(
-          en.MainView.roomCodeLabel
-        )) as HTMLInputElement).value
-      ).not.toBe(oldRoomCode);
+      expect(await getRoomCode()).not.toBe(oldRoomCode);
     });
 
     it("redirects to the room page when joining a room", async () => {
-      const roomCode = ((await screen.findByLabelText(
-        locale.roomCodeLabel
-      )) as HTMLInputElement).value;
+      const roomCode = await getRoomCode();
       userEvent.click(await screen.findByText(locale.joinRoom));
 
       expect(history.location.pathname).toEqual(getRoomPath(roomCode));
