@@ -15,7 +15,7 @@ export function App() {
         {({ match }) => <RoomView roomCode={match!.params.roomCode!} />}
       </Route>
       <Route path={getInvitePath(":roomCode")}>
-        <JoinRoomView />
+        {({ match }) => <JoinRoomView roomCode={match!.params.roomCode!} />}
       </Route>
       <Route path={getMainPath()}>
         <MainView />

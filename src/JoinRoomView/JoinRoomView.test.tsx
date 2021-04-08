@@ -4,14 +4,23 @@ import { createTestProviders } from "../testUtils/createTestProviders";
 import React from "react";
 import { JoinRoomView } from "./JoinRoomView";
 import { createStore } from "../store/store";
+import userEvent from "@testing-library/user-event";
+import { getRoomPath } from "../RoomView/getRoomPath";
+import { createMemoryHistory, MemoryHistory } from "history";
+import { getInvitePath } from "./getInvitePath";
 
 const locale = en.MainView;
 
 describe("JoinRoomView", () => {
+  let history: MemoryHistory;
+  const roomCode = "a-room-code";
+  const initialPathname = getInvitePath(roomCode);
+
   describe("without a name set", () => {
     beforeEach(() => {
-      render(<JoinRoomView />, {
-        wrapper: createTestProviders(),
+      history = createMemoryHistory({ initialEntries: [initialPathname] });
+      render(<JoinRoomView roomCode={roomCode} />, {
+        wrapper: createTestProviders({ history }),
       });
     });
 
@@ -30,15 +39,18 @@ describe("JoinRoomView", () => {
 
   describe("with a name set", () => {
     beforeEach(() => {
-      render(<JoinRoomView />, {
+      history = createMemoryHistory({ initialEntries: [initialPathname] });
+      render(<JoinRoomView roomCode={roomCode} />, {
         wrapper: createTestProviders({
+          history,
           store: createStore({ preloadedState: { name: "Daniel" } }),
         }),
       });
     });
 
-    it("shows the Join button", async () => {
-      expect(screen.getByText(en.JoinRoomView.joinGame)).toBeInTheDocument();
+    it("redirects to the invited room when clicking the join button", async () => {
+      userEvent.click(screen.getByText(en.JoinRoomView.joinGame));
+      expect(history.location.pathname).toBe(getRoomPath(roomCode));
     });
   });
 });
