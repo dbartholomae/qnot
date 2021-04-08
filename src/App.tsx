@@ -7,8 +7,10 @@ import { RoomView } from "./RoomView/RoomView";
 import { getMainPath } from "./MainView/getMainPath";
 import { JoinRoomView } from "./JoinRoomView/JoinRoomView";
 import { getInvitePath } from "./JoinRoomView/getInvitePath";
+import { useConnectionToEventBus } from "./players/useConnectionToEventBus";
 
 export function App() {
+  useConnectionToEventBus();
   return (
     <Switch>
       <Route path={getRoomPath(":roomCode")}>
