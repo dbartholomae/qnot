@@ -7,13 +7,23 @@ import { JoinRoomView } from "./JoinRoomView";
 const locale = en.MainView;
 
 describe("JoinRoomView", () => {
-  beforeEach(() => {
-    render(<JoinRoomView />, {
-      wrapper: createTestProviders(),
+  describe("without a name set", () => {
+    beforeEach(() => {
+      render(<JoinRoomView />, {
+        wrapper: createTestProviders(),
+      });
     });
-  });
 
-  it("allows you to set your name", async () => {
-    expect(await screen.findByLabelText(locale.nameLabel)).toBeInTheDocument();
+    it("allows you to set your name", async () => {
+      expect(
+        await screen.findByLabelText(locale.nameLabel)
+      ).toBeInTheDocument();
+    });
+
+    it("does not show the Join button", async () => {
+      expect(
+        screen.queryByText(en.JoinRoomView.joinGame)
+      ).not.toBeInTheDocument();
+    });
   });
 });

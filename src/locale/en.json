@@ -14,6 +14,7 @@
     "playersListHeader": "Players"
   },
   "JoinRoomView": {
-    "heading": "Welcome to Qnot!"
+    "heading": "Welcome to Qnot!",
+    "joinGame": "Join game"
   }
 }
