@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-import { selectName } from "../name";
 import { Player } from "./Player";
 
 type PlayersState = { [id: string]: Player };
@@ -20,9 +19,7 @@ export const playersSlice = createSlice({
 
 export const { addPlayer } = playersSlice.actions;
 
-export const selectPlayers = (state: RootState) =>
-  [{ name: selectName(state), isOnline: true }].concat(
-    Object.values(state.players)
-  );
+export const selectPlayers = (state: RootState): Player[] =>
+  Object.values(state.players);
 
 export const reducer = playersSlice.reducer;

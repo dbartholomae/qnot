@@ -21,6 +21,6 @@ describe("playersSlice", () => {
     const store = createStore();
     store.dispatch(addPlayer(existingPlayer));
     store.dispatch(addPlayer(existingPlayer));
-    expect(selectPlayers(store.getState()).length).toBe(2);
+    expect(selectPlayers(store.getState()).length).toBe(1);
   });
 });

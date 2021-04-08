@@ -14,7 +14,7 @@ import { getMainPath } from "../MainView/getMainPath";
 import { en } from "../locale";
 import { useName } from "../name";
 import { PlayerListItem } from "./PlayerListItem";
-import { usePlayers } from "../players";
+import { Player, usePlayers } from "../players";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useEventBus } from "../eventBus/useEventBus";
 
@@ -24,11 +24,14 @@ interface Props {
 
 export function RoomView({ roomCode }: Props) {
   const [myName] = useName();
-  const players = usePlayers();
+  const otherPlayers = usePlayers();
+  const players = [new Player({ name: myName, isOnline: true })].concat(
+    otherPlayers
+  );
   const eventBus = useEventBus();
   useEffect(() => {
     eventBus.publish("joinRoom", { name: myName });
-  }, [eventBus, roomCode]);
+  }, [eventBus, myName]);
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }
