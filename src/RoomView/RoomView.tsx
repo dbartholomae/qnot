@@ -14,7 +14,7 @@ import { getMainPath } from "../MainView/getMainPath";
 import { en } from "../locale";
 import { useName } from "../name";
 import { PlayerListItem } from "./PlayerListItem";
-import { Player, usePlayers } from "../players";
+import { Player, usePlayers } from "../otherPlayers";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useEventBus } from "../eventBus/useEventBus";
 

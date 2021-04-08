@@ -8,7 +8,7 @@ import {
 import { Home, Wifi, WifiOff } from "@material-ui/icons";
 import { en } from "../locale";
 import React, { FunctionComponent } from "react";
-import { Player } from "../players";
+import { Player } from "../otherPlayers";
 
 interface Props {
   isHost: boolean;

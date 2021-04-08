@@ -1,3 +1,3 @@
 export { Player } from "./Player";
-export { reducer } from "./playersSlice";
+export { reducer } from "./otherPlayersSlice";
 export { usePlayers } from "./usePlayers";

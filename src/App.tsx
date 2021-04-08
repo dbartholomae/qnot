@@ -7,7 +7,7 @@ import { RoomView } from "./RoomView/RoomView";
 import { getMainPath } from "./MainView/getMainPath";
 import { JoinRoomView } from "./JoinRoomView/JoinRoomView";
 import { getInvitePath } from "./JoinRoomView/getInvitePath";
-import { useConnectionToEventBus } from "./players/useConnectionToEventBus";
+import { useConnectionToEventBus } from "./otherPlayers/useConnectionToEventBus";
 
 export function App() {
   useConnectionToEventBus();

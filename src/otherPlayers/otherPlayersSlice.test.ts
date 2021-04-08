@@ -1,8 +1,8 @@
-import { addPlayer, selectPlayers } from "./playersSlice";
+import { addPlayer, selectPlayers } from "./otherPlayersSlice";
 import { Player } from "./Player";
 import { createStore } from "../store/store";
 
-describe("playersSlice", () => {
+describe("otherPlayersSlice", () => {
   it("adds a new player to the list of players", () => {
     const newPlayer = new Player({
       name: "Daniel",

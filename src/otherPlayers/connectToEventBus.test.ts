@@ -1,6 +1,6 @@
 import { MockEventBus } from "../eventBus/MockEventBus";
 import { createStore } from "../store/store";
-import { selectPlayers } from "./playersSlice";
+import { selectPlayers } from "./otherPlayersSlice";
 import { connectToEventBus } from "./connectToEventBus";
 
 describe("connectToEventBus", () => {

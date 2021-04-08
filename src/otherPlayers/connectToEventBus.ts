@@ -1,7 +1,7 @@
 import { EventBus } from "../eventBus/EventBus";
 import { Store } from "../store/store";
 import { Player } from "./Player";
-import { addPlayer } from "./playersSlice";
+import { addPlayer } from "./otherPlayersSlice";
 
 export function connectToEventBus(eventBus: EventBus, store: Store) {
   eventBus.subscribe("joinRoom", (message) => {

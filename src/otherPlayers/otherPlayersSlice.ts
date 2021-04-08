@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { Player } from "./Player";
 
-type PlayersState = { [id: string]: Player };
+type OtherPlayersState = { [id: string]: Player };
 
-const initialState: PlayersState = {};
+const initialState: OtherPlayersState = {};
 
-export const playersSlice = createSlice({
-  name: "players",
+export const otherPlayersSlice = createSlice({
+  name: "otherPlayers",
   initialState,
   reducers: {
     addPlayer: (state, { payload: newPlayer }: PayloadAction<Player>) => ({
@@ -17,9 +17,9 @@ export const playersSlice = createSlice({
   },
 });
 
-export const { addPlayer } = playersSlice.actions;
+export const { addPlayer } = otherPlayersSlice.actions;
 
 export const selectPlayers = (state: RootState): Player[] =>
-  Object.values(state.players);
+  Object.values(state.otherPlayers);
 
-export const reducer = playersSlice.reducer;
+export const reducer = otherPlayersSlice.reducer;
