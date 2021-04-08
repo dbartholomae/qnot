@@ -7,7 +7,7 @@ import { createMemoryHistory } from "history";
 export function createTestProviders({
   history = createMemoryHistory(),
   store = createStore(),
-}): FunctionComponent {
+} = {}): FunctionComponent {
   return ({ children }) => (
     <Router history={history}>
       <Provider store={store}>{children}</Provider>
