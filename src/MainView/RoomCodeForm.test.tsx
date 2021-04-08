@@ -6,6 +6,8 @@ import { en } from "../locale";
 import { getRoomPath } from "../RoomView/getRoomPath";
 import { createTestProviders } from "../testUtils/createTestProviders";
 import { RoomCodeForm } from "./RoomCodeForm";
+import { createStore, Store } from "../store/store";
+import { selectIsHost } from "../roomSettings";
 
 const locale = en.MainView;
 
@@ -17,11 +19,15 @@ async function getRoomCode() {
 
 describe("RoomCodeForm", () => {
   let history: MemoryHistory;
+  let store: Store;
 
   describe("on the root path", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: ["/"] });
-      render(<RoomCodeForm />, { wrapper: createTestProviders({ history }) });
+      store = createStore();
+      render(<RoomCodeForm />, {
+        wrapper: createTestProviders({ history, store }),
+      });
     });
 
     it("shows a random three-word room code on start", async () => {
@@ -48,6 +54,11 @@ describe("RoomCodeForm", () => {
       userEvent.click(await screen.findByText(locale.createRoom));
 
       expect(history.location.pathname).toEqual(getRoomPath(roomCode));
+    });
+
+    it("marks you as host when creating a room", async () => {
+      userEvent.click(await screen.findByText(locale.createRoom));
+      expect(selectIsHost(store.getState())).toBe(true);
     });
   });
 

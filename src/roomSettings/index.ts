@@ -1,1 +1,1 @@
-export { selectIsHost, reducer } from "./roomSettingsSlice";
+export { selectIsHost, setHost, reducer } from "./roomSettingsSlice";
