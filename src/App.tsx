@@ -10,7 +10,7 @@ export function App() {
   return (
     <Switch>
       <Route path={getRoomPath(":roomCode")}>
-        {({ match }) => <RoomView roomCode={match!.params.roomCode} />}
+        {({ match }) => <RoomView roomCode={match!.params.roomCode!} />}
       </Route>
       <Route path={getMainPath()}>
         <MainView />
