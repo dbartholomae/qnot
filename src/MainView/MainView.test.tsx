@@ -33,10 +33,10 @@ describe("MainView", () => {
     await userEvent.type(screen.getByLabelText(locale.nameLabel), name);
     userEvent.click(screen.getByText(locale.saveName));
 
-    expect(await screen.findByText(locale.joinRoom)).toBeInTheDocument();
+    expect(await screen.findByText(locale.createRoom)).toBeInTheDocument();
   });
 
   it("does not show the choose room view", () => {
-    expect(screen.queryByText(locale.joinRoom)).not.toBeInTheDocument();
+    expect(screen.queryByText(locale.createRoom)).not.toBeInTheDocument();
   });
 });

@@ -30,13 +30,22 @@ describe("RoomCodeForm", () => {
 
     it("creates a new room code when pressing the reload room code button", async () => {
       const oldRoomCode = await getRoomCode();
-      userEvent.click(screen.getByLabelText(locale.createNewRoomCode));
+      userEvent.click(screen.getByLabelText(locale.generateNewRoomCode));
       expect(await getRoomCode()).not.toBe(oldRoomCode);
     });
 
-    it("redirects to the room page when joining a room", async () => {
+    it("does not allow to edit the room code", async () => {
+      const oldRoomCode = await getRoomCode();
+      await userEvent.type(
+        await screen.findByLabelText(locale.roomCodeLabel),
+        "somemorecharacters"
+      );
+      expect(await getRoomCode()).toBe(oldRoomCode);
+    });
+
+    it("redirects to the room page when creating a room", async () => {
       const roomCode = await getRoomCode();
-      userEvent.click(await screen.findByText(locale.joinRoom));
+      userEvent.click(await screen.findByText(locale.createRoom));
 
       expect(history.location.pathname).toEqual(getRoomPath(roomCode));
     });

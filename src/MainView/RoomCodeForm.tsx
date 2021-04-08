@@ -8,6 +8,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import { Cached } from "@material-ui/icons";
 
@@ -35,23 +36,25 @@ export function RoomCodeForm() {
         id={"roomCode"}
         label={en.MainView.roomCodeLabel}
         value={roomCode}
-        variant="filled"
-        onChange={(event) => setRoomCode(event.target.value)}
+        variant="standard"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton
-                aria-label={en.MainView.createNewRoomCode}
-                onClick={() => setRoomCode(createRandomRoomCode())}
-              >
-                <Cached />
-              </IconButton>
+              <Tooltip title={en.MainView.generateNewRoomCode}>
+                <IconButton
+                  aria-label={en.MainView.generateNewRoomCode}
+                  onClick={() => setRoomCode(createRandomRoomCode())}
+                >
+                  <Cached />
+                </IconButton>
+              </Tooltip>
             </InputAdornment>
           ),
+          readOnly: true,
         }}
       />
       <Button type="submit" variant="contained" color="primary">
-        {en.MainView.joinRoom}
+        {en.MainView.createRoom}
       </Button>
     </form>
   );

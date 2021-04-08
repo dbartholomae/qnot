@@ -1,10 +1,10 @@
 {
   "MainView": {
-    "createNewRoomCode": "New code",
+    "generateNewRoomCode": "Generate new room code",
     "nameLabel": "Name",
     "saveName": "Save name",
     "roomCodeLabel": "Room code",
-    "joinRoom": "Join"
+    "createRoom": "Create room"
   },
   "RoomView": {
     "copyInviteLink": "Copy invite link",
