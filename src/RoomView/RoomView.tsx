@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect } from "../router";
 import {
   Button,
@@ -16,6 +16,7 @@ import { useName } from "../name";
 import { PlayerListItem } from "./PlayerListItem";
 import { usePlayers } from "../players";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
+import { useEventBus } from "../eventBus/useEventBus";
 
 interface Props {
   roomCode: string;
@@ -24,6 +25,10 @@ interface Props {
 export function RoomView({ roomCode }: Props) {
   const [myName] = useName();
   const players = usePlayers();
+  const eventBus = useEventBus();
+  useEffect(() => {
+    eventBus.publish("joinRoom", { name: myName });
+  }, [eventBus, roomCode]);
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }

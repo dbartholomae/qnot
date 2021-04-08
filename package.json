@@ -16,6 +16,7 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/react-redux": "^7.1.16",
+    "ably": "^1.2.8",
     "fontsource-roboto": "^4.0.0",
     "random-words": "^1.1.1",
     "react": "^17.0.2",
