@@ -11,7 +11,6 @@ const locale = en.MainView;
 
 describe("RoomCodeForm", () => {
   let history: MemoryHistory;
-  const roomCode = "a-room-code";
 
   describe("on the root path", () => {
     beforeEach(() => {
@@ -42,11 +41,9 @@ describe("RoomCodeForm", () => {
     });
 
     it("redirects to the room page when joining a room", async () => {
-      userEvent.clear(screen.getByLabelText(locale.roomCodeLabel));
-      await userEvent.type(
-        screen.getByLabelText(locale.roomCodeLabel),
-        roomCode
-      );
+      const roomCode = ((await screen.findByLabelText(
+        locale.roomCodeLabel
+      )) as HTMLInputElement).value;
       userEvent.click(await screen.findByText(locale.joinRoom));
 
       expect(history.location.pathname).toEqual(getRoomPath(roomCode));
@@ -54,6 +51,8 @@ describe("RoomCodeForm", () => {
   });
 
   describe("on the root path with a room code in the search", () => {
+    const roomCode = "a-room-code";
+
     beforeEach(() => {
       history = createMemoryHistory({
         initialEntries: [`/?roomCode=${roomCode}`],
