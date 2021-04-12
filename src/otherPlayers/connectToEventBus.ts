@@ -6,7 +6,13 @@ import { addPlayer } from "./otherPlayersSlice";
 export function connectToEventBus(eventBus: EventBus, store: Store) {
   eventBus.subscribe("joinRoom", (message) => {
     store.dispatch(
-      addPlayer(new Player({ name: message.data.name, isOnline: true }))
+      addPlayer(
+        new Player({
+          id: message.data.id,
+          name: message.data.name,
+          isOnline: true,
+        })
+      )
     );
   });
 }

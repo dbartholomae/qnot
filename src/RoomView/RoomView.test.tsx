@@ -84,9 +84,14 @@ describe("RoomView", () => {
         store.dispatch(setHost(false));
       });
 
-      it("sends a joinRoom event", async () => {
+      it("sends a joinRoom event with my id and name", async () => {
+        const name = "Daniel";
+        store.dispatch(setName(name));
         await waitFor(() => {
-          expect(eventBus.publish).toHaveBeenCalled();
+          expect(eventBus.publish).toHaveBeenCalledWith("joinRoom", {
+            name,
+            id: expect.anything(),
+          });
         });
       });
     });

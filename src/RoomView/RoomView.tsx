@@ -17,18 +17,20 @@ import { PlayerListItem } from "./PlayerListItem";
 import { Player, usePlayers } from "../otherPlayers";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useEventBus } from "../eventBus/useEventBus";
+import { useId } from "../me/useId";
 
 interface Props {
   roomCode: string;
 }
 
 export function RoomView({ roomCode }: Props) {
+  const myId = useId();
   const [myName] = useName();
   const otherPlayers = usePlayers();
   const eventBus = useEventBus();
   useEffect(() => {
-    eventBus.publish("joinRoom", { name: myName });
-  }, [eventBus, myName]);
+    eventBus.publish("joinRoom", { id: myId, name: myName });
+  }, [eventBus, myId, myName]);
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }

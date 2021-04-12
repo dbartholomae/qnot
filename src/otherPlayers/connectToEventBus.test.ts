@@ -9,9 +9,10 @@ describe("connectToEventBus", () => {
     const store = createStore();
     connectToEventBus(eventBus, store);
     const name = "Daniel";
-    eventBus.publish("joinRoom", { name });
+    const id = "550e8400-e29b-11d4-a716-446655440000";
+    eventBus.publish("joinRoom", { id, name });
     expect(selectPlayers(store.getState())).toContainEqual(
-      expect.objectContaining({ name })
+      expect.objectContaining({ id, name })
     );
   });
 });
