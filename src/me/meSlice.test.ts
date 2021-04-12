@@ -1,5 +1,5 @@
 import { createStore } from "../store/store";
-import { selectName, setName } from "./meSlice";
+import { selectId, selectName, setName } from "./meSlice";
 
 describe("meSlice", () => {
   beforeEach(() => {
@@ -16,5 +16,10 @@ describe("meSlice", () => {
     const name = "Daniel";
     store.dispatch(setName(name));
     expect(selectName(store.getState())).toBe(name);
+  });
+
+  it("starts with an id", () => {
+    const store = createStore();
+    expect(typeof selectId(store.getState())).toBe("string");
   });
 });
