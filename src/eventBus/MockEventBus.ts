@@ -1,20 +1,17 @@
 import { EventBus } from "./EventBus";
+import { Types } from "ably";
 
 type Callback = (message: unknown) => void;
 
 export class MockEventBus implements EventBus {
-  subscribers: { [key: string]: Callback[] } = {};
+  subscribers: Callback[] = [];
   publish = jest.fn().mockImplementation((type, event) => {
-    (this.subscribers[type] ?? []).map((subscriber) =>
-      subscriber({ data: event })
+    this.subscribers.map((subscriber) =>
+      subscriber({ data: event, name: type })
     );
   });
-  subscribe = jest
-    .fn()
-    .mockImplementation((type: string, callback: Callback) => {
-      if (this.subscribers[type] === undefined) {
-        this.subscribers[type] = [];
-      }
-      this.subscribers[type].push(callback);
-    });
+  subscribe = jest.fn().mockImplementation((callback: Callback) => {
+    this.subscribers.push(callback);
+  });
+  presence = {} as any;
 }

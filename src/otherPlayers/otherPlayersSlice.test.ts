@@ -1,4 +1,4 @@
-import { addPlayer, selectPlayers } from "./otherPlayersSlice";
+import { addOrUpdatePlayer, selectPlayers } from "./otherPlayersSlice";
 import { Player } from "./Player";
 import { createStore } from "../store/store";
 
@@ -9,7 +9,7 @@ describe("otherPlayersSlice", () => {
       isOnline: true,
     });
     const store = createStore();
-    store.dispatch(addPlayer(newPlayer));
+    store.dispatch(addOrUpdatePlayer(newPlayer));
     expect(selectPlayers(store.getState())).toContainEqual(newPlayer);
   });
 
@@ -19,8 +19,8 @@ describe("otherPlayersSlice", () => {
       isOnline: true,
     });
     const store = createStore();
-    store.dispatch(addPlayer(existingPlayer));
-    store.dispatch(addPlayer(existingPlayer));
+    store.dispatch(addOrUpdatePlayer(existingPlayer));
+    store.dispatch(addOrUpdatePlayer(existingPlayer));
     expect(selectPlayers(store.getState()).length).toBe(1);
   });
 });

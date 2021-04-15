@@ -11,7 +11,7 @@ import { setHost } from "../roomSettings";
 import { EventBus } from "../eventBus/EventBus";
 import { MockEventBus } from "../eventBus/MockEventBus";
 import { Player } from "../otherPlayers";
-import { addPlayer } from "../otherPlayers/otherPlayersSlice";
+import { addOrUpdatePlayer } from "../otherPlayers/otherPlayersSlice";
 import { setName } from "../me/meSlice";
 
 const locale = en.RoomView;
@@ -61,7 +61,9 @@ describe("RoomView", () => {
         store = createStore();
         store.dispatch(setName(myName));
         store.dispatch(
-          addPlayer(new Player({ name: otherPlayerName, isOnline: false }))
+          addOrUpdatePlayer(
+            new Player({ name: otherPlayerName, isOnline: false })
+          )
         );
         render(<RoomView roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),

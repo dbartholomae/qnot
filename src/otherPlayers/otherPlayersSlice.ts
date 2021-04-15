@@ -10,14 +10,17 @@ export const otherPlayersSlice = createSlice({
   name: "otherPlayers",
   initialState,
   reducers: {
-    addPlayer: (state, { payload: newPlayer }: PayloadAction<Player>) => ({
+    addOrUpdatePlayer: (
+      state,
+      { payload: newPlayer }: PayloadAction<Player>
+    ) => ({
       ...state,
       [newPlayer.id]: newPlayer,
     }),
   },
 });
 
-export const { addPlayer } = otherPlayersSlice.actions;
+export const { addOrUpdatePlayer } = otherPlayersSlice.actions;
 
 export const selectPlayers = (state: RootState): Player[] =>
   Object.values(state.otherPlayers);
