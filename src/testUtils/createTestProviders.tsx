@@ -4,7 +4,7 @@ import { createStore } from "../store/store";
 import React, { FunctionComponent } from "react";
 import { createMemoryHistory } from "history";
 import { MockEventBus } from "../eventBus/MockEventBus";
-import { EventBusProvider } from "../eventBus/EventBusProvider";
+import { ChannelCreatorProvider } from "../eventBus/ChannelCreatorProvider";
 import { EventBus } from "../eventBus/EventBus";
 
 export function createTestProviders({
@@ -13,10 +13,10 @@ export function createTestProviders({
   store = createStore(),
 } = {}): FunctionComponent {
   return ({ children }) => (
-    <EventBusProvider eventBus={eventBus}>
+    <ChannelCreatorProvider channelCreator={() => eventBus}>
       <Router history={history}>
         <Provider store={store}>{children}</Provider>
       </Router>
-    </EventBusProvider>
+    </ChannelCreatorProvider>
   );
 }

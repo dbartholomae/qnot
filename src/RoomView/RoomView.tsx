@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect } from "../router";
 import {
   Button,
@@ -16,8 +16,9 @@ import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
 import { Player, usePlayers } from "../otherPlayers";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
-import { useEventBus } from "../eventBus/useEventBus";
+import { useChannelCreator } from "../eventBus/useChannelCreator";
 import { useId } from "../me/useId";
+import { useConnectionToEventBus } from "../otherPlayers/useConnectionToEventBus";
 
 interface Props {
   roomCode: string;
@@ -27,7 +28,9 @@ export function RoomView({ roomCode }: Props) {
   const myId = useId();
   const [myName] = useName();
   const otherPlayers = usePlayers();
-  const eventBus = useEventBus();
+  const channelCreator = useChannelCreator();
+  const [eventBus] = useState(() => channelCreator(roomCode));
+  useConnectionToEventBus(eventBus);
   useEffect(() => {
     eventBus.publish("joinRoom", { id: myId, name: myName });
   }, [eventBus, myId, myName]);

@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { connectToEventBus } from "./connectToEventBus";
-import { useEventBus } from "../eventBus/useEventBus";
 import { useStore } from "react-redux";
+import { EventBus } from "../eventBus/EventBus";
 
-export function useConnectionToEventBus() {
-  const eventBus = useEventBus();
+export function useConnectionToEventBus(eventBus: EventBus) {
   const store = useStore();
   useEffect(() => {
     connectToEventBus(eventBus, store);
