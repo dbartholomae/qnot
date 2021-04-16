@@ -11,9 +11,11 @@ type Listener = (message: Types.PresenceMessage) => void;
 export class MockPresence implements Presence {
   private listenerMap: { [event: string]: Listener[] } = {
     enter: [],
+    leave: [],
     present: [],
   };
   private presentMembers: Member[] = [];
+
   enterClient = jest
     .fn()
     .mockImplementation((clientId: string, data: any): void => {
@@ -25,6 +27,17 @@ export class MockPresence implements Presence {
         } as Types.PresenceMessage)
       );
     });
+
+  leaveClient = jest.fn().mockImplementation((clientId: string) => {
+    this.presentMembers = this.presentMembers.filter(
+      (member) => member.clientId !== clientId
+    );
+    this.listenerMap["leave"].forEach((listener) =>
+      listener({
+        clientId,
+      } as Types.PresenceMessage)
+    );
+  });
 
   subscribe = jest
     .fn()

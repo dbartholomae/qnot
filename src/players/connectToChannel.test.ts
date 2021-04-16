@@ -27,4 +27,17 @@ describe("connectToChannel", () => {
       expect.objectContaining({ id, name })
     );
   });
+
+  it("marks a player who leaves as offline", () => {
+    const channel = new MockChannel();
+    const store = createStore();
+    const name = "Daniel";
+    const id = "550e8400-e29b-11d4-a716-446655440000";
+    channel.presence.enterClient(id, { name });
+    connectToChannel(channel, store);
+    channel.presence.leaveClient(id, { name });
+    expect(selectPlayers(store.getState())).toContainEqual(
+      expect.objectContaining({ id, name, isOnline: false })
+    );
+  });
 });

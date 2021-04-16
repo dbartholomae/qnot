@@ -17,10 +17,19 @@ export const playersSlice = createSlice({
       ...state,
       [newPlayer.id]: newPlayer,
     }),
+    markPlayerOffline: (
+      state,
+      { payload: id }: PayloadAction<Player["id"]>
+    ) => {
+      if (state[id] === undefined) {
+        return;
+      }
+      state[id].isOnline = false;
+    },
   },
 });
 
-export const { addOrUpdatePlayer } = playersSlice.actions;
+export const { addOrUpdatePlayer, markPlayerOffline } = playersSlice.actions;
 
 export const selectPlayers = (state: RootState): Player[] =>
   Object.values(state.players);
