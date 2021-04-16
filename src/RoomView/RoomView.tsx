@@ -14,7 +14,7 @@ import { getMainPath } from "../MainView/getMainPath";
 import { en } from "../locale";
 import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
-import { Player, usePlayers } from "../players";
+import { usePlayers } from "../players";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useChannelCreator } from "../channel/useChannelCreator";
 import { useId } from "../me/useId";
@@ -27,21 +27,17 @@ interface Props {
 export function RoomView({ roomCode }: Props) {
   const myId = useId();
   const [myName] = useName();
-  const otherPlayers = usePlayers();
+  const players = usePlayers();
   const channelCreator = useChannelCreator();
   const [channel] = useState(() => channelCreator(roomCode));
   useConnectionToChannel(channel);
   useEffect(() => {
-    channel.publish("joinRoom", { id: myId, name: myName });
     channel.presence.enterClient(myId, { name: myName });
   }, [channel, myId, myName]);
 
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }
-  const players = [new Player({ name: myName, isOnline: true })].concat(
-    otherPlayers
-  );
 
   return (
     <Container>
