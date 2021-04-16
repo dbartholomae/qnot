@@ -17,6 +17,7 @@ import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useChannelCreator } from "../channel/useChannelCreator";
 import { useId } from "../me/useId";
 import { useConnectionToChannel } from "../players/useConnectionToChannel";
+import { convertPathToUrl } from "./convertPathToUrl";
 
 interface Props {
   roomCode: string;
@@ -43,9 +44,7 @@ export const RoomView: FunctionComponent<Props> = ({ roomCode }) => {
           </Typography>
         </Grid>
         <Grid item>
-          <CopyToClipboard
-            text={`${process.env.PUBLIC_URL}${getInvitePath(roomCode)}`}
-          >
+          <CopyToClipboard text={convertPathToUrl(getInvitePath(roomCode))}>
             <Button variant="contained" color="primary">
               {en.RoomView.copyInviteLink}
             </Button>
