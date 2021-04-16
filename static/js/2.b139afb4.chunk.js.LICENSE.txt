@@ -4,6 +4,27 @@ object-assign
 @license MIT
 */
 
+/*!
+ * @license Copyright 2021, Ably
+ * 
+ * Ably JavaScript Library v1.2.8
+ * https://github.com/ably/ably-js
+ * 
+ * Ably Realtime Messaging
+ * https://www.ably.io
+ * 
+ * Released under the Apache Licence v2.0
+ */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
 /**
  * A better abstraction over CSS.
  *
