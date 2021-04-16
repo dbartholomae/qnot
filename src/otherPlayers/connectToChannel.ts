@@ -1,12 +1,12 @@
-import { EventBus } from "../eventBus/EventBus";
+import { Channel } from "../channel/Channel";
 import { Store } from "../store/store";
 import { Player } from "./Player";
 import { addOrUpdatePlayer } from "./otherPlayersSlice";
 import { selectId } from "../me/meSlice";
-import { JoinRoomEvent } from "../eventBus/JoinRoomEvent";
+import { JoinRoomEvent } from "../channel/JoinRoomEvent";
 
-export function connectToEventBus(eventBus: EventBus, store: Store) {
-  eventBus.subscribe((message) => {
+export function connectToChannel(channel: Channel, store: Store) {
+  channel.subscribe((message) => {
     if (message.name === JoinRoomEvent.type) {
       const myId = selectId(store.getState());
       if (message.data.id === myId) {

@@ -1,9 +1,8 @@
-import { EventBus } from "./EventBus";
-import { Types } from "ably";
+import { Channel } from "./Channel";
 
 type Callback = (message: unknown) => void;
 
-export class MockEventBus implements EventBus {
+export class MockChannel implements Channel {
   subscribers: Callback[] = [];
   publish = jest.fn().mockImplementation((type, event) => {
     this.subscribers.map((subscriber) =>

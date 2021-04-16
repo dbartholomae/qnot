@@ -8,8 +8,8 @@ import { createTestProviders } from "../testUtils/createTestProviders";
 import { en } from "../locale";
 import userEvent from "@testing-library/user-event";
 import { setHost } from "../roomSettings";
-import { EventBus } from "../eventBus/EventBus";
-import { MockEventBus } from "../eventBus/MockEventBus";
+import { Channel } from "../channel/Channel";
+import { MockChannel } from "../channel/MockChannel";
 import { Player } from "../otherPlayers";
 import { addOrUpdatePlayer } from "../otherPlayers/otherPlayersSlice";
 import { setName } from "../me/meSlice";
@@ -17,7 +17,7 @@ import { setName } from "../me/meSlice";
 const locale = en.RoomView;
 
 describe("RoomView", () => {
-  let eventBus: EventBus;
+  let channel: Channel;
   let history: MemoryHistory;
   let store: Store;
   const roomCode = "test-room-code";
@@ -27,12 +27,12 @@ describe("RoomView", () => {
     const myName = "Daniel";
 
     beforeEach(() => {
-      eventBus = new MockEventBus();
+      channel = new MockChannel();
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore();
       store.dispatch(setName(myName));
       render(<RoomView roomCode={roomCode} />, {
-        wrapper: createTestProviders({ eventBus, history, store }),
+        wrapper: createTestProviders({ channel, history, store }),
       });
     });
 
@@ -90,7 +90,7 @@ describe("RoomView", () => {
         const name = "Daniel";
         store.dispatch(setName(name));
         await waitFor(() => {
-          expect(eventBus.publish).toHaveBeenCalledWith("joinRoom", {
+          expect(channel.publish).toHaveBeenCalledWith("joinRoom", {
             name,
             id: expect.anything(),
           });

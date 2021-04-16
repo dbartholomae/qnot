@@ -1,29 +1,29 @@
-import { MockEventBus } from "../eventBus/MockEventBus";
+import { MockChannel } from "../channel/MockChannel";
 import { createStore } from "../store/store";
 import { selectPlayers } from "./otherPlayersSlice";
-import { connectToEventBus } from "./connectToEventBus";
+import { connectToChannel } from "./connectToChannel";
 import { selectId } from "../me/meSlice";
 
-describe("connectToEventBus", () => {
+describe("connectToChannel", () => {
   it("adds a player who joins to the players list", () => {
-    const eventBus = new MockEventBus();
+    const channel = new MockChannel();
     const store = createStore();
-    connectToEventBus(eventBus, store);
+    connectToChannel(channel, store);
     const name = "Daniel";
     const id = "550e8400-e29b-11d4-a716-446655440000";
-    eventBus.publish("joinRoom", { id, name });
+    channel.publish("joinRoom", { id, name });
     expect(selectPlayers(store.getState())).toContainEqual(
       expect.objectContaining({ id, name })
     );
   });
 
   it("ignores my own join events", () => {
-    const eventBus = new MockEventBus();
+    const channel = new MockChannel();
     const store = createStore();
-    connectToEventBus(eventBus, store);
+    connectToChannel(channel, store);
     const name = "Daniel";
     const id = selectId(store.getState());
-    eventBus.publish("joinRoom", { id, name });
+    channel.publish("joinRoom", { id, name });
     expect(selectPlayers(store.getState())).not.toContainEqual(
       expect.objectContaining({ id, name })
     );

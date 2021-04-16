@@ -3,17 +3,17 @@ import { Provider } from "react-redux";
 import { createStore } from "../store/store";
 import React, { FunctionComponent } from "react";
 import { createMemoryHistory } from "history";
-import { MockEventBus } from "../eventBus/MockEventBus";
-import { ChannelCreatorProvider } from "../eventBus/ChannelCreatorProvider";
-import { EventBus } from "../eventBus/EventBus";
+import { MockChannel } from "../channel/MockChannel";
+import { ChannelCreatorProvider } from "../channel/ChannelCreatorProvider";
+import { Channel } from "../channel/Channel";
 
 export function createTestProviders({
-  eventBus = new MockEventBus() as EventBus,
+  channel = new MockChannel() as Channel,
   history = createMemoryHistory(),
   store = createStore(),
 } = {}): FunctionComponent {
   return ({ children }) => (
-    <ChannelCreatorProvider channelCreator={() => eventBus}>
+    <ChannelCreatorProvider channelCreator={() => channel}>
       <Router history={history}>
         <Provider store={store}>{children}</Provider>
       </Router>

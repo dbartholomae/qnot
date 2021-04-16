@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { ChannelCreatorContext } from "./ChannelCreatorContext";
-import { ChannelCreator } from "./Channel";
+import { ChannelCreator } from "./ChannelCreator";
 
 interface Props {
   channelCreator: ChannelCreator;

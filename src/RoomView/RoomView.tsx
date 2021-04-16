@@ -16,9 +16,9 @@ import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
 import { Player, usePlayers } from "../otherPlayers";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
-import { useChannelCreator } from "../eventBus/useChannelCreator";
+import { useChannelCreator } from "../channel/useChannelCreator";
 import { useId } from "../me/useId";
-import { useConnectionToEventBus } from "../otherPlayers/useConnectionToEventBus";
+import { useConnectionToChannel } from "../otherPlayers/useConnectionToChannel";
 
 interface Props {
   roomCode: string;
@@ -29,11 +29,11 @@ export function RoomView({ roomCode }: Props) {
   const [myName] = useName();
   const otherPlayers = usePlayers();
   const channelCreator = useChannelCreator();
-  const [eventBus] = useState(() => channelCreator(roomCode));
-  useConnectionToEventBus(eventBus);
+  const [channel] = useState(() => channelCreator(roomCode));
+  useConnectionToChannel(channel);
   useEffect(() => {
-    eventBus.publish("joinRoom", { id: myId, name: myName });
-  }, [eventBus, myId, myName]);
+    channel.publish("joinRoom", { id: myId, name: myName });
+  }, [channel, myId, myName]);
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }
