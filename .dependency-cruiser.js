@@ -8,7 +8,7 @@ const recommendedRules = [
       "add an exception for it in your dependency-cruiser configuration. By default " +
       "this rule does not scrutinize dotfiles (e.g. .eslintrc.js), TypeScript declaration " +
       "files (.d.ts), tsconfig.json and some of the babel and webpack configs.",
-    severity: "warn",
+    severity: "error",
     from: {
       orphan: true,
       pathNot: [
@@ -25,7 +25,7 @@ const recommendedRules = [
     comment:
       "This module uses a (version of an) npm module that has been deprecated. Either upgrade to a later " +
       "version of that module, or find an alternative. Deprecated modules are a security risk.",
-    severity: "warn",
+    severity: "error",
     from: {},
     to: {
       dependencyTypes: ["deprecated"],
@@ -63,7 +63,7 @@ const recommendedRules = [
       "Likeley this module depends on an external ('npm') package that occurs more than once " +
       "in your package.json i.e. bot as a devDependencies and in dependencies. This will cause " +
       "maintenance problems later on.",
-    severity: "warn",
+    severity: "error",
     from: {},
     to: {
       moreThanOneDependencyType: true,
