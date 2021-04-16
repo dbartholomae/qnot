@@ -12,6 +12,8 @@ import { MockChannel } from "../channel/MockChannel";
 import { Player } from "../players";
 import { addOrUpdatePlayer } from "../players/playersSlice";
 import { selectId, setName } from "../me/meSlice";
+import { setHost } from "../roomSettings";
+import { getInvitePath } from "../JoinRoomView/getInvitePath";
 
 const locale = en.RoomView;
 
@@ -107,17 +109,36 @@ describe("RoomView", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore();
-      render(<RoomView roomCode={roomCode} />, {
-        wrapper: createTestProviders({ history, store }),
+    });
+
+    describe("as a host", () => {
+      beforeEach(() => {
+        store.dispatch(setHost(true));
+        render(<RoomView roomCode={roomCode} />, {
+          wrapper: createTestProviders({ history, store }),
+        });
+      });
+
+      it("redirects to the main page", () => {
+        expect(history.location.pathname).toBe("/");
+      });
+
+      it("keeps the roomCode in the search", () => {
+        expect(history.location.search).toContain(`roomCode=${roomCode}`);
       });
     });
 
-    it("redirects to the main page", () => {
-      expect(history.location.pathname).toBe("/");
-    });
+    describe("as a non-host", () => {
+      beforeEach(() => {
+        store.dispatch(setHost(false));
+        render(<RoomView roomCode={roomCode} />, {
+          wrapper: createTestProviders({ history, store }),
+        });
+      });
 
-    it("keeps the roomCode in the search", () => {
-      expect(history.location.search).toContain(`roomCode=${roomCode}`);
+      it("redirects to the invite page", () => {
+        expect(history.location.pathname).toBe(getInvitePath(roomCode));
+      });
     });
   });
 });

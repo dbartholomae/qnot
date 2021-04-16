@@ -19,6 +19,8 @@ import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useChannelCreator } from "../channel/useChannelCreator";
 import { useId } from "../me/useId";
 import { useConnectionToChannel } from "../players/useConnectionToChannel";
+import { selectIsHost } from "../roomSettings";
+import { useSelector } from "../store/useSelector";
 
 interface Props {
   roomCode: string;
@@ -36,8 +38,14 @@ export function RoomView({ roomCode }: Props) {
     return () => channel.presence.leaveClient(myId);
   }, [channel, myId, myName]);
 
+  const isHost = useSelector(selectIsHost);
+
   if (myName === null) {
-    return <Redirect to={getMainPath(roomCode)} />;
+    if (isHost) {
+      return <Redirect to={getMainPath(roomCode)} />;
+    } else {
+      return <Redirect to={getInvitePath(roomCode)} />;
+    }
   }
 
   return (
