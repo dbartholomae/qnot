@@ -1,4 +1,4 @@
-import { selectPlayers } from "./otherPlayersSlice";
+import { selectPlayers } from "./playersSlice";
 import { useSelector } from "../store/useSelector";
 
 export function usePlayers() {

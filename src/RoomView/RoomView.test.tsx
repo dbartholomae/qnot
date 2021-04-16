@@ -9,8 +9,8 @@ import { en } from "../locale";
 import userEvent from "@testing-library/user-event";
 import { Channel } from "../channel/Channel";
 import { MockChannel } from "../channel/MockChannel";
-import { Player } from "../otherPlayers";
-import { addOrUpdatePlayer } from "../otherPlayers/otherPlayersSlice";
+import { Player } from "../players";
+import { addOrUpdatePlayer } from "../players/playersSlice";
 import { selectId, setName } from "../me/meSlice";
 
 const locale = en.RoomView;

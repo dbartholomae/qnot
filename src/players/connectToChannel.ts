@@ -3,7 +3,7 @@ import { Store } from "../store/store";
 import { Player } from "./Player";
 import { selectId } from "../me/meSlice";
 import { Types } from "ably";
-import { addOrUpdatePlayer } from "./otherPlayersSlice";
+import { addOrUpdatePlayer } from "./playersSlice";
 
 export function connectToChannel(channel: Channel, store: Store) {
   const newPlayerListener = (message: Types.PresenceMessage) => {

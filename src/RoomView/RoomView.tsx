@@ -14,11 +14,11 @@ import { getMainPath } from "../MainView/getMainPath";
 import { en } from "../locale";
 import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
-import { Player, usePlayers } from "../otherPlayers";
+import { Player, usePlayers } from "../players";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useChannelCreator } from "../channel/useChannelCreator";
 import { useId } from "../me/useId";
-import { useConnectionToChannel } from "../otherPlayers/useConnectionToChannel";
+import { useConnectionToChannel } from "../players/useConnectionToChannel";
 
 interface Props {
   roomCode: string;

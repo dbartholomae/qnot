@@ -1,4 +1,4 @@
-import { addOrUpdatePlayer, selectPlayers } from "./otherPlayersSlice";
+import { addOrUpdatePlayer, selectPlayers } from "./playersSlice";
 import { Player } from "./Player";
 import { createStore } from "../store/store";
 

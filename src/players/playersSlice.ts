@@ -6,8 +6,8 @@ type OtherPlayersState = { [id: string]: Player };
 
 const initialState: OtherPlayersState = {};
 
-export const otherPlayersSlice = createSlice({
-  name: "otherPlayers",
+export const playersSlice = createSlice({
+  name: "players",
   initialState,
   reducers: {
     addOrUpdatePlayer: (
@@ -20,9 +20,9 @@ export const otherPlayersSlice = createSlice({
   },
 });
 
-export const { addOrUpdatePlayer } = otherPlayersSlice.actions;
+export const { addOrUpdatePlayer } = playersSlice.actions;
 
 export const selectPlayers = (state: RootState): Player[] =>
-  Object.values(state.otherPlayers);
+  Object.values(state.players);
 
-export const reducer = otherPlayersSlice.reducer;
+export const reducer = playersSlice.reducer;

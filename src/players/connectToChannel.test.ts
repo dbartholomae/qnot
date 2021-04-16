@@ -1,6 +1,6 @@
 import { MockChannel } from "../channel/MockChannel";
 import { createStore } from "../store/store";
-import { selectPlayers } from "./otherPlayersSlice";
+import { selectPlayers } from "./playersSlice";
 import { connectToChannel } from "./connectToChannel";
 import { selectId } from "../me/meSlice";
 

@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { reducer as meReducer } from "../me/";
-import { reducer as otherPlayersReducer } from "../otherPlayers";
+import { reducer as playersReducer } from "../players";
 import { reducer as roomSettingsReducer } from "../roomSettings";
 
 export function createStore() {
   return configureStore({
     reducer: {
       me: meReducer,
-      otherPlayers: otherPlayersReducer,
+      players: playersReducer,
       roomSettings: roomSettingsReducer,
     },
   });
