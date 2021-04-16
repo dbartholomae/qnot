@@ -1,26 +1,25 @@
 import { Channel } from "../channel/Channel";
 import { Store } from "../store/store";
 import { Player } from "./Player";
-import { addOrUpdatePlayer } from "./otherPlayersSlice";
 import { selectId } from "../me/meSlice";
-import { JoinRoomEvent } from "../channel/JoinRoomEvent";
+import { Types } from "ably";
+import { addOrUpdatePlayer } from "./otherPlayersSlice";
 
 export function connectToChannel(channel: Channel, store: Store) {
-  channel.subscribe((message) => {
-    if (message.name === JoinRoomEvent.type) {
-      const myId = selectId(store.getState());
-      if (message.data.id === myId) {
-        return;
-      }
-      store.dispatch(
-        addOrUpdatePlayer(
-          new Player({
-            id: message.data.id,
-            name: message.data.name,
-            isOnline: true,
-          })
-        )
-      );
+  const newPlayerListener = (message: Types.PresenceMessage) => {
+    const myId = selectId(store.getState());
+    if (message.clientId === myId) {
+      return;
     }
-  });
+    store.dispatch(
+      addOrUpdatePlayer(
+        new Player({
+          id: message.clientId,
+          name: message.data.name,
+          isOnline: true,
+        })
+      )
+    );
+  };
+  channel.presence.subscribe("enter", newPlayerListener);
 }

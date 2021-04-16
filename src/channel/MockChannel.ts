@@ -1,4 +1,5 @@
 import { Channel } from "./Channel";
+import { MockPresence } from "./MockPresence";
 
 type Callback = (message: unknown) => void;
 
@@ -12,5 +13,5 @@ export class MockChannel implements Channel {
   subscribe = jest.fn().mockImplementation((callback: Callback) => {
     this.subscribers.push(callback);
   });
-  presence = {} as any;
+  presence = new MockPresence();
 }

@@ -33,7 +33,9 @@ export function RoomView({ roomCode }: Props) {
   useConnectionToChannel(channel);
   useEffect(() => {
     channel.publish("joinRoom", { id: myId, name: myName });
+    channel.presence.enterClient(myId, { name: myName });
   }, [channel, myId, myName]);
+
   if (myName === null) {
     return <Redirect to={getMainPath(roomCode)} />;
   }

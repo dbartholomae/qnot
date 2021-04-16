@@ -7,12 +7,11 @@ import { getRoomPath } from "./getRoomPath";
 import { createTestProviders } from "../testUtils/createTestProviders";
 import { en } from "../locale";
 import userEvent from "@testing-library/user-event";
-import { setHost } from "../roomSettings";
 import { Channel } from "../channel/Channel";
 import { MockChannel } from "../channel/MockChannel";
 import { Player } from "../otherPlayers";
 import { addOrUpdatePlayer } from "../otherPlayers/otherPlayersSlice";
-import { setName } from "../me/meSlice";
+import { selectId, setName } from "../me/meSlice";
 
 const locale = en.RoomView;
 
@@ -81,20 +80,12 @@ describe("RoomView", () => {
       });
     });
 
-    describe("as non-host", () => {
-      beforeEach(() => {
-        store.dispatch(setHost(false));
-      });
-
-      it("sends a joinRoom event with my id and name", async () => {
-        const name = "Daniel";
-        store.dispatch(setName(name));
-        await waitFor(() => {
-          expect(channel.publish).toHaveBeenCalledWith("joinRoom", {
-            name,
-            id: expect.anything(),
-          });
-        });
+    it("enters the channel with my id and name", async () => {
+      const name = "Daniel";
+      store.dispatch(setName(name));
+      const id = selectId(store.getState());
+      await waitFor(() => {
+        expect(channel.presence.enterClient).toHaveBeenCalledWith(id, { name });
       });
     });
   });

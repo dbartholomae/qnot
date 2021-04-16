@@ -11,7 +11,7 @@ describe("connectToChannel", () => {
     connectToChannel(channel, store);
     const name = "Daniel";
     const id = "550e8400-e29b-11d4-a716-446655440000";
-    channel.publish("joinRoom", { id, name });
+    channel.presence.enterClient(id, { name });
     expect(selectPlayers(store.getState())).toContainEqual(
       expect.objectContaining({ id, name })
     );
@@ -23,7 +23,7 @@ describe("connectToChannel", () => {
     connectToChannel(channel, store);
     const name = "Daniel";
     const id = selectId(store.getState());
-    channel.publish("joinRoom", { id, name });
+    channel.presence.enterClient(id, { name });
     expect(selectPlayers(store.getState())).not.toContainEqual(
       expect.objectContaining({ id, name })
     );
