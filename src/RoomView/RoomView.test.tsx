@@ -2,7 +2,6 @@ import { createMemoryHistory, MemoryHistory } from "history";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { createStore, Store } from "../store/store";
 import React from "react";
-import { RoomView } from "./RoomView";
 import { getRoomPath } from "./getRoomPath";
 import { createTestProviders } from "../testUtils/createTestProviders";
 import { en } from "../locale";
@@ -14,6 +13,7 @@ import { addOrUpdatePlayer } from "../players/playersSlice";
 import { selectId, setName } from "../me/meSlice";
 import { setHost } from "../roomSettings";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
+import { RoomNameGuard } from "./RoomNameGuard";
 
 const locale = en.RoomView;
 
@@ -32,7 +32,7 @@ describe("RoomView", () => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore();
       store.dispatch(setName(myName));
-      render(<RoomView roomCode={roomCode} />, {
+      render(<RoomNameGuard roomCode={roomCode} />, {
         wrapper: createTestProviders({ channel, history, store }),
       });
     });
@@ -66,7 +66,7 @@ describe("RoomView", () => {
             new Player({ name: otherPlayerName, isOnline: false })
           )
         );
-        render(<RoomView roomCode={roomCode} />, {
+        render(<RoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });
@@ -114,7 +114,7 @@ describe("RoomView", () => {
     describe("as a host", () => {
       beforeEach(() => {
         store.dispatch(setHost(true));
-        render(<RoomView roomCode={roomCode} />, {
+        render(<RoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });
@@ -131,7 +131,7 @@ describe("RoomView", () => {
     describe("as a non-host", () => {
       beforeEach(() => {
         store.dispatch(setHost(false));
-        render(<RoomView roomCode={roomCode} />, {
+        render(<RoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });

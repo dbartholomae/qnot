@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Redirect } from "../router";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -10,7 +9,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { getMainPath } from "../MainView/getMainPath";
 import { en } from "../locale";
 import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
@@ -19,14 +17,12 @@ import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useChannelCreator } from "../channel/useChannelCreator";
 import { useId } from "../me/useId";
 import { useConnectionToChannel } from "../players/useConnectionToChannel";
-import { selectIsHost } from "../roomSettings";
-import { useSelector } from "../store/useSelector";
 
 interface Props {
   roomCode: string;
 }
 
-export function RoomView({ roomCode }: Props) {
+export const RoomView: FunctionComponent<Props> = ({ roomCode }) => {
   const myId = useId();
   const [myName] = useName();
   const players = usePlayers();
@@ -37,16 +33,6 @@ export function RoomView({ roomCode }: Props) {
     channel.presence.enterClient(myId, { name: myName });
     return () => channel.presence.leaveClient(myId);
   }, [channel, myId, myName]);
-
-  const isHost = useSelector(selectIsHost);
-
-  if (myName === null) {
-    if (isHost) {
-      return <Redirect to={getMainPath(roomCode)} />;
-    } else {
-      return <Redirect to={getInvitePath(roomCode)} />;
-    }
-  }
 
   return (
     <Container>
@@ -79,4 +65,4 @@ export function RoomView({ roomCode }: Props) {
       </Paper>
     </Container>
   );
-}
+};
