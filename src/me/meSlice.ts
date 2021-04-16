@@ -1,15 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 import { RootState } from "../store/store";
-import { getFromLocalStorage } from "../localStorage";
+import { getFromLocalStorage, saveToLocalStorage } from "../localStorage";
 
 type MeState = {
   id: string;
   name: string | null;
 };
 
+function loadOrCreateId() {
+  return getFromLocalStorage("id") ?? saveToLocalStorage("id", uuid());
+}
+
 const initialState: MeState = {
-  id: uuid(),
+  id: loadOrCreateId(),
   name: getFromLocalStorage("name"),
 };
 
