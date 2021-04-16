@@ -1,5 +1,5 @@
 import { createMemoryHistory, MemoryHistory } from "history";
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { createStore, Store } from "../store/store";
 import React from "react";
 import { RoomView } from "./RoomView";
@@ -86,6 +86,19 @@ describe("RoomView", () => {
       const id = selectId(store.getState());
       await waitFor(() => {
         expect(channel.presence.enterClient).toHaveBeenCalledWith(id, { name });
+      });
+    });
+
+    describe("when leaving the room", () => {
+      beforeEach(() => {
+        cleanup();
+      });
+
+      it("leaves the channel", async () => {
+        const id = selectId(store.getState());
+        await waitFor(() => {
+          expect(channel.presence.leaveClient).toHaveBeenCalledWith(id);
+        });
       });
     });
   });

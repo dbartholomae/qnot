@@ -33,6 +33,7 @@ export function RoomView({ roomCode }: Props) {
   useConnectionToChannel(channel);
   useEffect(() => {
     channel.presence.enterClient(myId, { name: myName });
+    return () => channel.presence.leaveClient(myId);
   }, [channel, myId, myName]);
 
   if (myName === null) {
