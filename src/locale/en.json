@@ -16,5 +16,8 @@
   "JoinRoomView": {
     "heading": "Welcome to Qnot!",
     "joinGame": "Join game"
+  },
+  "GameRoomView": {
+    "myWordLabel": "Your word"
   }
 }

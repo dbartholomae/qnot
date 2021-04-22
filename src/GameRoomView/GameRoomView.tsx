@@ -1,0 +1,22 @@
+import React, { FunctionComponent } from "react";
+import { Card, CardContent, Container, Typography } from "@material-ui/core";
+import { en } from "../locale";
+import { useSelector } from "../store/useSelector";
+import { selectMyWord } from "../game/gameSlice";
+
+export const GameRoomView: FunctionComponent = () => {
+  const myWordLabelId = "my-word-label";
+  const myWord = useSelector(selectMyWord);
+  return (
+    <Container>
+      <Card>
+        <CardContent>
+          <Typography gutterBottom id={myWordLabelId}>
+            {en.GameRoomView.myWordLabel}
+          </Typography>
+          <Typography aria-labelledby={myWordLabelId}>{myWord}</Typography>
+        </CardContent>
+      </Card>
+    </Container>
+  );
+};
