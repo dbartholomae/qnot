@@ -2,7 +2,7 @@ import { createMemoryHistory, MemoryHistory } from "history";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { createStore, Store } from "../store/store";
 import React from "react";
-import { getRoomPath } from "./getRoomPath";
+import { getWaitingRoomPath } from "./getWaitingRoomPath";
 import { createTestProviders } from "../testUtils/createTestProviders";
 import { en } from "../locale";
 import userEvent from "@testing-library/user-event";
@@ -13,16 +13,16 @@ import { addOrUpdatePlayer } from "../players/playersSlice";
 import { selectId, setName } from "../me/meSlice";
 import { setHost } from "../roomSettings";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
-import { RoomNameGuard } from "./RoomNameGuard";
+import { WaitingRoomNameGuard } from "./WaitingRoomNameGuard";
 
-const locale = en.RoomView;
+const locale = en.WaitingRoomView;
 
-describe("RoomView", () => {
+describe("WaitingRoomView", () => {
   let channel: Channel;
   let history: MemoryHistory;
   let store: Store;
   const roomCode = "test-room-code";
-  const initialPathname = getRoomPath(roomCode);
+  const initialPathname = getWaitingRoomPath(roomCode);
 
   describe("with a name set", () => {
     const myName = "Daniel";
@@ -32,7 +32,7 @@ describe("RoomView", () => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore();
       store.dispatch(setName(myName));
-      render(<RoomNameGuard roomCode={roomCode} />, {
+      render(<WaitingRoomNameGuard roomCode={roomCode} />, {
         wrapper: createTestProviders({ channel, history, store }),
       });
     });
@@ -66,7 +66,7 @@ describe("RoomView", () => {
             new Player({ name: otherPlayerName, isOnline: false })
           )
         );
-        render(<RoomNameGuard roomCode={roomCode} />, {
+        render(<WaitingRoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });
@@ -114,7 +114,7 @@ describe("RoomView", () => {
     describe("as a host", () => {
       beforeEach(() => {
         store.dispatch(setHost(true));
-        render(<RoomNameGuard roomCode={roomCode} />, {
+        render(<WaitingRoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });
@@ -131,7 +131,7 @@ describe("RoomView", () => {
     describe("as a non-host", () => {
       beforeEach(() => {
         store.dispatch(setHost(false));
-        render(<RoomNameGuard roomCode={roomCode} />, {
+        render(<WaitingRoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });

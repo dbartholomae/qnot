@@ -6,7 +6,7 @@
     "roomCodeLabel": "Room code",
     "createRoom": "Create room"
   },
-  "RoomView": {
+  "WaitingRoomView": {
     "copyInviteLink": "Copy invite link",
     "host": "This is the host",
     "offline": "offline",

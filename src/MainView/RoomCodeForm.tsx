@@ -1,6 +1,6 @@
 import { createRandomRoomCode, useRandomRoomCode } from "./useRandomRoomCode";
 import { useHistory, useQuery } from "../router";
-import { getRoomPath } from "../RoomView/getRoomPath";
+import { getWaitingRoomPath } from "../WaitingRoomView/getWaitingRoomPath";
 import { en } from "../locale";
 import React, { useState } from "react";
 import {
@@ -28,7 +28,7 @@ export function RoomCodeForm() {
       onSubmit={(event) => {
         event.preventDefault();
         dispatch(setHost(true));
-        push(getRoomPath(roomCode));
+        push(getWaitingRoomPath(roomCode));
       }}
       style={{
         display: "flex",

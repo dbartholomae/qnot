@@ -6,7 +6,7 @@ import { App } from "./App";
 import { createTestProviders } from "./testUtils/createTestProviders";
 import { getInvitePath } from "./JoinRoomView/getInvitePath";
 import { en } from "./locale";
-import { getRoomPath } from "./RoomView/getRoomPath";
+import { getWaitingRoomPath } from "./WaitingRoomView/getWaitingRoomPath";
 import { setName } from "./me/meSlice";
 
 describe("App", () => {
@@ -41,7 +41,7 @@ describe("App", () => {
     });
 
     it("renders the room lobby on lobby path", async () => {
-      history.push(getRoomPath("test-room-code"));
+      history.push(getWaitingRoomPath("test-room-code"));
       expect(await screen.findByText("Room")).toBeInTheDocument();
     });
   });

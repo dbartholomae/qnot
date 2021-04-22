@@ -4,7 +4,7 @@ import { NameForm } from "../MainView/NameForm";
 import { en } from "../locale";
 import { useName } from "../me";
 import { Link } from "../router";
-import { getRoomPath } from "../RoomView/getRoomPath";
+import { getWaitingRoomPath } from "../WaitingRoomView/getWaitingRoomPath";
 
 const locale = en.JoinRoomView;
 
@@ -33,7 +33,7 @@ export const JoinRoomView: FunctionComponent<Props> = ({ roomCode }) => {
             color="primary"
             variant="contained"
             component={Link}
-            to={getRoomPath(roomCode)}
+            to={getWaitingRoomPath(roomCode)}
           >
             {locale.joinGame}
           </Button>

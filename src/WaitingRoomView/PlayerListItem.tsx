@@ -23,16 +23,16 @@ export const PlayerListItem: FunctionComponent<Props> = ({
     <ListItem>
       <ListItemIcon>
         {isOnline ? (
-          <Wifi aria-label={en.RoomView.online} />
+          <Wifi aria-label={en.WaitingRoomView.online} />
         ) : (
-          <WifiOff aria-label={en.RoomView.offline} color="error" />
+          <WifiOff aria-label={en.WaitingRoomView.offline} color="error" />
         )}
       </ListItemIcon>
       <ListItemText primary={name} />
       {isHost && (
         <ListItemSecondaryAction>
-          <Tooltip title={en.RoomView.host}>
-            <Home aria-label={en.RoomView.host} />
+          <Tooltip title={en.WaitingRoomView.host}>
+            <Home aria-label={en.WaitingRoomView.host} />
           </Tooltip>
         </ListItemSecondaryAction>
       )}

@@ -23,7 +23,7 @@ interface Props {
   roomCode: string;
 }
 
-export const RoomView: FunctionComponent<Props> = ({ roomCode }) => {
+export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
   const myId = useId();
   const [myName] = useName();
   const players = usePlayers();
@@ -46,7 +46,7 @@ export const RoomView: FunctionComponent<Props> = ({ roomCode }) => {
         <Grid item>
           <CopyToClipboard text={convertPathToUrl(getInvitePath(roomCode))}>
             <Button variant="contained" color="primary">
-              {en.RoomView.copyInviteLink}
+              {en.WaitingRoomView.copyInviteLink}
             </Button>
           </CopyToClipboard>
         </Grid>
@@ -54,7 +54,9 @@ export const RoomView: FunctionComponent<Props> = ({ roomCode }) => {
       <Paper>
         <List
           subheader={
-            <ListSubheader>{en.RoomView.playersListHeader}</ListSubheader>
+            <ListSubheader>
+              {en.WaitingRoomView.playersListHeader}
+            </ListSubheader>
           }
         >
           {players.map((player) => (
