@@ -6,6 +6,7 @@ export class Player {
   name: string;
   isOnline: boolean;
   word?: string | null;
+  descriptions: string[] = [];
 
   constructor({ id = uuid(), name, isOnline }: Optional<Player, "id">) {
     this.name = name;

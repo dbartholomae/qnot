@@ -6,6 +6,7 @@ export class MockPlayer implements Player {
   id = uuid();
   name = faker.name.firstName();
   isOnline = true;
+  descriptions = [];
 
   constructor(overrides: Partial<Player> = {}) {
     Object.assign(this, overrides);

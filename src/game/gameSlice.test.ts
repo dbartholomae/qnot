@@ -1,5 +1,6 @@
 import { createStore, Store } from "../store/store";
 import {
+  addDescriptionToPlayer,
   selectPlayers,
   selectSeed,
   selectStatus,
@@ -10,6 +11,10 @@ import {
 import { MockPlayer } from "./MockPlayer";
 
 describe("gameSlice", () => {
+  const seed = "random-seed";
+  const players = Array.from(Array(5)).map(() => new MockPlayer());
+  const wordList = ["foo", "bar"];
+
   let store: Store;
   beforeEach(() => {
     store = createStore();
@@ -24,10 +29,6 @@ describe("gameSlice", () => {
   });
 
   describe("startGame", () => {
-    const seed = "random-seed";
-    const players = Array.from(Array(5)).map(() => new MockPlayer());
-    const wordList = ["foo", "bar"];
-
     it("sets the players", () => {
       store.dispatch(startGame({ players, seed, wordList }));
       expect(
@@ -50,6 +51,18 @@ describe("gameSlice", () => {
       expect(
         selectPlayers(store.getState()).map((player) => player.word)
       ).toIncludeSameMembers([...wordList, ...wordList, null]);
+    });
+  });
+
+  describe("addDescriptionToPlayer", () => {
+    it("adds the description to the player", () => {
+      store.dispatch(startGame({ players, seed, wordList }));
+      const description = "Description";
+      const id = players[0].id;
+      store.dispatch(addDescriptionToPlayer({ description, id }));
+      expect(
+        selectPlayers(store.getState()).find((player) => player.id === id)
+      ).toMatchObject({ descriptions: [description] });
     });
   });
 });

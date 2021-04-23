@@ -53,12 +53,24 @@ const gameSlice = createSlice({
         wordList,
       };
     },
+    addDescriptionToPlayer: (
+      state,
+      {
+        payload: { description, id },
+      }: PayloadAction<{ description: string; id: Player["id"] }>
+    ) => {
+      const playerToUpdate = state.players.find((player) => player.id === id);
+      if (playerToUpdate === undefined) {
+        return;
+      }
+      playerToUpdate.descriptions.push(description);
+    },
   },
 });
 
 export const { reducer } = gameSlice;
 
-export const { startGame } = gameSlice.actions;
+export const { addDescriptionToPlayer, startGame } = gameSlice.actions;
 
 export function selectMyWord(state: RootState) {
   return state.game.players.find((player) => player.id === selectId(state))
