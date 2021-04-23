@@ -9,14 +9,21 @@ export const GameRoomView: FunctionComponent = () => {
   const myWord = useSelector(selectMyWord);
   return (
     <Container>
-      <Card>
-        <CardContent>
-          <Typography gutterBottom id={myWordLabelId}>
-            {en.GameRoomView.myWordLabel}
-          </Typography>
-          <Typography aria-labelledby={myWordLabelId}>{myWord}</Typography>
-        </CardContent>
-      </Card>
+      <Typography variant="h3" gutterBottom>
+        Game
+      </Typography>
+      {myWord === null ? (
+        en.GameRoomView.youReTheQuestionMark
+      ) : (
+        <Card>
+          <CardContent>
+            <Typography gutterBottom id={myWordLabelId}>
+              {en.GameRoomView.myWordLabel}
+            </Typography>
+            <Typography aria-labelledby={myWordLabelId}>{myWord}</Typography>
+          </CardContent>
+        </Card>
+      )}
     </Container>
   );
 };

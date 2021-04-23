@@ -29,8 +29,34 @@ describe("GameRoomView", () => {
     );
     render(<GameRoomView />, { wrapper: createTestProviders({ store }) });
     const myWord = selectMyWord(store.getState());
+    expect(myWord).not.toBeNull();
     expect(
       await screen.findByLabelText(en.GameRoomView.myWordLabel)
     ).toContainHTML(myWord!);
+  });
+
+  it("shows I'm a question mark if I am", async () => {
+    const store = createStore();
+    store.dispatch(
+      startGame({
+        players: [
+          new Player({
+            id: selectId(store.getState()),
+            name: "Daniel",
+            isOnline: true,
+          }),
+          new MockPlayer(),
+          new MockPlayer(),
+        ],
+        seed: "seed",
+        wordList: ["foo", "bar", "baz"],
+      })
+    );
+    render(<GameRoomView />, { wrapper: createTestProviders({ store }) });
+    const myWord = selectMyWord(store.getState());
+    expect(myWord).toBeNull();
+    expect(
+      await screen.findByText(en.GameRoomView.youReTheQuestionMark)
+    ).toBeInTheDocument();
   });
 });

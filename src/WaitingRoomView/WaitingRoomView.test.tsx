@@ -67,13 +67,11 @@ describe("WaitingRoomView", () => {
         );
       });
 
-      it("shows my word when I start a game", async () => {
+      it("shows the game view when I start a game", async () => {
         userEvent.click(
           await screen.findByRole("button", { name: locale.startGame })
         );
-        expect(
-          await screen.findByLabelText(en.GameRoomView.myWordLabel)
-        ).toBeInTheDocument();
+        expect(await screen.findByText("Game")).toBeInTheDocument();
       });
     });
 
