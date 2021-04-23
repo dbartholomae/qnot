@@ -3,6 +3,7 @@ import { RootState } from "../store/store";
 
 interface GameState {
   myWord: string | null;
+  players: Array<unknown>;
   status: Status;
 }
 
@@ -12,8 +13,9 @@ export enum Status {
 }
 
 const initialState: GameState = {
-  status: Status.WaitingForGameStart,
   myWord: null,
+  players: [],
+  status: Status.WaitingForGameStart,
 };
 
 const gameSlice = createSlice({
@@ -21,11 +23,14 @@ const gameSlice = createSlice({
   initialState: initialState,
   reducers: {
     startNewRound: (state) => ({
+      ...state,
       status: Status.ChoosingFirstDescription,
       myWord: "Test",
     }),
   },
 });
+
+export const { reducer } = gameSlice;
 
 export const { startNewRound } = gameSlice.actions;
 
@@ -33,8 +38,10 @@ export function selectMyWord(state: RootState) {
   return state.game.myWord;
 }
 
-export const { reducer } = gameSlice;
-
 export function selectStatus(state: RootState) {
   return state.game.status;
+}
+
+export function selectPlayers(state: RootState) {
+  return state.game.players;
 }

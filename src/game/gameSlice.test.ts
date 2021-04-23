@@ -1,5 +1,10 @@
 import { createStore, Store } from "../store/store";
-import { selectStatus, startNewRound, Status } from "./gameSlice";
+import {
+  selectPlayers,
+  selectStatus,
+  startNewRound,
+  Status,
+} from "./gameSlice";
 
 describe("gameSlice", () => {
   let store: Store;
@@ -9,6 +14,10 @@ describe("gameSlice", () => {
 
   it("starts with status WaitingForGameStart", () => {
     expect(selectStatus(store.getState())).toBe(Status.WaitingForGameStart);
+  });
+
+  it("starts without any players", () => {
+    expect(selectPlayers(store.getState())).toEqual([]);
   });
 
   describe("startNewRound", () => {
