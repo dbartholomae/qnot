@@ -142,6 +142,30 @@ describe("gameSlice", () => {
           );
         });
       });
+
+      describe("when all players have two guesses", () => {
+        beforeEach(() => {
+          const guess: Guess = [players[0].id, players[1].id];
+          players.forEach((player) => {
+            store.dispatch(
+              addGuessToPlayer({
+                guess,
+                id: player.id,
+              })
+            );
+            store.dispatch(
+              addGuessToPlayer({
+                guess,
+                id: player.id,
+              })
+            );
+          });
+        });
+
+        it("changes the status to GameOver", () => {
+          expect(selectStatus(store.getState())).toBe(Status.GameOver);
+        });
+      });
     });
   });
 });
