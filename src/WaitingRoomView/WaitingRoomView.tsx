@@ -21,6 +21,7 @@ import { convertPathToUrl } from "./convertPathToUrl";
 import { GameRoomView } from "../GameRoomView/GameRoomView";
 import { startGame } from "../game/gameSlice";
 import { useDispatch } from "../store/useDispatch";
+import createRandomWords from "random-words";
 
 interface Props {
   roomCode: string;
@@ -43,7 +44,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
     dispatch(
       startGame({
         players,
-        seed: "seed2",
+        seed: (createRandomWords(3) as string[]).join("-"),
         wordList: ["foo", "bar", "baz"],
       })
     );
