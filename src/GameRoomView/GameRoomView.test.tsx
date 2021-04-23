@@ -2,14 +2,31 @@ import React from "react";
 import { createTestProviders } from "../testUtils/createTestProviders";
 import { render, screen } from "@testing-library/react";
 import { createStore } from "../store/store";
-import { selectMyWord, startNewRound } from "../game/gameSlice";
+import { selectMyWord, startGame } from "../game/gameSlice";
 import { en } from "../locale";
 import { GameRoomView } from "./GameRoomView";
+import { Player } from "../game/Player";
+import { selectId } from "../me/meSlice";
+import { MockPlayer } from "../game/MockPlayer";
 
 describe("GameRoomView", () => {
   it("shows my word", async () => {
     const store = createStore();
-    store.dispatch(startNewRound());
+    store.dispatch(
+      startGame({
+        players: [
+          new Player({
+            id: selectId(store.getState()),
+            name: "Daniel",
+            isOnline: true,
+          }),
+          new MockPlayer(),
+          new MockPlayer(),
+        ],
+        seed: "seed2",
+        wordList: ["foo", "bar", "baz"],
+      })
+    );
     render(<GameRoomView />, { wrapper: createTestProviders({ store }) });
     const myWord = selectMyWord(store.getState());
     expect(

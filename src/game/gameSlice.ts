@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { Player } from "./Player";
 import { chooseWordsForPlayers } from "./chooseWordsForPlayers";
+import { selectId } from "../me/meSlice";
 
 interface GameState {
   myWord: string | null;
@@ -13,8 +14,8 @@ interface GameState {
 }
 
 export enum Status {
-  WaitingForGameStart,
-  ChoosingFirstDescription,
+  WaitingForGameStart = "WaitingForGameStart",
+  ChoosingFirstDescription = "ChoosingFirstDescription",
 }
 
 const initialState: GameState = {
@@ -53,6 +54,7 @@ const gameSlice = createSlice({
           word: randomWords[index],
         })),
         seed,
+        status: Status.ChoosingFirstDescription,
         wordList,
       };
     },
@@ -64,7 +66,8 @@ export const { reducer } = gameSlice;
 export const { startGame, startNewRound } = gameSlice.actions;
 
 export function selectMyWord(state: RootState) {
-  return state.game.myWord;
+  return state.game.players.find((player) => player.id === selectId(state))
+    ?.word;
 }
 
 export function selectStatus(state: RootState) {

@@ -14,6 +14,7 @@ import { selectId, setName } from "../me/meSlice";
 import { setHost } from "../roomSettings";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { WaitingRoomNameGuard } from "./WaitingRoomNameGuard";
+import { selectStatus, Status } from "../game/gameSlice";
 
 const locale = en.WaitingRoomView;
 
@@ -56,6 +57,16 @@ describe("WaitingRoomView", () => {
     });
 
     describe("as a host", () => {
+      it("starts a game when I click the start game button", async () => {
+        userEvent.click(
+          await screen.findByRole("button", { name: locale.startGame })
+        );
+
+        expect(selectStatus(store.getState())).toBe(
+          Status.ChoosingFirstDescription
+        );
+      });
+
       it("shows my word when I start a game", async () => {
         userEvent.click(
           await screen.findByRole("button", { name: locale.startGame })

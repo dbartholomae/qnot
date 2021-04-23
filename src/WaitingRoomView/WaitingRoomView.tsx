@@ -19,6 +19,8 @@ import { useId } from "../me/useId";
 import { useConnectionToChannel } from "../players/useConnectionToChannel";
 import { convertPathToUrl } from "./convertPathToUrl";
 import { GameRoomView } from "../GameRoomView/GameRoomView";
+import { startGame } from "../game/gameSlice";
+import { useDispatch } from "../store/useDispatch";
 
 interface Props {
   roomCode: string;
@@ -36,7 +38,15 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
     return () => channel.presence.leaveClient(myId);
   }, [channel, myId, myName]);
   const [gameIsRunning, setGameIsRunning] = useState(false);
-  function startGame() {
+  const dispatch = useDispatch();
+  function onStartGame() {
+    dispatch(
+      startGame({
+        players,
+        seed: "seed2",
+        wordList: ["foo", "bar", "baz"],
+      })
+    );
     setGameIsRunning(true);
   }
   if (gameIsRunning) {
@@ -72,7 +82,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
           ))}
         </List>
       </Paper>
-      <Button onClick={startGame}>{en.WaitingRoomView.startGame}</Button>
+      <Button onClick={onStartGame}>{en.WaitingRoomView.startGame}</Button>
     </Container>
   );
 };
