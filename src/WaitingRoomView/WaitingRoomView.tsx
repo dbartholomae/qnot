@@ -13,6 +13,7 @@ import { en } from "../locale";
 import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
 import { usePlayers } from "../players";
+import { addOrUpdatePlayer } from "../players/playersSlice";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { useChannelCreator } from "../channel/useChannelCreator";
 import { useId } from "../me/useId";
@@ -22,6 +23,7 @@ import { GameRoomView } from "../GameRoomView/GameRoomView";
 import { startGame } from "../game/gameSlice";
 import { useDispatch } from "../store/useDispatch";
 import createRandomWords from "random-words";
+import { MockPlayer } from "../game/MockPlayer";
 
 interface Props {
   roomCode: string;
@@ -84,6 +86,9 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
         </List>
       </Paper>
       <Button onClick={onStartGame}>{en.WaitingRoomView.startGame}</Button>
+      <Button onClick={() => dispatch(addOrUpdatePlayer(new MockPlayer()))}>
+        Add mock player
+      </Button>
     </Container>
   );
 };
