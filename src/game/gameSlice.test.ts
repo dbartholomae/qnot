@@ -1,6 +1,7 @@
 import { createStore, Store } from "../store/store";
 import {
   addDescriptionToPlayer,
+  addGuessToPlayer,
   selectPlayers,
   selectSeed,
   selectStatus,
@@ -9,6 +10,7 @@ import {
   Status,
 } from "./gameSlice";
 import { MockPlayer } from "./MockPlayer";
+import { Guess } from "./Player";
 
 describe("gameSlice", () => {
   const seed = "random-seed";
@@ -53,13 +55,11 @@ describe("gameSlice", () => {
       ).toIncludeSameMembers([...wordList, ...wordList, null]);
     });
   });
-
-  describe("addDescriptionToPlayer", () => {
-    describe("after the game started", () => {
-      beforeEach(() => {
-        store.dispatch(startGame({ players, seed, wordList }));
-      });
-
+  describe("after the game started", () => {
+    beforeEach(() => {
+      store.dispatch(startGame({ players, seed, wordList }));
+    });
+    describe("addDescriptionToPlayer", () => {
       it("adds the description to the player", () => {
         const description = "Description";
         const id = players[0].id;
@@ -84,6 +84,17 @@ describe("gameSlice", () => {
         it("changes the status to guessing teams", () => {
           expect(selectStatus(store.getState())).toBe(Status.GuessingTeams);
         });
+      });
+    });
+
+    describe("addGuessToPlayer", () => {
+      it("adds the guess to the player", () => {
+        const guess: Guess = [players[0].id, players[1].id];
+        const id = players[0].id;
+        store.dispatch(addGuessToPlayer({ guess, id }));
+        expect(
+          selectPlayers(store.getState()).find((player) => player.id === id)
+        ).toMatchObject({ guesses: [guess] });
       });
     });
   });

@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-import { Player } from "./Player";
+import { Guess, Player } from "./Player";
 import { chooseWordsForPlayers } from "./chooseWordsForPlayers";
 import { selectId } from "../me/meSlice";
 
@@ -69,12 +69,31 @@ const gameSlice = createSlice({
         state.status = Status.GuessingTeams;
       }
     },
+    addGuessToPlayer: (
+      state,
+      {
+        payload: { guess, id },
+      }: PayloadAction<{
+        guess: Guess;
+        id: Player["id"];
+      }>
+    ) => {
+      const playerToUpdate = state.players.find((player) => player.id === id);
+      if (playerToUpdate === undefined) {
+        return;
+      }
+      playerToUpdate.guesses.push(guess);
+    },
   },
 });
 
 export const { reducer } = gameSlice;
 
-export const { addDescriptionToPlayer, startGame } = gameSlice.actions;
+export const {
+  addGuessToPlayer,
+  addDescriptionToPlayer,
+  startGame,
+} = gameSlice.actions;
 
 export function selectMyWord(state: RootState) {
   return state.game.players.find((player) => player.id === selectId(state))
