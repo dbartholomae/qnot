@@ -85,6 +85,32 @@ describe("gameSlice", () => {
           expect(selectStatus(store.getState())).toBe(Status.GuessingFirstTeam);
         });
       });
+
+      describe("when all players have two descriptions", () => {
+        beforeEach(() => {
+          players.forEach((player) => {
+            store.dispatch(
+              addDescriptionToPlayer({
+                description: "Description",
+                id: player.id,
+              })
+            );
+
+            store.dispatch(
+              addDescriptionToPlayer({
+                description: "Description",
+                id: player.id,
+              })
+            );
+          });
+        });
+
+        it("changes the status to GuessingSecondTeam", () => {
+          expect(selectStatus(store.getState())).toBe(
+            Status.GuessingSecondTeam
+          );
+        });
+      });
     });
 
     describe("addGuessToPlayer", () => {

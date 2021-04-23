@@ -18,6 +18,7 @@ export enum Status {
   ChoosingFirstDescription = "ChoosingFirstDescription",
   GuessingFirstTeam = "GuessingFirstTeam",
   ChoosingSecondDescription = "ChoosingSecondDescription",
+  GuessingSecondTeam = "GuessingSecondTeam",
 }
 
 const initialState: GameState = {
@@ -68,6 +69,9 @@ const gameSlice = createSlice({
       playerToUpdate.descriptions.push(description);
       if (state.players.every((player) => player.descriptions.length === 1)) {
         state.status = Status.GuessingFirstTeam;
+      }
+      if (state.players.every((player) => player.descriptions.length === 2)) {
+        state.status = Status.GuessingSecondTeam;
       }
     },
     addGuessToPlayer: (
