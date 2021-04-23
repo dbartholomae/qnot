@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { Player } from "./Player";
@@ -5,6 +6,7 @@ import { Player } from "./Player";
 interface GameState {
   myWord: string | null;
   players: Player[];
+  seed: string;
   status: Status;
   wordList: string[];
 }
@@ -17,12 +19,14 @@ export enum Status {
 const initialState: GameState = {
   myWord: null,
   players: [],
+  seed: uuid(),
   status: Status.WaitingForGameStart,
   wordList: [],
 };
 
 interface GameConfig {
   players: Player[];
+  seed: string;
   wordList: string[];
 }
 
@@ -37,10 +41,11 @@ const gameSlice = createSlice({
     }),
     startGame: (
       state,
-      { payload: { players, wordList } }: PayloadAction<GameConfig>
+      { payload: { players, seed, wordList } }: PayloadAction<GameConfig>
     ) => ({
       ...state,
       players,
+      seed,
       wordList,
     }),
   },
@@ -64,4 +69,8 @@ export function selectPlayers(state: RootState) {
 
 export function selectWordList(state: RootState) {
   return state.game.wordList;
+}
+
+export function selectSeed(state: RootState) {
+  return state.game.seed;
 }
