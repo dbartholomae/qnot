@@ -6,6 +6,7 @@ interface GameState {
   myWord: string | null;
   players: Player[];
   status: Status;
+  wordList: string[];
 }
 
 export enum Status {
@@ -17,10 +18,12 @@ const initialState: GameState = {
   myWord: null,
   players: [],
   status: Status.WaitingForGameStart,
+  wordList: [],
 };
 
 interface GameConfig {
   players: Player[];
+  wordList: string[];
 }
 
 const gameSlice = createSlice({
@@ -34,10 +37,11 @@ const gameSlice = createSlice({
     }),
     startGame: (
       state,
-      { payload: { players } }: PayloadAction<GameConfig>
+      { payload: { players, wordList } }: PayloadAction<GameConfig>
     ) => ({
       ...state,
       players,
+      wordList,
     }),
   },
 });
@@ -56,4 +60,8 @@ export function selectStatus(state: RootState) {
 
 export function selectPlayers(state: RootState) {
   return state.game.players;
+}
+
+export function selectWordList(state: RootState) {
+  return state.game.wordList;
 }

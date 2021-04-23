@@ -2,6 +2,7 @@ import { createStore, Store } from "../store/store";
 import {
   selectPlayers,
   selectStatus,
+  selectWordList,
   startGame,
   startNewRound,
   Status,
@@ -23,10 +24,17 @@ describe("gameSlice", () => {
   });
 
   describe("startGame", () => {
+    const players = Array.from(Array(5)).map(() => new MockPlayer());
+    const wordList = ["foo", "bar", "baz"];
+
     it("sets the players", () => {
-      const players = Array.from(Array(5)).map(() => new MockPlayer());
-      store.dispatch(startGame({ players }));
+      store.dispatch(startGame({ players, wordList }));
       expect(selectPlayers(store.getState())).toEqual(players);
+    });
+
+    it("sets the word list", () => {
+      store.dispatch(startGame({ players, wordList }));
+      expect(selectWordList(store.getState())).toEqual(wordList);
     });
   });
 
