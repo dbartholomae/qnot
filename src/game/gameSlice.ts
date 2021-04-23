@@ -16,7 +16,7 @@ interface GameState {
 export enum Status {
   WaitingForGameStart = "WaitingForGameStart",
   ChoosingFirstDescription = "ChoosingFirstDescription",
-  GuessingTeams = "GuessingTeams",
+  GuessingFirstTeam = "GuessingFirstTeam",
   ChoosingSecondDescription = "ChoosingSecondDescription",
 }
 
@@ -67,7 +67,7 @@ const gameSlice = createSlice({
       }
       playerToUpdate.descriptions.push(description);
       if (state.players.every((player) => player.descriptions.length === 1)) {
-        state.status = Status.GuessingTeams;
+        state.status = Status.GuessingFirstTeam;
       }
     },
     addGuessToPlayer: (

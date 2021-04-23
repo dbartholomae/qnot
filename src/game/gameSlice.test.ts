@@ -81,8 +81,8 @@ describe("gameSlice", () => {
           });
         });
 
-        it("changes the status to guessing teams", () => {
-          expect(selectStatus(store.getState())).toBe(Status.GuessingTeams);
+        it("changes the status to GuessingFirstTeam", () => {
+          expect(selectStatus(store.getState())).toBe(Status.GuessingFirstTeam);
         });
       });
     });
