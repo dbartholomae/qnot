@@ -96,6 +96,26 @@ describe("gameSlice", () => {
           selectPlayers(store.getState()).find((player) => player.id === id)
         ).toMatchObject({ guesses: [guess] });
       });
+
+      describe("when all players have one guess", () => {
+        beforeEach(() => {
+          const guess: Guess = [players[0].id, players[1].id];
+          players.forEach((player) => {
+            store.dispatch(
+              addGuessToPlayer({
+                guess,
+                id: player.id,
+              })
+            );
+          });
+        });
+
+        it("changes the status to ChoosingSecondDescription", () => {
+          expect(selectStatus(store.getState())).toBe(
+            Status.ChoosingSecondDescription
+          );
+        });
+      });
     });
   });
 });
