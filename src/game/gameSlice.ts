@@ -3,15 +3,25 @@ import { RootState } from "../store/store";
 
 interface GameState {
   myWord: string | null;
+  status: Status;
 }
 
-const initialState: GameState = { myWord: null };
+export enum Status {
+  WaitingForGameStart,
+  ChoosingFirstDescription,
+}
+
+const initialState: GameState = {
+  status: Status.WaitingForGameStart,
+  myWord: null,
+};
 
 const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
     startNewRound: (state) => ({
+      status: Status.ChoosingFirstDescription,
       myWord: "Test",
     }),
   },
@@ -24,3 +34,7 @@ export function selectMyWord(state: RootState) {
 }
 
 export const { reducer } = gameSlice;
+
+export function selectStatus(state: RootState) {
+  return state.game.status;
+}
