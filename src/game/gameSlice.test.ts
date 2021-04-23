@@ -25,7 +25,7 @@ describe("gameSlice", () => {
   describe("startGame", () => {
     it("sets the players", () => {
       const players = Array.from(Array(5)).map(() => new MockPlayer());
-      store.dispatch(startGame(players));
+      store.dispatch(startGame({ players }));
       expect(selectPlayers(store.getState())).toEqual(players);
     });
   });

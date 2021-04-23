@@ -19,6 +19,10 @@ const initialState: GameState = {
   status: Status.WaitingForGameStart,
 };
 
+interface GameConfig {
+  players: Player[];
+}
+
 const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
@@ -28,7 +32,10 @@ const gameSlice = createSlice({
       status: Status.ChoosingFirstDescription,
       myWord: "Test",
     }),
-    startGame: (state, { payload: players }: PayloadAction<Player[]>) => ({
+    startGame: (
+      state,
+      { payload: { players } }: PayloadAction<GameConfig>
+    ) => ({
       ...state,
       players,
     }),
