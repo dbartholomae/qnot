@@ -1,9 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
+import { Player } from "./Player";
 
 interface GameState {
   myWord: string | null;
-  players: Array<unknown>;
+  players: Player[];
   status: Status;
 }
 
@@ -27,12 +28,16 @@ const gameSlice = createSlice({
       status: Status.ChoosingFirstDescription,
       myWord: "Test",
     }),
+    startGame: (state, { payload: players }: PayloadAction<Player[]>) => ({
+      ...state,
+      players,
+    }),
   },
 });
 
 export const { reducer } = gameSlice;
 
-export const { startNewRound } = gameSlice.actions;
+export const { startGame, startNewRound } = gameSlice.actions;
 
 export function selectMyWord(state: RootState) {
   return state.game.myWord;

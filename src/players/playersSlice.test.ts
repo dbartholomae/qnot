@@ -1,5 +1,5 @@
 import { addOrUpdatePlayer, selectPlayers } from "./playersSlice";
-import { Player } from "./Player";
+import { Player } from "../game/Player";
 import { createStore } from "../store/store";
 
 describe("otherPlayersSlice", () => {

@@ -1,6 +1,6 @@
 import { Channel } from "../channel/Channel";
 import { Store } from "../store/store";
-import { Player } from "./Player";
+import { Player } from "../game/Player";
 import { Types } from "ably";
 import { addOrUpdatePlayer, markPlayerOffline } from "./playersSlice";
 

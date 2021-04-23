@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-import { Player } from "./Player";
+import { Player } from "../game/Player";
 
 type OtherPlayersState = { [id: string]: Player };
 

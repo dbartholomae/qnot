@@ -2,9 +2,11 @@ import { createStore, Store } from "../store/store";
 import {
   selectPlayers,
   selectStatus,
+  startGame,
   startNewRound,
   Status,
 } from "./gameSlice";
+import { MockPlayer } from "./MockPlayer";
 
 describe("gameSlice", () => {
   let store: Store;
@@ -18,6 +20,14 @@ describe("gameSlice", () => {
 
   it("starts without any players", () => {
     expect(selectPlayers(store.getState())).toEqual([]);
+  });
+
+  describe("startGame", () => {
+    it("sets the players", () => {
+      const players = Array.from(Array(5)).map(() => new MockPlayer());
+      store.dispatch(startGame(players));
+      expect(selectPlayers(store.getState())).toEqual(players);
+    });
   });
 
   describe("startNewRound", () => {
