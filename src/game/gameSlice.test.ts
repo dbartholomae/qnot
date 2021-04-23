@@ -5,7 +5,6 @@ import {
   selectStatus,
   selectWordList,
   startGame,
-  startNewRound,
   Status,
 } from "./gameSlice";
 import { MockPlayer } from "./MockPlayer";
@@ -51,15 +50,6 @@ describe("gameSlice", () => {
       expect(
         selectPlayers(store.getState()).map((player) => player.word)
       ).toIncludeSameMembers([...wordList, ...wordList, null]);
-    });
-  });
-
-  describe("startNewRound", () => {
-    it("changes the status to ChoosingFirstDescription", () => {
-      store.dispatch(startNewRound());
-      expect(selectStatus(store.getState())).toBe(
-        Status.ChoosingFirstDescription
-      );
     });
   });
 });

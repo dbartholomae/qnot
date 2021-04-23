@@ -36,11 +36,6 @@ const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
-    startNewRound: (state) => ({
-      ...state,
-      status: Status.ChoosingFirstDescription,
-      myWord: "Test",
-    }),
     startGame: (
       state,
       { payload: { players, seed, wordList } }: PayloadAction<GameConfig>
@@ -63,7 +58,7 @@ const gameSlice = createSlice({
 
 export const { reducer } = gameSlice;
 
-export const { startGame, startNewRound } = gameSlice.actions;
+export const { startGame } = gameSlice.actions;
 
 export function selectMyWord(state: RootState) {
   return state.game.players.find((player) => player.id === selectId(state))
