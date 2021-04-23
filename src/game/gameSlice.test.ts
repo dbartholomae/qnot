@@ -55,14 +55,36 @@ describe("gameSlice", () => {
   });
 
   describe("addDescriptionToPlayer", () => {
-    it("adds the description to the player", () => {
-      store.dispatch(startGame({ players, seed, wordList }));
-      const description = "Description";
-      const id = players[0].id;
-      store.dispatch(addDescriptionToPlayer({ description, id }));
-      expect(
-        selectPlayers(store.getState()).find((player) => player.id === id)
-      ).toMatchObject({ descriptions: [description] });
+    describe("after the game started", () => {
+      beforeEach(() => {
+        store.dispatch(startGame({ players, seed, wordList }));
+      });
+
+      it("adds the description to the player", () => {
+        const description = "Description";
+        const id = players[0].id;
+        store.dispatch(addDescriptionToPlayer({ description, id }));
+        expect(
+          selectPlayers(store.getState()).find((player) => player.id === id)
+        ).toMatchObject({ descriptions: [description] });
+      });
+
+      describe("when all players have one description", () => {
+        beforeEach(() => {
+          players.forEach((player) => {
+            store.dispatch(
+              addDescriptionToPlayer({
+                description: "Description",
+                id: player.id,
+              })
+            );
+          });
+        });
+
+        it("changes the status to guessing teams", () => {
+          expect(selectStatus(store.getState())).toBe(Status.GuessingTeams);
+        });
+      });
     });
   });
 });
