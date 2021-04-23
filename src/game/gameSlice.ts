@@ -2,6 +2,7 @@ import { v4 as uuid } from "uuid";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { Player } from "./Player";
+import seedrandom from "seedrandom";
 
 interface GameState {
   myWord: string | null;
@@ -42,12 +43,26 @@ const gameSlice = createSlice({
     startGame: (
       state,
       { payload: { players, seed, wordList } }: PayloadAction<GameConfig>
-    ) => ({
-      ...state,
-      players,
-      seed,
-      wordList,
-    }),
+    ) => {
+      const rng = seedrandom(seed);
+      const randomWords = [
+        wordList[0],
+        wordList[0],
+        wordList[1],
+        wordList[1],
+        null,
+      ].sort(() => rng() - 0.5);
+
+      return {
+        ...state,
+        players: players.map((player, index) => ({
+          ...player,
+          word: randomWords[index],
+        })),
+        seed,
+        wordList,
+      };
+    },
   },
 });
 
