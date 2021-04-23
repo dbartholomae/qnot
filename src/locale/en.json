@@ -11,7 +11,8 @@
     "host": "This is the host",
     "offline": "offline",
     "online": "online",
-    "playersListHeader": "Players"
+    "playersListHeader": "Players",
+    "startGame": "Start game"
   },
   "JoinRoomView": {
     "heading": "Welcome to Qnot!",

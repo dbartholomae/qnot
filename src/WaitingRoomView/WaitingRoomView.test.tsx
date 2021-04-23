@@ -55,6 +55,17 @@ describe("WaitingRoomView", () => {
       expect(await screen.findByLabelText(locale.host)).toBeInTheDocument();
     });
 
+    describe("as a host", () => {
+      it("shows my word when I start a game", async () => {
+        userEvent.click(
+          await screen.findByRole("button", { name: locale.startGame })
+        );
+        expect(
+          await screen.findByLabelText(en.GameRoomView.myWordLabel)
+        ).toBeInTheDocument();
+      });
+    });
+
     describe("with another player offline", () => {
       const otherPlayerName = "Jill";
       beforeEach(() => {
