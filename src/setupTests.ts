@@ -6,4 +6,6 @@ import "@testing-library/jest-dom/extend-expect";
 import "jest-localstorage-mock";
 import "jest-extended";
 
-jest.spyOn(window, "prompt").mockReturnValue(null);
+if (typeof window !== "undefined") {
+  jest.spyOn(window, "prompt").mockReturnValue(null);
+}
