@@ -11,7 +11,11 @@ export class Player {
   descriptions: string[] = [];
   guesses: Guess[] = [];
 
-  constructor({ id = uuid(), name, isOnline }: Optional<Player, "id">) {
+  constructor({
+    id = uuid(),
+    name,
+    isOnline,
+  }: Optional<Player, "id" | "descriptions" | "guesses">) {
     this.name = name;
     this.isOnline = isOnline;
     this.id = id;
