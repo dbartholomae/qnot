@@ -67,7 +67,7 @@ const gameSlice = createSlice({
       if (playerToUpdate === undefined) {
         return;
       }
-      playerToUpdate.descriptions.push(description);
+      playerToUpdate.descriptions[0] = description;
       if (state.players.every((player) => player.descriptions.length === 1)) {
         state.status = Status.GuessingFirstTeam;
       }
