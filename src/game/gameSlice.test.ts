@@ -126,6 +126,21 @@ describe("gameSlice", () => {
         ).toMatchObject({ descriptions: [expect.anything(), description] });
       });
 
+      it("overwrites an existing description", () => {
+        const oldDescription = "Old Description";
+        const newDescription = "New Description";
+        const id = players[0].id;
+        store.dispatch(
+          addSecondDescriptionToPlayer({ description: oldDescription, id })
+        );
+        store.dispatch(
+          addSecondDescriptionToPlayer({ description: newDescription, id })
+        );
+        expect(
+          selectPlayers(store.getState()).find((player) => player.id === id)
+        ).toMatchObject({ descriptions: [expect.anything(), newDescription] });
+      });
+
       describe("when all players have two descriptions", () => {
         beforeEach(() => {
           players.forEach((player) => {
