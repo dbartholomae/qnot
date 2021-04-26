@@ -57,7 +57,25 @@ const gameSlice = createSlice({
         wordList,
       };
     },
-    addDescriptionToPlayer: (
+    addFirstDescriptionToPlayer: (
+      state,
+      {
+        payload: { description, id },
+      }: PayloadAction<{ description: string; id: Player["id"] }>
+    ) => {
+      const playerToUpdate = state.players.find((player) => player.id === id);
+      if (playerToUpdate === undefined) {
+        return;
+      }
+      playerToUpdate.descriptions.push(description);
+      if (state.players.every((player) => player.descriptions.length === 1)) {
+        state.status = Status.GuessingFirstTeam;
+      }
+      if (state.players.every((player) => player.descriptions.length === 2)) {
+        state.status = Status.GuessingSecondTeam;
+      }
+    },
+    addSecondDescriptionToPlayer: (
       state,
       {
         payload: { description, id },
@@ -103,7 +121,8 @@ export const { reducer } = gameSlice;
 
 export const {
   addGuessToPlayer,
-  addDescriptionToPlayer,
+  addFirstDescriptionToPlayer,
+  addSecondDescriptionToPlayer,
   startGame,
 } = gameSlice.actions;
 

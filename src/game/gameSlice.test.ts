@@ -1,7 +1,10 @@
 import { createStore, Store } from "../store/store";
+import { MockPlayer } from "./MockPlayer";
+import { Guess } from "./Player";
 import {
-  addDescriptionToPlayer,
+  addFirstDescriptionToPlayer,
   addGuessToPlayer,
+  addSecondDescriptionToPlayer,
   selectPlayers,
   selectSeed,
   selectStatus,
@@ -9,8 +12,6 @@ import {
   startGame,
   Status,
 } from "./gameSlice";
-import { MockPlayer } from "./MockPlayer";
-import { Guess } from "./Player";
 
 describe("gameSlice", () => {
   const seed = "random-seed";
@@ -55,15 +56,17 @@ describe("gameSlice", () => {
       ).toIncludeSameMembers([...wordList, ...wordList, null]);
     });
   });
+
   describe("after the game started", () => {
     beforeEach(() => {
       store.dispatch(startGame({ players, seed, wordList }));
     });
-    describe("addDescriptionToPlayer", () => {
+
+    describe("addFirstDescriptionToPlayer", () => {
       it("adds the description to the player", () => {
         const description = "Description";
         const id = players[0].id;
-        store.dispatch(addDescriptionToPlayer({ description, id }));
+        store.dispatch(addFirstDescriptionToPlayer({ description, id }));
         expect(
           selectPlayers(store.getState()).find((player) => player.id === id)
         ).toMatchObject({ descriptions: [description] });
@@ -73,7 +76,7 @@ describe("gameSlice", () => {
         beforeEach(() => {
           players.forEach((player) => {
             store.dispatch(
-              addDescriptionToPlayer({
+              addFirstDescriptionToPlayer({
                 description: "Description",
                 id: player.id,
               })
@@ -85,19 +88,34 @@ describe("gameSlice", () => {
           expect(selectStatus(store.getState())).toBe(Status.GuessingFirstTeam);
         });
       });
+    });
+
+    describe("addSecondDescriptionToPlayer", () => {
+      beforeEach(() => {
+        players.forEach((player) => {
+          store.dispatch(
+            addFirstDescriptionToPlayer({
+              description: "Description",
+              id: player.id,
+            })
+          );
+        });
+      });
+
+      it("adds the description to the player", () => {
+        const description = "Description";
+        const id = players[0].id;
+        store.dispatch(addSecondDescriptionToPlayer({ description, id }));
+        expect(
+          selectPlayers(store.getState()).find((player) => player.id === id)
+        ).toMatchObject({ descriptions: [expect.anything(), description] });
+      });
 
       describe("when all players have two descriptions", () => {
         beforeEach(() => {
           players.forEach((player) => {
             store.dispatch(
-              addDescriptionToPlayer({
-                description: "Description",
-                id: player.id,
-              })
-            );
-
-            store.dispatch(
-              addDescriptionToPlayer({
+              addSecondDescriptionToPlayer({
                 description: "Description",
                 id: player.id,
               })
