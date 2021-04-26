@@ -71,9 +71,6 @@ const gameSlice = createSlice({
       if (state.players.every((player) => player.descriptions.length === 1)) {
         state.status = Status.GuessingFirstTeam;
       }
-      if (state.players.every((player) => player.descriptions.length === 2)) {
-        state.status = Status.GuessingSecondTeam;
-      }
     },
     addSecondDescriptionToPlayer: (
       state,
@@ -86,9 +83,6 @@ const gameSlice = createSlice({
         return;
       }
       playerToUpdate.descriptions.push(description);
-      if (state.players.every((player) => player.descriptions.length === 1)) {
-        state.status = Status.GuessingFirstTeam;
-      }
       if (state.players.every((player) => player.descriptions.length === 2)) {
         state.status = Status.GuessingSecondTeam;
       }
