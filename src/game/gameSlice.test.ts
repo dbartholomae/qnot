@@ -3,8 +3,9 @@ import { MockPlayer } from "./MockPlayer";
 import { Guess } from "./Player";
 import {
   addFirstDescriptionToPlayer,
-  addGuessToPlayer,
+  addFirstGuessToPlayer,
   addSecondDescriptionToPlayer,
+  addSecondGuessToPlayer,
   selectPlayers,
   selectSeed,
   selectStatus,
@@ -161,11 +162,11 @@ describe("gameSlice", () => {
       });
     });
 
-    describe("addGuessToPlayer", () => {
+    describe("addFirstGuessToPlayer", () => {
       it("adds the guess to the player", () => {
         const guess: Guess = [players[0].id, players[1].id];
         const id = players[0].id;
-        store.dispatch(addGuessToPlayer({ guess, id }));
+        store.dispatch(addFirstGuessToPlayer({ guess, id }));
         expect(
           selectPlayers(store.getState()).find((player) => player.id === id)
         ).toMatchObject({ guesses: [guess] });
@@ -176,7 +177,7 @@ describe("gameSlice", () => {
           const guess: Guess = [players[0].id, players[1].id];
           players.forEach((player) => {
             store.dispatch(
-              addGuessToPlayer({
+              addFirstGuessToPlayer({
                 guess,
                 id: player.id,
               })
@@ -190,19 +191,36 @@ describe("gameSlice", () => {
           );
         });
       });
+    });
+
+    describe("addSecondGuessToPlayer", () => {
+      beforeEach(() => {
+        const guess: Guess = [players[0].id, players[1].id];
+        players.forEach((player) => {
+          store.dispatch(
+            addFirstGuessToPlayer({
+              guess,
+              id: player.id,
+            })
+          );
+        });
+      });
+
+      it("adds the guess to the player", () => {
+        const guess: Guess = [players[0].id, players[1].id];
+        const id = players[0].id;
+        store.dispatch(addSecondGuessToPlayer({ guess, id }));
+        expect(
+          selectPlayers(store.getState()).find((player) => player.id === id)
+        ).toMatchObject({ guesses: [expect.anything(), guess] });
+      });
 
       describe("when all players have two guesses", () => {
         beforeEach(() => {
           const guess: Guess = [players[0].id, players[1].id];
           players.forEach((player) => {
             store.dispatch(
-              addGuessToPlayer({
-                guess,
-                id: player.id,
-              })
-            );
-            store.dispatch(
-              addGuessToPlayer({
+              addSecondGuessToPlayer({
                 guess,
                 id: player.id,
               })

@@ -87,7 +87,7 @@ const gameSlice = createSlice({
         state.status = Status.GuessingSecondTeam;
       }
     },
-    addGuessToPlayer: (
+    addFirstGuessToPlayer: (
       state,
       {
         payload: { guess, id },
@@ -104,6 +104,21 @@ const gameSlice = createSlice({
       if (state.players.every((player) => player.guesses.length === 1)) {
         state.status = Status.ChoosingSecondDescription;
       }
+    },
+    addSecondGuessToPlayer: (
+      state,
+      {
+        payload: { guess, id },
+      }: PayloadAction<{
+        guess: Guess;
+        id: Player["id"];
+      }>
+    ) => {
+      const playerToUpdate = state.players.find((player) => player.id === id);
+      if (playerToUpdate === undefined) {
+        return;
+      }
+      playerToUpdate.guesses.push(guess);
       if (state.players.every((player) => player.guesses.length === 2)) {
         state.status = Status.GameOver;
       }
@@ -114,7 +129,8 @@ const gameSlice = createSlice({
 export const { reducer } = gameSlice;
 
 export const {
-  addGuessToPlayer,
+  addFirstGuessToPlayer,
+  addSecondGuessToPlayer,
   addFirstDescriptionToPlayer,
   addSecondDescriptionToPlayer,
   startGame,
