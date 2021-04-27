@@ -42,6 +42,13 @@ describe("GameRoomView", () => {
         await screen.findByLabelText(en.GameRoomView.myWordLabel)
       ).toContainHTML(myWord!);
     });
+
+    it("asks me for a description", async () => {
+      render(<GameRoomView />, { wrapper: createTestProviders({ store }) });
+      expect(
+        await screen.findByLabelText(en.GameRoomView.describeYourWord)
+      ).toBeInTheDocument();
+    });
   });
 
   describe("with me being a question mark", () => {

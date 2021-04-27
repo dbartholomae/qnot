@@ -1,5 +1,11 @@
 import React, { FunctionComponent } from "react";
-import { Card, CardContent, Container, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Container,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { en } from "../locale";
 import { useSelector } from "../store/useSelector";
 import { selectMyWord } from "../game/gameSlice";
@@ -24,6 +30,7 @@ export const GameRoomView: FunctionComponent = () => {
           </CardContent>
         </Card>
       )}
+      <TextField id="description" label={en.GameRoomView.describeYourWord} />
     </Container>
   );
 };
