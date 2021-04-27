@@ -172,6 +172,17 @@ describe("gameSlice", () => {
         ).toMatchObject({ guesses: [guess] });
       });
 
+      it("overwrites an existing guess", () => {
+        const oldGuess: Guess = [players[0].id, players[1].id];
+        const newGuess: Guess = [players[2].id, players[3].id];
+        const id = players[0].id;
+        store.dispatch(addFirstGuessToPlayer({ guess: oldGuess, id }));
+        store.dispatch(addFirstGuessToPlayer({ guess: newGuess, id }));
+        expect(
+          selectPlayers(store.getState()).find((player) => player.id === id)
+        ).toMatchObject({ guesses: [newGuess] });
+      });
+
       describe("when all players have one guess", () => {
         beforeEach(() => {
           const guess: Guess = [players[0].id, players[1].id];
@@ -213,6 +224,17 @@ describe("gameSlice", () => {
         expect(
           selectPlayers(store.getState()).find((player) => player.id === id)
         ).toMatchObject({ guesses: [expect.anything(), guess] });
+      });
+
+      it("overwrites an existing guess", () => {
+        const oldGuess: Guess = [players[0].id, players[1].id];
+        const newGuess: Guess = [players[2].id, players[3].id];
+        const id = players[0].id;
+        store.dispatch(addSecondGuessToPlayer({ guess: oldGuess, id }));
+        store.dispatch(addSecondGuessToPlayer({ guess: newGuess, id }));
+        expect(
+          selectPlayers(store.getState()).find((player) => player.id === id)
+        ).toMatchObject({ guesses: [expect.anything(), newGuess] });
       });
 
       describe("when all players have two guesses", () => {

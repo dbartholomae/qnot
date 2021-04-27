@@ -100,7 +100,7 @@ const gameSlice = createSlice({
       if (playerToUpdate === undefined) {
         return;
       }
-      playerToUpdate.guesses.push(guess);
+      playerToUpdate.guesses[0] = guess;
       if (state.players.every((player) => player.guesses.length === 1)) {
         state.status = Status.ChoosingSecondDescription;
       }
@@ -118,7 +118,7 @@ const gameSlice = createSlice({
       if (playerToUpdate === undefined) {
         return;
       }
-      playerToUpdate.guesses.push(guess);
+      playerToUpdate.guesses[1] = guess;
       if (state.players.every((player) => player.guesses.length === 2)) {
         state.status = Status.GameOver;
       }
