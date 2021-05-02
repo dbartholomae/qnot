@@ -4,6 +4,7 @@ import { MyWord } from "./MyWord";
 import { useStatus } from "../game/useStatus";
 import { Status } from "../game/gameSlice";
 import { AddFirstDescription, AddSecondDescription } from "./AddDescription";
+import { AddFirstGuess, AddSecondGuess } from "./AddGuess";
 
 export const GameRoomView: FunctionComponent = () => {
   const status = useStatus();
@@ -13,8 +14,8 @@ export const GameRoomView: FunctionComponent = () => {
     [Status.ChoosingFirstDescription]: AddFirstDescription,
     [Status.ChoosingSecondDescription]: AddSecondDescription,
     [Status.GameOver]: () => null,
-    [Status.GuessingFirstTeam]: () => null,
-    [Status.GuessingSecondTeam]: () => null,
+    [Status.GuessingFirstTeam]: AddFirstGuess,
+    [Status.GuessingSecondTeam]: AddSecondGuess,
     [Status.WaitingForGameStart]: () => null,
   };
   const Component = componentByStatus[status];
