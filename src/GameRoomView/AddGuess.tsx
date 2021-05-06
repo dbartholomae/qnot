@@ -7,9 +7,7 @@ import {
   FormGroup,
   FormLabel,
 } from "@material-ui/core";
-import { Guess, Player } from "../game/Player";
-import { useAddFirstGuess } from "../game/useAddFirstGuess";
-import { useAddSecondGuess } from "../game/useAddSecondGuess";
+import { Guess, Player, useAddFirstGuess, useAddSecondGuess } from "../game";
 import { usePlayers } from "../players";
 
 function AddGuess({ onChoose }: { onChoose: (guess: Guess) => void }) {

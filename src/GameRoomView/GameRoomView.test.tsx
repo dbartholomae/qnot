@@ -2,12 +2,11 @@ import React from "react";
 import { createTestProviders } from "../testUtils/createTestProviders";
 import { render, screen } from "@testing-library/react";
 import { createStore, Store } from "../store/store";
-import { selectMyWord, startGame } from "../game/gameSlice";
 import { en } from "../locale";
 import { GameRoomView } from "./GameRoomView";
-import { Player } from "../game/Player";
+import { selectMyWord, startGame } from "../game/gameSlice";
+import { MockPlayer, Player } from "../game";
 import { selectId } from "../me/meSlice";
-import { MockPlayer } from "../game/MockPlayer";
 
 describe("GameRoomView", () => {
   let store: Store;

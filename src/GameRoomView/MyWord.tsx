@@ -1,7 +1,7 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { en } from "../locale";
 import React from "react";
-import { useMyWord } from "../game/useMyWord";
+import { useMyWord } from "../game";
 
 export function MyWord() {
   const myWord = useMyWord();

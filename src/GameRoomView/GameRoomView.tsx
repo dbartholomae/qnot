@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Container, Typography } from "@material-ui/core";
 import { MyWord } from "./MyWord";
-import { useStatus } from "../game/useStatus";
-import { Status } from "../game/gameSlice";
+import { Status, useStatus } from "../game";
 import { AddFirstDescription, AddSecondDescription } from "./AddDescription";
 import { AddFirstGuess, AddSecondGuess } from "./AddGuess";
 import { RoundSummary } from "./RoundSummary";

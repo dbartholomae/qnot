@@ -11,8 +11,8 @@ import {
   selectStatus,
   selectWordList,
   startGame,
-  Status,
 } from "./gameSlice";
+import { Status } from "./Status";
 
 describe("gameSlice", () => {
   const seed = "random-seed";

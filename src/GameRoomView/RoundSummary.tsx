@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { usePlayers } from "../game/usePlayers";
+import { usePlayers } from "../game";
 
 export const RoundSummary: FunctionComponent = () => {
   const players = usePlayers();

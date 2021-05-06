@@ -4,6 +4,7 @@ import { RootState } from "../store/store";
 import { Guess, Player } from "./Player";
 import { chooseWordsForPlayers } from "./chooseWordsForPlayers";
 import { selectId } from "../me/meSlice";
+import { Status } from "./Status";
 
 interface GameState {
   myWord: string | null;
@@ -11,15 +12,6 @@ interface GameState {
   seed: string;
   status: Status;
   wordList: string[];
-}
-
-export enum Status {
-  WaitingForGameStart = "WaitingForGameStart",
-  ChoosingFirstDescription = "ChoosingFirstDescription",
-  GuessingFirstTeam = "GuessingFirstTeam",
-  ChoosingSecondDescription = "ChoosingSecondDescription",
-  GuessingSecondTeam = "GuessingSecondTeam",
-  GameOver = "GameOver",
 }
 
 const initialState: GameState = {

@@ -23,7 +23,7 @@ import { GameRoomView } from "../GameRoomView/GameRoomView";
 import { startGame } from "../game/gameSlice";
 import { useDispatch } from "../store/useDispatch";
 import createRandomWords from "random-words";
-import { MockPlayer } from "../game/MockPlayer";
+import { MockPlayer } from "../game";
 
 interface Props {
   roomCode: string;

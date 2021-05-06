@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { reducer as meReducer } from "../me/";
 import { reducer as playersReducer } from "../players";
 import { reducer as roomSettingsReducer } from "../roomSettings";
-import { reducer as gameReducer } from "../game/gameSlice";
+import { reducer as gameReducer } from "../game";
 
 const customizedMiddleware = getDefaultMiddleware({
   serializableCheck: false,

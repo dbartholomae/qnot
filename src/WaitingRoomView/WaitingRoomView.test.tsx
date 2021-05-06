@@ -14,7 +14,8 @@ import { selectId, setName } from "../me/meSlice";
 import { setHost } from "../roomSettings";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { WaitingRoomNameGuard } from "./WaitingRoomNameGuard";
-import { selectStatus, Status } from "../game/gameSlice";
+import { selectStatus } from "../game/gameSlice";
+import { Status } from "../game/Status";
 
 const locale = en.WaitingRoomView;
 

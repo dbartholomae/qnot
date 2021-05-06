@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { en } from "../locale";
-import { useAddSecondDescription } from "../game/useAddSecondDescription";
-import { useAddFirstDescription } from "../game/useAddFirstDescription";
+import { useAddFirstDescription, useAddSecondDescription } from "../game";
 
 function AddDescription({
   onChoose,
