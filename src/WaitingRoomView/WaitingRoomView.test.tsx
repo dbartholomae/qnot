@@ -16,6 +16,7 @@ import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { WaitingRoomNameGuard } from "./WaitingRoomNameGuard";
 import { selectStatus } from "../game/gameSlice";
 import { Status } from "../game/Status";
+import { getGameRoomPath } from "../GameRoomView/getGameRoomPath";
 
 const locale = en.WaitingRoomView;
 
@@ -68,11 +69,11 @@ describe("WaitingRoomView", () => {
         );
       });
 
-      it("shows the game view when I start a game", async () => {
+      it("redirects to the game view when I start a game", async () => {
         userEvent.click(
           await screen.findByRole("button", { name: locale.startGame })
         );
-        expect(await screen.findByText("Game")).toBeInTheDocument();
+        expect(history.location.pathname).toBe(getGameRoomPath(roomCode));
       });
     });
 

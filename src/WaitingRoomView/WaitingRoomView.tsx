@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import {
   Button,
   Container,
@@ -15,12 +15,13 @@ import { usePlayers } from "../players";
 import { addOrUpdatePlayer } from "../players/playersSlice";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { convertPathToUrl } from "./convertPathToUrl";
-import { GameRoomView } from "../GameRoomView/GameRoomView";
 import { startGame } from "../game/gameSlice";
 import { useDispatch } from "../store/useDispatch";
 import createRandomWords from "random-words";
 import { MockPlayer } from "../game";
+import { useHistory } from "../router";
 import { useRoom } from "./useRoom";
+import { getGameRoomPath } from "../GameRoomView/getGameRoomPath";
 
 interface Props {
   roomCode: string;
@@ -29,8 +30,9 @@ interface Props {
 export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
   const players = usePlayers();
   useRoom(roomCode);
-  const [gameIsRunning, setGameIsRunning] = useState(false);
   const dispatch = useDispatch();
+  const { push } = useHistory();
+
   function onStartGame() {
     dispatch(
       startGame({
@@ -39,10 +41,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
         wordList: ["foo", "bar", "baz"],
       })
     );
-    setGameIsRunning(true);
-  }
-  if (gameIsRunning) {
-    return <GameRoomView />;
+    push(getGameRoomPath(roomCode));
   }
 
   return (
