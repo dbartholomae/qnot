@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import {
   Button,
   Container,
@@ -10,36 +10,25 @@ import {
 } from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { en } from "../locale";
-import { useName } from "../me";
 import { PlayerListItem } from "./PlayerListItem";
 import { usePlayers } from "../players";
 import { addOrUpdatePlayer } from "../players/playersSlice";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
-import { useChannelCreator } from "../channel/useChannelCreator";
-import { useId } from "../me/useId";
-import { useConnectionToChannel } from "../players/useConnectionToChannel";
 import { convertPathToUrl } from "./convertPathToUrl";
 import { GameRoomView } from "../GameRoomView/GameRoomView";
 import { startGame } from "../game/gameSlice";
 import { useDispatch } from "../store/useDispatch";
 import createRandomWords from "random-words";
 import { MockPlayer } from "../game";
+import { useRoom } from "./useRoom";
 
 interface Props {
   roomCode: string;
 }
 
 export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
-  const myId = useId();
-  const [myName] = useName();
   const players = usePlayers();
-  const channelCreator = useChannelCreator();
-  const [channel] = useState(() => channelCreator(roomCode));
-  useConnectionToChannel(channel);
-  useEffect(() => {
-    channel.presence.enterClient(myId, { name: myName });
-    return () => channel.presence.leaveClient(myId);
-  }, [channel, myId, myName]);
+  useRoom(roomCode);
   const [gameIsRunning, setGameIsRunning] = useState(false);
   const dispatch = useDispatch();
   function onStartGame() {
