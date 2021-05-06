@@ -1,11 +1,11 @@
-import { Router } from "../router";
+import { Router } from "../services/router";
 import { Provider } from "react-redux";
-import { createStore } from "../store/store";
+import { createStore } from "../business-logic/store";
 import React, { FunctionComponent } from "react";
 import { createMemoryHistory } from "history";
-import { MockChannel } from "../channel/MockChannel";
-import { ChannelCreatorProvider } from "../channel/ChannelCreatorProvider";
-import { Channel } from "../channel/Channel";
+import { MockChannel } from "../services/channel/MockChannel";
+import { ChannelCreatorProvider } from "../services/channel/ChannelCreatorProvider";
+import { Channel } from "../services/channel/Channel";
 
 export function createTestProviders({
   channel = new MockChannel() as Channel,

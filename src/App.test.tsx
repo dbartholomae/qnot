@@ -1,13 +1,13 @@
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen } from "@testing-library/react";
-import { createStore } from "./store/store";
+import { createStore } from "./business-logic/store";
 import React from "react";
 import { App } from "./App";
 import { createTestProviders } from "./testUtils/createTestProviders";
-import { getInvitePath } from "./JoinRoomView/getInvitePath";
-import { en } from "./locale";
-import { getWaitingRoomPath } from "./WaitingRoomView/getWaitingRoomPath";
-import { setName } from "./me/meSlice";
+import { getInvitePath } from "./views/JoinRoomView/getInvitePath";
+import { en } from "./services/locale";
+import { getWaitingRoomPath } from "./views/WaitingRoomView/getWaitingRoomPath";
+import { setName } from "./business-logic/me/meSlice";
 
 describe("App", () => {
   let history: MemoryHistory;

@@ -108,7 +108,7 @@ module.exports = {
       comment:
         "Only rely on the central router definitions in the router module. This makes it easier to replace the router if we need to.",
       severity: "error",
-      from: { pathNot: "^src/router" },
+      from: { pathNot: "^src/services/router" },
       to: { path: "react-router.+" },
     },
   ],

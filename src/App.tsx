@@ -1,14 +1,14 @@
 import React from "react";
-import { MainView } from "./MainView/MainView";
+import { MainView } from "./views/MainView/MainView";
 import "fontsource-roboto";
-import { Route, Switch } from "./router";
-import { getWaitingRoomPath } from "./WaitingRoomView/getWaitingRoomPath";
-import { getMainPath } from "./MainView/getMainPath";
-import { JoinRoomView } from "./JoinRoomView/JoinRoomView";
-import { getInvitePath } from "./JoinRoomView/getInvitePath";
-import { WaitingRoomNameGuard } from "./WaitingRoomView/WaitingRoomNameGuard";
-import { getGameRoomPath } from "./GameRoomView/getGameRoomPath";
-import { GameRoomView } from "./GameRoomView/GameRoomView";
+import { Route, Switch } from "./services/router";
+import { getWaitingRoomPath } from "./views/WaitingRoomView/getWaitingRoomPath";
+import { getMainPath } from "./views/MainView/getMainPath";
+import { JoinRoomView } from "./views/JoinRoomView/JoinRoomView";
+import { getInvitePath } from "./views/JoinRoomView/getInvitePath";
+import { WaitingRoomNameGuard } from "./views/WaitingRoomView/WaitingRoomNameGuard";
+import { getGameRoomPath } from "./views/GameRoomView/getGameRoomPath";
+import { GameRoomView } from "./views/GameRoomView/GameRoomView";
 
 export function App() {
   return (
