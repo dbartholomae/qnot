@@ -1,11 +1,10 @@
-import { useSelector } from "../store/useSelector";
-import { selectMyWord } from "../game/gameSlice";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { en } from "../locale";
 import React from "react";
+import { useMyWord } from "../game/useMyWord";
 
 export function MyWord() {
-  const myWord = useSelector(selectMyWord);
+  const myWord = useMyWord();
 
   const id = "my-word-label";
   return (
