@@ -15,35 +15,21 @@ import { usePlayers } from "../players";
 import { addOrUpdatePlayer } from "../players/playersSlice";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { convertPathToUrl } from "./convertPathToUrl";
-import { startGame } from "../game/gameSlice";
 import { useDispatch } from "../store/useDispatch";
-import createRandomWords from "random-words";
 import { MockPlayer } from "../game";
-import { useHistory } from "../router";
 import { useRoom } from "./useRoom";
-import { getGameRoomPath } from "../GameRoomView/getGameRoomPath";
+import { useStartGame } from "./useStartGame";
 
 interface Props {
   roomCode: string;
 }
 
 export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
-  const players = usePlayers();
   useRoom(roomCode);
+  const startGame = useStartGame(roomCode);
+
+  const players = usePlayers();
   const dispatch = useDispatch();
-  const { push } = useHistory();
-
-  function onStartGame() {
-    dispatch(
-      startGame({
-        players,
-        seed: (createRandomWords(3) as string[]).join("-"),
-        wordList: ["foo", "bar", "baz"],
-      })
-    );
-    push(getGameRoomPath(roomCode));
-  }
-
   return (
     <Container>
       <Grid container justify="space-between" alignItems="center">
@@ -73,7 +59,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
           ))}
         </List>
       </Paper>
-      <Button onClick={onStartGame}>{en.WaitingRoomView.startGame}</Button>
+      <Button onClick={startGame}>{en.WaitingRoomView.startGame}</Button>
       <Button onClick={() => dispatch(addOrUpdatePlayer(new MockPlayer()))}>
         Add mock player
       </Button>
