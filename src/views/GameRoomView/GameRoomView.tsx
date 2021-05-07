@@ -1,30 +1,29 @@
 import React, { FunctionComponent } from "react";
-import { Container, Typography } from "@material-ui/core";
-import { MyWord } from "./MyWord";
 import { Status, useStatus } from "../../business-logic/game";
-import { AddFirstDescription, AddSecondDescription } from "./AddDescription";
-import { AddFirstGuess, AddSecondGuess } from "./AddGuess";
-import { RoundSummary } from "./RoundSummary";
+import {
+  AddFirstDescriptionView,
+  AddSecondDescriptionView,
+} from "./AddDescriptionView";
+import { AddFirstGuessView, AddSecondGuessView } from "./AddGuessView";
+import { RoundSummaryView } from "./RoundSummaryView";
+import { getMainPath } from "../MainView/getMainPath";
+import { Redirect } from "../../services/router";
 
 export const GameRoomView: FunctionComponent = () => {
   const status = useStatus();
-  const componentByStatus = {
-    [Status.WaitingForGameStart]: () => null,
-    [Status.ChoosingFirstDescription]: AddFirstDescription,
-    [Status.GuessingFirstTeam]: AddFirstGuess,
-    [Status.ChoosingSecondDescription]: AddSecondDescription,
-    [Status.GuessingSecondTeam]: AddSecondGuess,
-    [Status.GameOver]: RoundSummary,
-  };
-  const Component = componentByStatus[status];
 
-  return (
-    <Container>
-      <Typography variant="h3" gutterBottom>
-        Game
-      </Typography>
-      <MyWord />
-      <Component />
-    </Container>
-  );
+  switch (status) {
+    case Status.WaitingForGameStart:
+      return <Redirect to={getMainPath()} />;
+    case Status.ChoosingFirstDescription:
+      return <AddFirstDescriptionView />;
+    case Status.GuessingFirstTeam:
+      return <AddFirstGuessView />;
+    case Status.ChoosingSecondDescription:
+      return <AddSecondDescriptionView />;
+    case Status.GuessingSecondTeam:
+      return <AddSecondGuessView />;
+    case Status.GameOver:
+      return <RoundSummaryView />;
+  }
 };
