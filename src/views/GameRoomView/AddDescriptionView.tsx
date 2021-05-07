@@ -7,11 +7,11 @@ import {
 } from "../../business-logic/game";
 import { MyWord } from "./MyWord";
 
-export function AddDescriptionView({
-  onChoose,
-}: {
+export interface Props {
   onChoose: (description: string) => void;
-}) {
+}
+
+export function AddDescriptionView({ onChoose }: Props) {
   const [description, setDescription] = useState("");
   return (
     <Container>
