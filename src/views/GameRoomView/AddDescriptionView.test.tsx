@@ -8,6 +8,7 @@ import { selectMyWord, startGame } from "../../business-logic/game/gameSlice";
 import { MockPlayer, Player } from "../../business-logic/game";
 import { selectId } from "../../business-logic/me/meSlice";
 import { AddDescriptionView } from "./AddDescriptionView";
+import userEvent from "@testing-library/user-event";
 
 describe("GameRoomView", () => {
   let store: Store;
@@ -45,13 +46,17 @@ describe("GameRoomView", () => {
       ).toContainHTML(myWord!);
     });
 
-    it("asks me for a description", async () => {
-      render(<AddDescriptionView onChoose={jest.fn()} />, {
+    it("allows me to choose a description", async () => {
+      const onChoose = jest.fn();
+      render(<AddDescriptionView onChoose={onChoose} />, {
         wrapper: createTestProviders({ store }),
       });
-      expect(
-        await screen.findByLabelText(en.GameRoomView.describeYourWord)
-      ).toBeInTheDocument();
+      const myDescription = "my description";
+      userEvent.type(
+        screen.getByLabelText(en.GameRoomView.describeYourWord),
+        `${myDescription}{enter}`
+      );
+      expect(onChoose).toHaveBeenCalledWith(myDescription);
     });
   });
 
