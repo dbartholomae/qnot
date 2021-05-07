@@ -7,6 +7,7 @@ import { GameRoomView } from "./GameRoomView";
 import { selectMyWord, startGame } from "../../business-logic/game/gameSlice";
 import { MockPlayer, Player } from "../../business-logic/game";
 import { selectId } from "../../business-logic/me/meSlice";
+import { AddDescriptionView } from "./AddDescriptionView";
 
 describe("GameRoomView", () => {
   let store: Store;
@@ -35,7 +36,9 @@ describe("GameRoomView", () => {
     });
 
     it("shows my word", async () => {
-      render(<GameRoomView />, { wrapper: createTestProviders({ store }) });
+      render(<AddDescriptionView onChoose={jest.fn()} />, {
+        wrapper: createTestProviders({ store }),
+      });
       const myWord = selectMyWord(store.getState());
       expect(
         await screen.findByLabelText(en.GameRoomView.myWordLabel)
@@ -43,7 +46,9 @@ describe("GameRoomView", () => {
     });
 
     it("asks me for a description", async () => {
-      render(<GameRoomView />, { wrapper: createTestProviders({ store }) });
+      render(<AddDescriptionView onChoose={jest.fn()} />, {
+        wrapper: createTestProviders({ store }),
+      });
       expect(
         await screen.findByLabelText(en.GameRoomView.describeYourWord)
       ).toBeInTheDocument();
@@ -70,7 +75,9 @@ describe("GameRoomView", () => {
     });
 
     it("shows I'm a question mark", async () => {
-      render(<GameRoomView />, { wrapper: createTestProviders({ store }) });
+      render(<AddDescriptionView onChoose={jest.fn()} />, {
+        wrapper: createTestProviders({ store }),
+      });
       expect(
         await screen.findByText(en.GameRoomView.youReTheQuestionMark)
       ).toBeInTheDocument();

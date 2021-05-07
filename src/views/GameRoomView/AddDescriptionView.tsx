@@ -7,7 +7,7 @@ import {
 } from "../../business-logic/game";
 import { MyWord } from "./MyWord";
 
-function AddDescriptionView({
+export function AddDescriptionView({
   onChoose,
 }: {
   onChoose: (description: string) => void;
