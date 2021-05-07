@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import { ConnectedApp } from "./ConnectedApp";
+import { Connection } from "./Connection";
+import { App } from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ConnectedApp />
+    <Connection>
+      <App />
+    </Connection>
   </React.StrictMode>,
   document.getElementById("root")
 );
