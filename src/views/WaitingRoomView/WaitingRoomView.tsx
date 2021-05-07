@@ -19,6 +19,8 @@ import { useDispatch } from "../../business-logic/useDispatch";
 import { MockPlayer } from "../../business-logic/game";
 import { useRoom } from "./useRoom";
 import { useStartGame } from "./useStartGame";
+import { selectIsHost } from "../../business-logic/roomSettings";
+import { useSelector } from "../../business-logic/useSelector";
 
 interface Props {
   roomCode: string;
@@ -27,6 +29,7 @@ interface Props {
 export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
   useRoom(roomCode);
   const startGame = useStartGame(roomCode);
+  const isHost = useSelector(selectIsHost);
 
   const players = usePlayers();
   const dispatch = useDispatch();
@@ -59,7 +62,9 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
           ))}
         </List>
       </Paper>
-      <Button onClick={startGame}>{en.WaitingRoomView.startGame}</Button>
+      {isHost && (
+        <Button onClick={startGame}>{en.WaitingRoomView.startGame}</Button>
+      )}
       <Button onClick={() => dispatch(addOrUpdatePlayer(new MockPlayer()))}>
         Add mock player
       </Button>

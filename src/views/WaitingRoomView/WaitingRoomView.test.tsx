@@ -54,6 +54,10 @@ describe("WaitingRoomView", () => {
     });
 
     describe("as a host", () => {
+      beforeEach(() => {
+        store.dispatch(setHost(true));
+      });
+
       it("shows me as host", async () => {
         expect(await screen.findByLabelText(locale.host)).toBeInTheDocument();
       });
@@ -73,6 +77,18 @@ describe("WaitingRoomView", () => {
           await screen.findByRole("button", { name: locale.startGame })
         );
         expect(history.location.pathname).toBe(getGameRoomPath(roomCode));
+      });
+    });
+
+    describe("as a non-host", () => {
+      beforeEach(() => {
+        store.dispatch(setHost(false));
+      });
+
+      it("does not show the start game button", () => {
+        expect(
+          screen.queryByRole("button", { name: locale.startGame })
+        ).not.toBeInTheDocument();
       });
     });
 
