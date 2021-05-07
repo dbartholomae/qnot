@@ -1,13 +1,9 @@
-import { useDispatch } from "../useDispatch";
-import { useId } from "../me/useId";
 import { Guess } from "./Player";
 import { addFirstGuessToPlayer } from "./gameSlice";
+import { useDispatchWithId } from "./useDispatchWithId";
 
 export function useAddFirstGuess() {
-  const id = useId();
-  const dispatch = useDispatch();
-  function addFirstGuess(guess: Guess) {
-    dispatch(addFirstGuessToPlayer({ guess, id }));
-  }
-  return addFirstGuess;
+  return useDispatchWithId((id, guess: Guess) =>
+    addFirstGuessToPlayer({ guess, id })
+  );
 }

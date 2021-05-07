@@ -1,12 +1,8 @@
-import { useDispatch } from "../useDispatch";
-import { useId } from "../me/useId";
 import { addSecondDescriptionToPlayer } from "./gameSlice";
+import { useDispatchWithId } from "./useDispatchWithId";
 
 export function useAddSecondDescription() {
-  const id = useId();
-  const dispatch = useDispatch();
-  function addSecondDescription(description: string) {
-    dispatch(addSecondDescriptionToPlayer({ description, id }));
-  }
-  return addSecondDescription;
+  return useDispatchWithId((id, description: string) =>
+    addSecondDescriptionToPlayer({ description, id })
+  );
 }
