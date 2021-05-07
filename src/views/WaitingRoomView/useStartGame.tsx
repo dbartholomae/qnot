@@ -4,6 +4,7 @@ import { useHistory } from "../../services/router";
 import { startGame as startGameAction } from "../../business-logic/game/gameSlice";
 import createRandomWords from "random-words";
 import { getGameRoomPath } from "../GameRoomView/getGameRoomPath";
+import words from "../../wordLists/german.json";
 
 export function useStartGame(roomCode: string) {
   const players = usePlayers();
@@ -15,7 +16,7 @@ export function useStartGame(roomCode: string) {
       startGameAction({
         players,
         seed: (createRandomWords(3) as string[]).join("-"),
-        wordList: ["foo", "bar", "baz"],
+        wordList: words,
       })
     );
     push(getGameRoomPath(roomCode));
