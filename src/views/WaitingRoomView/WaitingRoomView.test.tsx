@@ -53,11 +53,11 @@ describe("WaitingRoomView", () => {
       expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
 
-    it("shows me as host", async () => {
-      expect(await screen.findByLabelText(locale.host)).toBeInTheDocument();
-    });
-
     describe("as a host", () => {
+      it("shows me as host", async () => {
+        expect(await screen.findByLabelText(locale.host)).toBeInTheDocument();
+      });
+
       it("starts a game when I click the start game button", async () => {
         userEvent.click(
           await screen.findByRole("button", { name: locale.startGame })
