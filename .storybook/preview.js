@@ -1,3 +1,5 @@
+import { Connection } from "../src/Connection";
+import "fontsource-roboto";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -7,4 +9,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+};
+
+export const decorators = [
+  (Story) => (
+    <Connection>
+      <Story />
+    </Connection>
+  ),
+];
