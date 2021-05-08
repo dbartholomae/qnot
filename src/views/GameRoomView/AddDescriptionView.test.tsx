@@ -88,4 +88,23 @@ describe("GameRoomView", () => {
       ).toBeInTheDocument();
     });
   });
+
+  describe("after I entered a description", () => {
+    beforeEach(() => {
+      render(<AddDescriptionView onChoose={jest.fn()} />, {
+        wrapper: createTestProviders({ store }),
+      });
+      const myDescription = "my description";
+      userEvent.type(
+        screen.getByLabelText(en.GameRoomView.describeYourWord),
+        `${myDescription}{enter}`
+      );
+    });
+
+    it("no longer allows me to edit my description", async () => {
+      expect(
+        screen.getByLabelText(en.GameRoomView.describeYourWord)
+      ).toBeDisabled();
+    });
+  });
 });

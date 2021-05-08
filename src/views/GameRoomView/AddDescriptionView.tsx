@@ -13,12 +13,14 @@ export interface Props {
 
 function DescriptionForm({ onChoose }: Props) {
   const [description, setDescription] = useState("");
+  const [descriptionChosen, setDescriptionChosen] = useState(false);
   return (
     <form
       noValidate
       onSubmit={(event) => {
         event.preventDefault();
         onChoose(description);
+        setDescriptionChosen(true);
       }}
       style={{
         display: "flex",
@@ -26,14 +28,20 @@ function DescriptionForm({ onChoose }: Props) {
       }}
     >
       <TextField
+        disabled={descriptionChosen}
         id="description"
         label={en.GameRoomView.describeYourWord}
         value={description}
         variant="filled"
         onChange={(event) => setDescription(event.target.value)}
       />
-      <Button type="submit" variant="contained" color="primary">
-        Describe
+      <Button
+        disabled={descriptionChosen}
+        type="submit"
+        variant="contained"
+        color="primary"
+      >
+        {descriptionChosen ? "Waiting for other players" : "Choose this word"}
       </Button>
     </form>
   );
