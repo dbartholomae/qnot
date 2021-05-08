@@ -6,7 +6,9 @@ import { reducer as gameReducer } from "./game";
 
 const customizedMiddleware = getDefaultMiddleware({
   serializableCheck: false,
+  thunk: false,
 });
+
 export function createStore() {
   return configureStore({
     middleware: customizedMiddleware,
