@@ -11,29 +11,40 @@ export interface Props {
   onChoose: (description: string) => void;
 }
 
-export function AddDescriptionView({ onChoose }: Props) {
+function DescriptionForm({ onChoose }: Props) {
   const [description, setDescription] = useState("");
+  <form
+    noValidate
+    onSubmit={(event) => {
+      event.preventDefault();
+      onChoose(description);
+    }}
+    style={{
+      display: "flex",
+      gap: 12,
+    }}
+  >
+    <TextField
+      id="description"
+      label={en.GameRoomView.describeYourWord}
+      value={description}
+      variant="filled"
+      onChange={(event) => setDescription(event.target.value)}
+    />
+    <Button type="submit" variant="contained" color="primary">
+      Describe
+    </Button>
+  </form>;
+}
+
+export function AddDescriptionView({ onChoose }: Props) {
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
         Game
       </Typography>
       <MyWord />
-      <form
-        noValidate
-        onSubmit={(event) => {
-          event.preventDefault();
-          onChoose(description);
-        }}
-      >
-        <TextField
-          id="description"
-          label={en.GameRoomView.describeYourWord}
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-        />
-        <Button type="submit">Describe</Button>
-      </form>
+      <DescriptionForm onChoose={onChoose} />
     </Container>
   );
 }
