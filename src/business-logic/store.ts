@@ -5,18 +5,18 @@ import { reducer as roomSettingsReducer } from "./roomSettings";
 import { reducer as gameReducer } from "./game";
 import createSagaMiddleware from "redux-saga";
 import { gameSaga } from "./game/gameSaga";
+import { ChannelCreator } from "../services/channel/ChannelCreator";
 
-const sagaMiddleware = createSagaMiddleware();
+export function createStore(createChannel: ChannelCreator) {
+  const sagaMiddleware = createSagaMiddleware({ context: { createChannel } });
 
-const customizedMiddleware = [
-  ...getDefaultMiddleware({
-    serializableCheck: false,
-    thunk: false,
-  }),
-  sagaMiddleware,
-];
-
-export function createStore() {
+  const customizedMiddleware = [
+    ...getDefaultMiddleware({
+      serializableCheck: false,
+      thunk: false,
+    }),
+    sagaMiddleware,
+  ];
   const store = configureStore({
     middleware: customizedMiddleware,
     reducer: {

@@ -1,5 +1,6 @@
 import { Presence } from "./Presence";
 import { Types } from "ably";
+import { MockPresenceMessage } from "./MockPresenceMessage";
 
 interface Member {
   clientId: string;
@@ -21,10 +22,13 @@ export class MockPresence implements Presence {
     .mockImplementation((clientId: string, data: any): void => {
       this.presentMembers.push({ clientId, data });
       this.listenerMap["enter"].forEach((listener) =>
-        listener({
-          clientId,
-          data,
-        } as Types.PresenceMessage)
+        listener(
+          new MockPresenceMessage({
+            action: "enter",
+            clientId,
+            data,
+          })
+        )
       );
     });
 
@@ -33,9 +37,12 @@ export class MockPresence implements Presence {
       (member) => member.clientId !== clientId
     );
     this.listenerMap["leave"].forEach((listener) =>
-      listener({
-        clientId,
-      } as Types.PresenceMessage)
+      listener(
+        new MockPresenceMessage({
+          action: "leave",
+          clientId,
+        })
+      )
     );
   });
 
@@ -49,15 +56,46 @@ export class MockPresence implements Presence {
           | Array<Types.PresenceAction>,
         listener: Types.messageCallback<Types.PresenceMessage> | undefined
       ): void => {
-        if (presenceOrListener === "present") {
-          this.presentMembers.forEach((member) => {
-            listener!(member as Types.PresenceMessage);
-          });
-          return;
+        const presences = Array.isArray(presenceOrListener)
+          ? presenceOrListener
+          : [presenceOrListener as Types.PresenceAction];
+        for (let presence of presences) {
+          if (presence === "present") {
+            this.presentMembers.forEach((member) => {
+              listener!(
+                new MockPresenceMessage({
+                  ...member,
+                  action: "present",
+                })
+              );
+            });
+            return;
+          }
+          this.listenerMap[presence].push(
+            listener as Types.messageCallback<Types.PresenceMessage>
+          );
         }
-        this.listenerMap[presenceOrListener as Types.PresenceAction].push(
-          listener as Types.messageCallback<Types.PresenceMessage>
-        );
+      }
+    );
+
+  unsubscribe = jest
+    .fn()
+    .mockImplementation(
+      (
+        presenceOrListener:
+          | Types.PresenceAction
+          | Types.messageCallback<Types.PresenceMessage>
+          | Array<Types.PresenceAction>,
+        listener: Types.messageCallback<Types.PresenceMessage> | undefined
+      ): void => {
+        const presences = Array.isArray(presenceOrListener)
+          ? presenceOrListener
+          : [presenceOrListener as Types.PresenceAction];
+        for (let presence of presences) {
+          this.listenerMap[presence] = this.listenerMap[presence].filter(
+            (existingListener) => existingListener !== listener
+          );
+        }
       }
     );
 }

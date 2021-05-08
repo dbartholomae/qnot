@@ -10,7 +10,7 @@ import { Channel } from "../services/channel/Channel";
 export function createTestProviders({
   channel = new MockChannel() as Channel,
   history = createMemoryHistory(),
-  store = createStore(),
+  store = createStore(() => channel),
 } = {}): FunctionComponent {
   return ({ children }) => (
     <ChannelCreatorProvider channelCreator={() => channel}>

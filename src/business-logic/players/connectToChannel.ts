@@ -1,12 +1,26 @@
 import { Channel } from "../../services/channel/Channel";
-import { Store } from "../store";
 import { Player } from "../game";
 import { Types } from "ably";
 import { addOrUpdatePlayer, markPlayerOffline } from "./playersSlice";
+import { call, put, take } from "redux-saga/effects";
+import { eventChannel } from "redux-saga";
 
-export function connectToChannel(channel: Channel, store: Store) {
-  const newPlayerListener = (message: Types.PresenceMessage) => {
-    store.dispatch(
+export function* connectToChannel(channel: Channel) {
+  const presence = eventChannel((emitter) => {
+    const actions: Types.PresenceAction[] = ["enter", "present", "leave"];
+    channel.presence.subscribe(actions, emitter);
+    return () => channel.presence.unsubscribe(actions, emitter);
+  });
+
+  while (true) {
+    const message: Types.PresenceMessage = yield take(presence);
+    yield call(handleMessage, message);
+  }
+}
+
+export function* handleMessage(message: Types.PresenceMessage) {
+  if (["enter", "present"].includes(message.action)) {
+    yield put(
       addOrUpdatePlayer(
         new Player({
           id: message.clientId,
@@ -15,13 +29,8 @@ export function connectToChannel(channel: Channel, store: Store) {
         })
       )
     );
-  };
-
-  function playerLeavingListener(message: Types.PresenceMessage) {
-    store.dispatch(markPlayerOffline(message.clientId));
   }
-
-  channel.presence.subscribe("enter", newPlayerListener);
-  channel.presence.subscribe("present", newPlayerListener);
-  channel.presence.subscribe("leave", playerLeavingListener);
+  if (["leave"].includes(message.action)) {
+    yield put(markPlayerOffline(message.clientId));
+  }
 }

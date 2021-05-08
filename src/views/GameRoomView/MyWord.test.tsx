@@ -3,6 +3,7 @@ import { MyWord } from "./MyWord";
 import { useMyWord } from "../../business-logic/game";
 import { mocked } from "../../testUtils/mocked";
 import { en } from "../../services/locale";
+import React from "react";
 
 jest.mock("../../business-logic/game");
 

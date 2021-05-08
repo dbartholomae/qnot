@@ -1,5 +1,6 @@
 import { Connection } from "../src/Connection";
 import "fontsource-roboto";
+import React from "react";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

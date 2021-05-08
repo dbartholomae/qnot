@@ -32,6 +32,8 @@ const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
+    joinRoom: (state, { payload: roomCode }: PayloadAction<string>) => state,
+    leaveRoom: (state) => state,
     startGame: (
       state,
       { payload: { players, seed, wordList } }: PayloadAction<GameConfig>
@@ -125,6 +127,8 @@ export const {
   addSecondGuessToPlayer,
   addFirstDescriptionToPlayer,
   addSecondDescriptionToPlayer,
+  joinRoom,
+  leaveRoom,
   startGame,
 } = gameSlice.actions;
 

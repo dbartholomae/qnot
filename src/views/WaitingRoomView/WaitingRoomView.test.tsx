@@ -32,7 +32,7 @@ describe("WaitingRoomView", () => {
     beforeEach(() => {
       channel = new MockChannel();
       history = createMemoryHistory({ initialEntries: [initialPathname] });
-      store = createStore();
+      store = createStore(() => channel);
       store.dispatch(setName(myName));
       render(<WaitingRoomNameGuard roomCode={roomCode} />, {
         wrapper: createTestProviders({ channel, history, store }),
@@ -96,7 +96,7 @@ describe("WaitingRoomView", () => {
       const otherPlayerName = "Jill";
       beforeEach(() => {
         history = createMemoryHistory({ initialEntries: [initialPathname] });
-        store = createStore();
+        store = createStore(() => channel);
         store.dispatch(setName(myName));
         store.dispatch(
           addOrUpdatePlayer(
@@ -145,7 +145,7 @@ describe("WaitingRoomView", () => {
   describe("without a name set", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
-      store = createStore();
+      store = createStore(() => channel);
     });
 
     describe("as a host", () => {

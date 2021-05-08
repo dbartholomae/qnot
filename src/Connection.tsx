@@ -12,7 +12,7 @@ interface Props {
 export const Connection = ({ children }: Props) => (
   <ChannelCreatorProvider channelCreator={ablyChannelCreator}>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Provider store={createStore()}>{children}</Provider>
+      <Provider store={createStore(ablyChannelCreator)}>{children}</Provider>
     </BrowserRouter>
   </ChannelCreatorProvider>
 );

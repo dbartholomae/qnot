@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import { ChannelCreatorContext } from "./ChannelCreatorContext";
 import { ChannelCreator } from "./ChannelCreator";
 

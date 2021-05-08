@@ -1,43 +1,76 @@
-import { MockChannel } from "../../services/channel/MockChannel";
-import { createStore } from "../store";
-import { selectPlayers } from "./playersSlice";
-import { connectToChannel } from "./connectToChannel";
+import { addOrUpdatePlayer } from "./playersSlice";
+import { handleMessage } from "./connectToChannel";
+import { expectSaga } from "redux-saga-test-plan";
+import { Player } from "../game";
+import { MockPresenceMessage } from "../../services/channel/MockPresenceMessage";
 
-describe("connectToChannel", () => {
-  it("adds a player who joins to the players list", () => {
-    const channel = new MockChannel();
-    const store = createStore();
-    connectToChannel(channel, store);
+describe("handleMessage", () => {
+  it("adds a player who joins to the players list", async () => {
     const name = "Daniel";
     const id = "550e8400-e29b-11d4-a716-446655440000";
-    channel.presence.enterClient(id, { name });
-    expect(selectPlayers(store.getState())).toContainEqual(
-      expect.objectContaining({ id, name })
-    );
+    await expectSaga(
+      handleMessage,
+      new MockPresenceMessage({
+        action: "enter",
+        clientId: id,
+        data: { name },
+      })
+    )
+      .put(
+        addOrUpdatePlayer(
+          new Player({
+            id,
+            name,
+            isOnline: true,
+          })
+        )
+      )
+      .silentRun();
   });
 
-  it("adds a player who already was in the room", () => {
-    const channel = new MockChannel();
-    const store = createStore();
+  it("adds a player who already was in the room", async () => {
     const name = "Daniel";
     const id = "550e8400-e29b-11d4-a716-446655440000";
-    channel.presence.enterClient(id, { name });
-    connectToChannel(channel, store);
-    expect(selectPlayers(store.getState())).toContainEqual(
-      expect.objectContaining({ id, name })
-    );
+    await expectSaga(
+      handleMessage,
+      new MockPresenceMessage({
+        action: "present",
+        clientId: id,
+        data: { name },
+      })
+    )
+      .put(
+        addOrUpdatePlayer(
+          new Player({
+            id,
+            name,
+            isOnline: true,
+          })
+        )
+      )
+      .silentRun();
   });
 
-  it("marks a player who leaves as offline", () => {
-    const channel = new MockChannel();
-    const store = createStore();
+  it("marks a player who leaves as offline", async () => {
     const name = "Daniel";
     const id = "550e8400-e29b-11d4-a716-446655440000";
-    channel.presence.enterClient(id, { name });
-    connectToChannel(channel, store);
-    channel.presence.leaveClient(id, { name });
-    expect(selectPlayers(store.getState())).toContainEqual(
-      expect.objectContaining({ id, name, isOnline: false })
-    );
+    await expectSaga(
+      handleMessage,
+      new MockPresenceMessage({
+        action: "enter",
+        clientId: id,
+        data: { name },
+      })
+    )
+      .put(
+        addOrUpdatePlayer(
+          new Player({
+            id,
+            name,
+            isOnline: true,
+          })
+        )
+      )
+      .silentRun();
   });
 });
