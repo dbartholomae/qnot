@@ -8,7 +8,7 @@ import { getWaitingRoomPath } from "../WaitingRoomView/getWaitingRoomPath";
 
 const locale = en.JoinRoomView;
 
-interface Props {
+export interface Props {
   roomCode: string;
 }
 
