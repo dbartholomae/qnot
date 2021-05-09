@@ -13,5 +13,10 @@ export class MockChannel implements Channel {
   subscribe = jest.fn().mockImplementation((callback: Callback) => {
     this.subscribers.push(callback);
   });
+  unsubscribe = jest.fn().mockImplementation((callback: Callback) => {
+    this.subscribers = this.subscribers.filter(
+      (existingSubscriber) => existingSubscriber !== callback
+    );
+  });
   presence = new MockPresence();
 }

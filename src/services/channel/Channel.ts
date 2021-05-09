@@ -6,4 +6,5 @@ export interface Channel {
   presence: Presence;
   publish: RealtimeChannelCallbacks["publish"];
   subscribe: RealtimeChannelCallbacks["subscribe"];
+  unsubscribe: RealtimeChannelCallbacks["unsubscribe"];
 }
