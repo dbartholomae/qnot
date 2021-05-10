@@ -89,7 +89,7 @@ describe("handleEvent", () => {
         data: action,
       })
     )
-      .put(action)
+      .put({ ...action, received: true })
       .silentRun();
   });
 });

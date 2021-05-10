@@ -4,6 +4,7 @@ import { Types } from "ably";
 import { addOrUpdatePlayer, markPlayerOffline } from "./playersSlice";
 import { all, call, put, take } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
+import { Action } from "@reduxjs/toolkit";
 
 function* presenceSaga(channel: Channel) {
   const presence = eventChannel((emitter) => {
@@ -18,20 +19,36 @@ function* presenceSaga(channel: Channel) {
   }
 }
 
-function* eventsSaga(channel: Channel) {
+function* receivingEventsSaga(channel: Channel) {
   const events = eventChannel((emitter) => {
     channel.subscribe(emitter);
     return () => channel.unsubscribe(emitter);
   });
 
   while (true) {
-    const message: Types.PresenceMessage = yield take(events);
-    yield call(handlePresenceMessage, message);
+    const message: Types.Message = yield take(events);
+    yield call(handleEvent, message);
   }
 }
 
 export function* connectToChannel(channel: Channel) {
-  yield all([eventsSaga(channel), presenceSaga(channel)]);
+  yield all([
+    receivingEventsSaga(channel),
+    presenceSaga(channel),
+    sendingEventsSaga(channel),
+  ]);
+}
+
+export function* sendingEventsSaga(channel: Channel) {
+  while (true) {
+    const action: Action & { received?: boolean } = yield take();
+    if (!action.received) {
+      channel.publish({
+        name: "gameEvent",
+        data: action,
+      });
+    }
+  }
 }
 
 export function* handlePresenceMessage(message: Types.PresenceMessage) {
@@ -52,5 +69,5 @@ export function* handlePresenceMessage(message: Types.PresenceMessage) {
 }
 
 export function* handleEvent(event: Types.Message) {
-  yield put(event.data);
+  yield put({ ...event.data, received: true });
 }
