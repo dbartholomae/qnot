@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const PlayerListItem: FunctionComponent<Props> = ({
-  player: { name, isOnline },
+  player: { descriptions, name, isOnline },
   isHost,
 }) => {
   return (
@@ -28,7 +28,10 @@ export const PlayerListItem: FunctionComponent<Props> = ({
           <WifiOff aria-label={en.WaitingRoomView.offline} color="error" />
         )}
       </ListItemIcon>
-      <ListItemText primary={name} />
+      <ListItemText
+        primary={name}
+        secondary={descriptions.length && descriptions.join(", ")}
+      />
       {isHost && (
         <ListItemSecondaryAction>
           <Tooltip title={en.WaitingRoomView.host}>

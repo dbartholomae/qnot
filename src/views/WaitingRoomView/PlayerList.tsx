@@ -4,7 +4,7 @@ import { en } from "../../services/locale";
 import { PlayerListItem } from "./PlayerListItem";
 import React from "react";
 
-interface Props {
+export interface Props {
   players: Player[];
 }
 
