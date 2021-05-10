@@ -3,11 +3,8 @@ import { Button, Container, Grid, Typography } from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { en } from "../../services/locale";
 import { usePlayers } from "../../business-logic/players";
-import { addOrUpdatePlayer } from "../../business-logic/players/playersSlice";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { convertPathToUrl } from "./convertPathToUrl";
-import { useDispatch } from "../../business-logic/useDispatch";
-import { MockPlayer } from "../../business-logic/game";
 import { useRoom } from "./useRoom";
 import { useStartGame } from "./useStartGame";
 import { selectIsHost } from "../../business-logic/roomSettings";
@@ -24,7 +21,6 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
   const isHost = useSelector(selectIsHost);
 
   const players = usePlayers();
-  const dispatch = useDispatch();
   return (
     <Container>
       <Grid container justify="space-between" alignItems="center">
@@ -45,9 +41,6 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
       {isHost && (
         <Button onClick={startGame}>{en.WaitingRoomView.startGame}</Button>
       )}
-      <Button onClick={() => dispatch(addOrUpdatePlayer(new MockPlayer()))}>
-        Add mock player
-      </Button>
     </Container>
   );
 };
