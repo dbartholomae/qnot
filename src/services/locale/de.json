@@ -1,0 +1,26 @@
+{
+  "MainView": {
+    "generateNewRoomCode": "Neuen Raumcode erstellen",
+    "nameLabel": "Name",
+    "saveName": "Namen speichern",
+    "roomCodeLabel": "Raumcode",
+    "createRoom": "Raum erstellen"
+  },
+  "WaitingRoomView": {
+    "copyInviteLink": "Einladungslink kopieren",
+    "host": "Dies ist der Gastgeber",
+    "offline": "offline",
+    "online": "online",
+    "playersListHeader": "Spieler",
+    "startGame": "Spiel starten"
+  },
+  "JoinRoomView": {
+    "heading": "Willkommen zu Qnot!",
+    "joinGame": "Spiel beitreten"
+  },
+  "GameRoomView": {
+    "myWordLabel": "Dein Wort",
+    "youReTheQuestionMark": "Du bist ein Fragezeichen",
+    "describeYourWord": "Beschreibe Dein Wort"
+  }
+}
