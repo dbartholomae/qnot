@@ -127,19 +127,6 @@ describe("WaitingRoomView", () => {
         expect(channel.presence.enterClient).toHaveBeenCalledWith(id, { name });
       });
     });
-
-    describe("when leaving the room", () => {
-      beforeEach(() => {
-        cleanup();
-      });
-
-      it("leaves the channel", async () => {
-        const id = selectId(store.getState());
-        await waitFor(() => {
-          expect(channel.presence.leaveClient).toHaveBeenCalledWith(id);
-        });
-      });
-    });
   });
 
   describe("without a name set", () => {
