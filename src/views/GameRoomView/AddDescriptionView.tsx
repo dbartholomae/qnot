@@ -3,20 +3,24 @@ import { Container, Typography } from "@material-ui/core";
 import {
   useAddFirstDescription,
   useAddSecondDescription,
+  usePlayers,
 } from "../../business-logic/game";
 import { MyWord } from "./MyWord";
 import { DescriptionForm } from "./DescriptionForm";
+import { PlayerList } from "../WaitingRoomView/PlayerList";
 
 export interface Props {
   onChoose: (description: string) => void;
 }
 
 export function AddDescriptionView({ onChoose }: Props) {
+  const players = usePlayers();
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
         Game
       </Typography>
+      <PlayerList players={players} />
       <MyWord />
       <DescriptionForm onChoose={onChoose} />
     </Container>

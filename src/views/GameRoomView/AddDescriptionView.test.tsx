@@ -17,6 +17,29 @@ describe("AddDescriptionView", () => {
     store = createStore(() => new MockChannel());
   });
 
+  it("shows the descriptions of other players", async () => {
+    const description = "a description";
+    store.dispatch(
+      startGame({
+        players: [
+          new MockPlayer({
+            descriptions: [description],
+          }),
+          new MockPlayer(),
+          new MockPlayer(),
+        ],
+        seed: "seed2",
+        wordList: ["foo", "bar", "baz"],
+      })
+    );
+
+    render(<AddDescriptionView onChoose={jest.fn()} />, {
+      wrapper: createTestProviders({ store }),
+    });
+
+    expect(screen.getByText(description, { exact: false })).toBeInTheDocument();
+  });
+
   describe("with me having a word", () => {
     beforeEach(() => {
       store.dispatch(
