@@ -1,16 +1,7 @@
 import React, { FunctionComponent } from "react";
-import {
-  Button,
-  Container,
-  Grid,
-  List,
-  ListSubheader,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Button, Container, Grid, Typography } from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { en } from "../../services/locale";
-import { PlayerListItem } from "./PlayerListItem";
 import { usePlayers } from "../../business-logic/players";
 import { addOrUpdatePlayer } from "../../business-logic/players/playersSlice";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
@@ -21,6 +12,7 @@ import { useRoom } from "./useRoom";
 import { useStartGame } from "./useStartGame";
 import { selectIsHost } from "../../business-logic/roomSettings";
 import { useSelector } from "../../business-logic/useSelector";
+import { PlayerList } from "./PlayerList";
 
 interface Props {
   roomCode: string;
@@ -49,19 +41,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
           </CopyToClipboard>
         </Grid>
       </Grid>
-      <Paper>
-        <List
-          subheader={
-            <ListSubheader>
-              {en.WaitingRoomView.playersListHeader}
-            </ListSubheader>
-          }
-        >
-          {players.map((player) => (
-            <PlayerListItem key={player.name} player={player} isHost />
-          ))}
-        </List>
-      </Paper>
+      <PlayerList players={players} />
       {isHost && (
         <Button onClick={startGame}>{en.WaitingRoomView.startGame}</Button>
       )}
