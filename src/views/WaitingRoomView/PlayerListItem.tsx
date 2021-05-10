@@ -30,7 +30,7 @@ export const PlayerListItem: FunctionComponent<Props> = ({
       </ListItemIcon>
       <ListItemText
         primary={name}
-        secondary={descriptions.length && descriptions.join(", ")}
+        secondary={descriptions.length > 0 && descriptions.join(", ")}
       />
       {isHost && (
         <ListItemSecondaryAction>
