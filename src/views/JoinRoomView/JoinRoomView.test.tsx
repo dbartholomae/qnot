@@ -5,7 +5,7 @@ import React from "react";
 import { JoinRoomView } from "./JoinRoomView";
 import { createStore, Store } from "../../business-logic/store";
 import userEvent from "@testing-library/user-event";
-import { getWaitingRoomPath } from "../WaitingRoomView/getWaitingRoomPath";
+import { getRoomPath } from "../WaitingRoomView/getRoomPath";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { getInvitePath } from "./getInvitePath";
 import { selectIsHost } from "../../business-logic/roomSettings";
@@ -57,7 +57,7 @@ describe("JoinRoomView", () => {
 
     it("redirects to the invited room when clicking the join button", async () => {
       userEvent.click(screen.getByText(en.JoinRoomView.joinGame));
-      expect(history.location.pathname).toBe(getWaitingRoomPath(roomCode));
+      expect(history.location.pathname).toBe(getRoomPath(roomCode));
     });
 
     it("does not make you host when clicking the join button", async () => {

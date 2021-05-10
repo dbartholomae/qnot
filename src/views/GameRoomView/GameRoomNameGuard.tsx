@@ -5,13 +5,13 @@ import { Redirect } from "../../services/router";
 import { getMainPath } from "../MainView/getMainPath";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import React from "react";
-import { WaitingRoomView } from "./WaitingRoomView";
+import { GameRoomView } from "./GameRoomView";
 
 interface Props {
   roomCode: string;
 }
 
-export function WaitingRoomNameGuard({ roomCode }: Props) {
+export function GameRoomNameGuard({ roomCode }: Props) {
   const [myName] = useName();
   const isHost = useSelector(selectIsHost);
 
@@ -23,5 +23,5 @@ export function WaitingRoomNameGuard({ roomCode }: Props) {
     }
   }
 
-  return <WaitingRoomView roomCode={roomCode} />;
+  return <GameRoomView roomCode={roomCode} />;
 }

@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { en } from "../../services/locale";
-import { getWaitingRoomPath } from "../WaitingRoomView/getWaitingRoomPath";
+import { getRoomPath } from "../WaitingRoomView/getRoomPath";
 import { createTestProviders } from "../../testUtils/createTestProviders";
 import { RoomCodeForm } from "./RoomCodeForm";
 import { createStore, Store } from "../../business-logic/store";
@@ -53,7 +53,7 @@ describe("RoomCodeForm", () => {
       const roomCode = await getRoomCode();
       userEvent.click(await screen.findByText(locale.createRoom));
 
-      expect(history.location.pathname).toEqual(getWaitingRoomPath(roomCode));
+      expect(history.location.pathname).toEqual(getRoomPath(roomCode));
     });
 
     it("marks you as host when creating a room", async () => {

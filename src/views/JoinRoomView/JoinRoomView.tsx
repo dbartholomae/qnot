@@ -4,7 +4,7 @@ import { NameForm } from "../MainView/NameForm";
 import { en } from "../../services/locale";
 import { useName } from "../../business-logic/me";
 import { Link } from "../../services/router";
-import { getWaitingRoomPath } from "../WaitingRoomView/getWaitingRoomPath";
+import { getRoomPath } from "../WaitingRoomView/getRoomPath";
 
 const locale = en.JoinRoomView;
 
@@ -33,7 +33,7 @@ export const JoinRoomView: FunctionComponent<Props> = ({ roomCode }) => {
             color="primary"
             variant="contained"
             component={Link}
-            to={getWaitingRoomPath(roomCode)}
+            to={getRoomPath(roomCode)}
           >
             {locale.joinGame}
           </Button>

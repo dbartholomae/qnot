@@ -3,7 +3,6 @@ import { useDispatch } from "../../business-logic/useDispatch";
 import { useHistory } from "../../services/router";
 import { startGame as startGameAction } from "../../business-logic/game/gameSlice";
 import createRandomWords from "random-words";
-import { getGameRoomPath } from "../GameRoomView/getGameRoomPath";
 import words from "../../wordLists/german.json";
 
 export function useStartGame(roomCode: string) {
@@ -19,6 +18,5 @@ export function useStartGame(roomCode: string) {
         wordList: words,
       })
     );
-    push(getGameRoomPath(roomCode));
   };
 }

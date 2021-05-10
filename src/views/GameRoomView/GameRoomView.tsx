@@ -6,15 +6,18 @@ import {
 } from "./AddDescriptionView";
 import { AddFirstGuessView, AddSecondGuessView } from "./AddGuessView";
 import { RoundSummaryView } from "./RoundSummaryView";
-import { getMainPath } from "../MainView/getMainPath";
-import { Redirect } from "../../services/router";
+import { WaitingRoomView } from "../WaitingRoomView/WaitingRoomView";
 
-export const GameRoomView: FunctionComponent = () => {
+interface Props {
+  roomCode: string;
+}
+
+export const GameRoomView: FunctionComponent<Props> = ({ roomCode }: Props) => {
   const status = useStatus();
 
   switch (status) {
     case Status.WaitingForGameStart:
-      return <Redirect to={getMainPath()} />;
+      return <WaitingRoomView roomCode={roomCode} />;
     case Status.ChoosingFirstDescription:
       return <AddFirstDescriptionView />;
     case Status.GuessingFirstTeam:

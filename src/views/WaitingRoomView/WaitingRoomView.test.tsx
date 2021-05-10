@@ -1,8 +1,8 @@
 import { createMemoryHistory, MemoryHistory } from "history";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { createStore, Store } from "../../business-logic/store";
 import React from "react";
-import { getWaitingRoomPath } from "./getWaitingRoomPath";
+import { getRoomPath } from "./getRoomPath";
 import { createTestProviders } from "../../testUtils/createTestProviders";
 import { en } from "../../services/locale";
 import userEvent from "@testing-library/user-event";
@@ -12,10 +12,9 @@ import { addOrUpdatePlayer } from "../../business-logic/players/playersSlice";
 import { selectId, setName } from "../../business-logic/me/meSlice";
 import { setHost } from "../../business-logic/roomSettings";
 import { getInvitePath } from "../JoinRoomView/getInvitePath";
-import { WaitingRoomNameGuard } from "./WaitingRoomNameGuard";
+import { GameRoomNameGuard } from "../GameRoomView/GameRoomNameGuard";
 import { selectStatus } from "../../business-logic/game/gameSlice";
 import { Player, Status } from "../../business-logic/game";
-import { getGameRoomPath } from "../GameRoomView/getGameRoomPath";
 
 const locale = en.WaitingRoomView;
 
@@ -24,7 +23,7 @@ describe("WaitingRoomView", () => {
   let history: MemoryHistory;
   let store: Store;
   const roomCode = "test-room-code";
-  const initialPathname = getWaitingRoomPath(roomCode);
+  const initialPathname = getRoomPath(roomCode);
 
   describe("with a name set", () => {
     const myName = "Daniel";
@@ -34,7 +33,7 @@ describe("WaitingRoomView", () => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore(() => channel);
       store.dispatch(setName(myName));
-      render(<WaitingRoomNameGuard roomCode={roomCode} />, {
+      render(<GameRoomNameGuard roomCode={roomCode} />, {
         wrapper: createTestProviders({ channel, history, store }),
       });
     });
@@ -72,11 +71,11 @@ describe("WaitingRoomView", () => {
         );
       });
 
-      it("redirects to the game view when I start a game", async () => {
+      it("shows the game view when I start a game", async () => {
         userEvent.click(
           await screen.findByRole("button", { name: locale.startGame })
         );
-        expect(history.location.pathname).toBe(getGameRoomPath(roomCode));
+        expect(await screen.findByText("Game")).toBeInTheDocument();
       });
     });
 
@@ -103,7 +102,7 @@ describe("WaitingRoomView", () => {
             new Player({ name: otherPlayerName, isOnline: false })
           )
         );
-        render(<WaitingRoomNameGuard roomCode={roomCode} />, {
+        render(<GameRoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });
@@ -138,7 +137,7 @@ describe("WaitingRoomView", () => {
     describe("as a host", () => {
       beforeEach(() => {
         store.dispatch(setHost(true));
-        render(<WaitingRoomNameGuard roomCode={roomCode} />, {
+        render(<GameRoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });
@@ -155,7 +154,7 @@ describe("WaitingRoomView", () => {
     describe("as a non-host", () => {
       beforeEach(() => {
         store.dispatch(setHost(false));
-        render(<WaitingRoomNameGuard roomCode={roomCode} />, {
+        render(<GameRoomNameGuard roomCode={roomCode} />, {
           wrapper: createTestProviders({ history, store }),
         });
       });
