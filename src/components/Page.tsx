@@ -2,14 +2,16 @@ import React, { FunctionComponent } from "react";
 import { Container, Typography } from "@material-ui/core";
 
 interface Props {
-  title: string;
+  title?: string;
 }
 
 export const Page: FunctionComponent<Props> = ({ children, title }) => (
   <Container>
-    <Typography variant="h3" gutterBottom>
-      {title}
-    </Typography>
+    {title && (
+      <Typography variant="h3" gutterBottom>
+        {title}
+      </Typography>
+    )}
     <div
       style={{
         display: "flex",

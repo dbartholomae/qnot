@@ -1,5 +1,4 @@
 import React from "react";
-import { Container, Typography } from "@material-ui/core";
 import {
   useAddFirstDescription,
   useAddSecondDescription,
@@ -9,6 +8,7 @@ import { MyWord } from "./MyWord";
 import { DescriptionForm } from "./DescriptionForm";
 import { PlayerList } from "../WaitingRoomView/PlayerList";
 import { en } from "../../services/locale";
+import { Page } from "../../components/Page";
 
 export interface Props {
   onChoose: (description: string) => void;
@@ -17,14 +17,11 @@ export interface Props {
 export function AddDescriptionView({ onChoose }: Props) {
   const players = usePlayers();
   return (
-    <Container>
-      <Typography variant="h3" gutterBottom>
-        {en.GameRoomView.title}
-      </Typography>
+    <Page title={en.GameRoomView.title}>
       <PlayerList players={players} />
       <MyWord />
       <DescriptionForm onChoose={onChoose} />
-    </Container>
+    </Page>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button, Container, Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { en } from "../../services/locale";
 import { usePlayers } from "../../business-logic/players";
@@ -10,6 +10,7 @@ import { useStartGame } from "./useStartGame";
 import { selectIsHost } from "../../business-logic/roomSettings";
 import { useSelector } from "../../business-logic/useSelector";
 import { PlayerList } from "./PlayerList";
+import { Page } from "../../components/Page";
 
 interface Props {
   roomCode: string;
@@ -22,7 +23,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
 
   const players = usePlayers();
   return (
-    <Container>
+    <Page>
       <Grid container justify="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h3" gutterBottom>
@@ -39,8 +40,10 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
       </Grid>
       <PlayerList players={players} />
       {isHost && (
-        <Button onClick={startGame}>{en.WaitingRoomView.startGame}</Button>
+        <Button onClick={startGame} variant="contained" color="primary">
+          {en.WaitingRoomView.startGame}
+        </Button>
       )}
-    </Container>
+    </Page>
   );
 };

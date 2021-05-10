@@ -2,12 +2,10 @@ import React, { ChangeEvent, useState } from "react";
 import {
   Button,
   Checkbox,
-  Container,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Typography,
 } from "@material-ui/core";
 import {
   Guess,
@@ -19,6 +17,7 @@ import {
 import { MyWord } from "./MyWord";
 import { PlayerList } from "../WaitingRoomView/PlayerList";
 import { en } from "../../services/locale";
+import { Page } from "../../components/Page";
 
 export function AddGuessView({
   onChoose,
@@ -33,10 +32,7 @@ export function AddGuessView({
       ? setGuess((guess) => [...guess, event.target.name])
       : setGuess((guess) => guess.filter((id) => id !== event.target.name));
   return (
-    <Container>
-      <Typography variant="h3" gutterBottom>
-        Game
-      </Typography>
+    <Page title={en.GameRoomView.title}>
       <PlayerList players={players} />
       <MyWord />
       <form
@@ -75,7 +71,7 @@ export function AddGuessView({
             : en.GameRoomView.guess}
         </Button>
       </form>
-    </Container>
+    </Page>
   );
 }
 
