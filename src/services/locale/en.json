@@ -20,7 +20,7 @@
   },
   "GameRoomView": {
     "myWordLabel": "Your word",
-    "youReTheQuestionMark": "You are the question mark",
+    "youReTheQuestionMark": "You are a question mark",
     "describeYourWord": "Describe your word"
   }
 }
