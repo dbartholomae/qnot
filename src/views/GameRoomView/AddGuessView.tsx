@@ -14,11 +14,16 @@ import {
   Player,
   useAddFirstGuess,
   useAddSecondGuess,
+  usePlayers,
 } from "../../business-logic/game";
-import { usePlayers } from "../../business-logic/players";
 import { MyWord } from "./MyWord";
+import { PlayerList } from "../WaitingRoomView/PlayerList";
 
-function AddGuessView({ onChoose }: { onChoose: (guess: Guess) => void }) {
+export function AddGuessView({
+  onChoose,
+}: {
+  onChoose: (guess: Guess) => void;
+}) {
   const [guess, setGuess] = useState<Player["id"][]>([]);
   const players = usePlayers();
   const onChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean) =>
@@ -30,6 +35,7 @@ function AddGuessView({ onChoose }: { onChoose: (guess: Guess) => void }) {
       <Typography variant="h3" gutterBottom>
         Game
       </Typography>
+      <PlayerList players={players} />
       <MyWord />
       <form
         noValidate
