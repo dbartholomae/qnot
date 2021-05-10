@@ -11,7 +11,7 @@ export class MockPlayer implements Player {
     faker.random.word("noun"),
   ]);
   guesses = [];
-  word = faker.random.word("noun");
+  word = null;
 
   constructor(overrides: Partial<Player> = {}) {
     Object.assign(this, overrides);

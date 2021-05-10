@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { Guess, Player } from "./Player";
@@ -9,22 +8,17 @@ import { Status } from "./Status";
 interface GameState {
   myWord: string | null;
   players: Player[];
-  seed: string;
   status: Status;
-  wordList: string[];
 }
 
 const initialState: GameState = {
   myWord: null,
   players: [],
-  seed: uuid(),
   status: Status.WaitingForGameStart,
-  wordList: [],
 };
 
 interface GameConfig {
   players: Player[];
-  seed: string;
   wordList: string[];
 }
 
@@ -34,22 +28,23 @@ const gameSlice = createSlice({
   reducers: {
     joinRoom: (state, { payload: roomCode }: PayloadAction<string>) => state,
     leaveRoom: (state) => state,
-    startGame: (
-      state,
-      { payload: { players, seed, wordList } }: PayloadAction<GameConfig>
-    ) => {
-      const randomWords = chooseWordsForPlayers(wordList, players.length, seed);
-
-      return {
-        ...state,
-        players: players.map((player, index) => ({
-          ...player,
-          word: randomWords[index],
-        })),
-        seed,
-        status: Status.ChoosingFirstDescription,
-        wordList,
-      };
+    startGame: {
+      reducer: (state, { payload: players }: PayloadAction<Player[]>) => {
+        return {
+          ...state,
+          players,
+          status: Status.ChoosingFirstDescription,
+        };
+      },
+      prepare: ({ players, wordList }: GameConfig) => {
+        const randomWords = chooseWordsForPlayers(wordList, players.length);
+        return {
+          payload: players.map((player, index) => ({
+            ...player,
+            word: randomWords[index],
+          })),
+        };
+      },
     },
     addFirstDescriptionToPlayer: (
       state,
@@ -143,12 +138,4 @@ export function selectStatus(state: RootState) {
 
 export function selectPlayers(state: RootState) {
   return state.game.players;
-}
-
-export function selectWordList(state: RootState) {
-  return state.game.wordList;
-}
-
-export function selectSeed(state: RootState) {
-  return state.game.seed;
 }

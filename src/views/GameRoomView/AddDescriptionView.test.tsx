@@ -19,19 +19,16 @@ describe("AddDescriptionView", () => {
 
   it("shows the descriptions of other players", async () => {
     const description = "a description";
-    store.dispatch(
-      startGame({
-        players: [
-          new MockPlayer({
-            descriptions: [description],
-          }),
-          new MockPlayer(),
-          new MockPlayer(),
-        ],
-        seed: "seed2",
-        wordList: ["foo", "bar", "baz"],
-      })
-    );
+    store.dispatch({
+      type: startGame.type,
+      payload: [
+        new MockPlayer({
+          descriptions: [description],
+        }),
+        new MockPlayer(),
+        new MockPlayer(),
+      ],
+    });
 
     render(<AddDescriptionView onChoose={jest.fn()} />, {
       wrapper: createTestProviders({ store }),
@@ -42,21 +39,19 @@ describe("AddDescriptionView", () => {
 
   describe("with me having a word", () => {
     beforeEach(() => {
-      store.dispatch(
-        startGame({
-          players: [
-            new Player({
-              id: selectId(store.getState()),
-              name: "Daniel",
-              isOnline: true,
-            }),
-            new MockPlayer(),
-            new MockPlayer(),
-          ],
-          seed: "seed2",
-          wordList: ["foo", "bar", "baz"],
-        })
-      );
+      store.dispatch({
+        type: startGame.type,
+        payload: [
+          new Player({
+            id: selectId(store.getState()),
+            name: "Daniel",
+            word: "Test",
+            isOnline: true,
+          }),
+          new MockPlayer({ word: null }),
+          new MockPlayer({ word: "Test" }),
+        ],
+      });
     });
 
     it("shows my word", async () => {
@@ -85,21 +80,19 @@ describe("AddDescriptionView", () => {
 
   describe("with me being a question mark", () => {
     beforeEach(() => {
-      store.dispatch(
-        startGame({
-          players: [
-            new Player({
-              id: selectId(store.getState()),
-              name: "Daniel",
-              isOnline: true,
-            }),
-            new MockPlayer(),
-            new MockPlayer(),
-          ],
-          seed: "seed",
-          wordList: ["foo", "bar", "baz"],
-        })
-      );
+      store.dispatch({
+        type: startGame.type,
+        payload: [
+          new Player({
+            id: selectId(store.getState()),
+            name: "Daniel",
+            word: null,
+            isOnline: true,
+          }),
+          new MockPlayer(),
+          new MockPlayer(),
+        ],
+      });
     });
 
     it("shows I'm a question mark", async () => {

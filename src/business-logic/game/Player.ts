@@ -15,9 +15,11 @@ export class Player {
     id = uuid(),
     name,
     isOnline,
+    word,
   }: Optional<Player, "id" | "descriptions" | "guesses">) {
     this.name = name;
     this.isOnline = isOnline;
     this.id = id;
+    this.word = word;
   }
 }
