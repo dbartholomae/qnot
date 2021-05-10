@@ -8,6 +8,7 @@ import {
 import { MyWord } from "./MyWord";
 import { DescriptionForm } from "./DescriptionForm";
 import { PlayerList } from "../WaitingRoomView/PlayerList";
+import { en } from "../../services/locale";
 
 export interface Props {
   onChoose: (description: string) => void;
@@ -18,7 +19,7 @@ export function AddDescriptionView({ onChoose }: Props) {
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
-        Game
+        {en.GameRoomView.title}
       </Typography>
       <PlayerList players={players} />
       <MyWord />

@@ -18,6 +18,7 @@ import {
 } from "../../business-logic/game";
 import { MyWord } from "./MyWord";
 import { PlayerList } from "../WaitingRoomView/PlayerList";
+import { en } from "../../services/locale";
 
 export function AddGuessView({
   onChoose,
@@ -46,7 +47,9 @@ export function AddGuessView({
         }}
       >
         <FormControl required component="fieldset">
-          <FormLabel component="legend">Pick two</FormLabel>
+          <FormLabel component="legend">
+            {en.GameRoomView.guessWhoIsInATeam}
+          </FormLabel>
           <FormGroup>
             {players.map((player) => (
               <FormControlLabel
@@ -64,7 +67,7 @@ export function AddGuessView({
           </FormGroup>
         </FormControl>
         <Button type="submit" disabled={guess.length !== 2}>
-          Guess
+          {en.GameRoomView.guess}
         </Button>
       </form>
     </Container>

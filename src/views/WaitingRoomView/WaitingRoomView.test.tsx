@@ -75,7 +75,9 @@ describe("WaitingRoomView", () => {
         userEvent.click(
           await screen.findByRole("button", { name: locale.startGame })
         );
-        expect(await screen.findByText("Game")).toBeInTheDocument();
+        expect(
+          await screen.findByText(en.GameRoomView.title)
+        ).toBeInTheDocument();
       });
     });
 

@@ -8,6 +8,7 @@ import { getInvitePath } from "./views/JoinRoomView/getInvitePath";
 import { en } from "./services/locale";
 import { getRoomPath } from "./views/WaitingRoomView/getRoomPath";
 import { setName } from "./business-logic/me/meSlice";
+import { MockChannel } from "./services/channel/MockChannel";
 
 describe("App", () => {
   let history: MemoryHistory;
@@ -35,14 +36,16 @@ describe("App", () => {
 
     beforeEach(() => {
       history = createMemoryHistory();
-      const store = createStore();
+      const store = createStore(() => new MockChannel());
       store.dispatch(setName(name));
       render(<App />, { wrapper: createTestProviders({ history, store }) });
     });
 
     it("renders the room lobby on lobby path", async () => {
       history.push(getRoomPath("test-room-code"));
-      expect(await screen.findByText("Room")).toBeInTheDocument();
+      expect(
+        await screen.findByText(en.WaitingRoomView.title)
+      ).toBeInTheDocument();
     });
   });
 });

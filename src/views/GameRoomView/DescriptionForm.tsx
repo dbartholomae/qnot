@@ -36,7 +36,9 @@ export function DescriptionForm({ onChoose }: Props) {
         variant="contained"
         color="primary"
       >
-        {descriptionChosen ? "Waiting for other players" : "Choose this word"}
+        {descriptionChosen
+          ? en.GameRoomView.waitingForOtherPlayers
+          : en.GameRoomView.chooseThisDescription}
       </Button>
     </form>
   );

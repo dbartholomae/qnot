@@ -12,7 +12,8 @@
     "offline": "offline",
     "online": "online",
     "playersListHeader": "Players",
-    "startGame": "Start game"
+    "startGame": "Start game",
+    "title": "Waiting room"
   },
   "JoinRoomView": {
     "heading": "Welcome to Qnot!",
@@ -21,6 +22,11 @@
   "GameRoomView": {
     "myWordLabel": "Your word",
     "youReTheQuestionMark": "You are a question mark",
-    "describeYourWord": "Describe your word"
+    "chooseThisDescription": "Choose this description",
+    "waitingForOtherPlayers": "Waiting for other players",
+    "guessWhoIsInATeam": "Guess who is in a team",
+    "guess": "Guess",
+    "describeYourWord": "Describe your word",
+    "title": "Game room"
   }
 }

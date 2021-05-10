@@ -26,7 +26,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
       <Grid container justify="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            Room
+            {en.WaitingRoomView.title}
           </Typography>
         </Grid>
         <Grid item>
