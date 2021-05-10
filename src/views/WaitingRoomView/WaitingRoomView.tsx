@@ -28,7 +28,7 @@ interface Props {
 
 export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
   useRoom(roomCode);
-  const startGame = useStartGame(roomCode);
+  const startGame = useStartGame();
   const isHost = useSelector(selectIsHost);
 
   const players = usePlayers();
