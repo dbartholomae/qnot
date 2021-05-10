@@ -13,15 +13,18 @@ import {
   startGame,
 } from "./gameSlice";
 import { Status } from "./Status";
+import { MockChannel } from "../../services/channel/MockChannel";
 
 describe("gameSlice", () => {
   const seed = "random-seed";
-  const players = Array.from(Array(5)).map(() => new MockPlayer());
+  const players = Array.from(Array(5)).map(
+    () => new MockPlayer({ descriptions: [] })
+  );
   const wordList = ["foo", "bar"];
 
   let store: Store;
   beforeEach(() => {
-    store = createStore();
+    store = createStore(() => new MockChannel());
   });
 
   it("starts with status WaitingForGameStart", () => {
