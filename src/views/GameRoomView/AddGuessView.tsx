@@ -26,6 +26,7 @@ export function AddGuessView({
   onChoose: (guess: Guess) => void;
 }) {
   const [guess, setGuess] = useState<Player["id"][]>([]);
+  const [alreadyGuessed, setAlreadyGuessed] = useState(false);
   const players = usePlayers();
   const onChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean) =>
     checked
@@ -44,6 +45,7 @@ export function AddGuessView({
           event.preventDefault();
           if (guess.length !== 2) return;
           onChoose(guess as Guess);
+          setAlreadyGuessed(true);
         }}
       >
         <FormControl required component="fieldset">
@@ -56,6 +58,7 @@ export function AddGuessView({
                 control={
                   <Checkbox
                     checked={guess.includes(player.id)}
+                    disabled={alreadyGuessed}
                     onChange={onChange}
                     name={player.id}
                   />
@@ -66,8 +69,10 @@ export function AddGuessView({
             ))}
           </FormGroup>
         </FormControl>
-        <Button type="submit" disabled={guess.length !== 2}>
-          {en.GameRoomView.guess}
+        <Button type="submit" disabled={guess.length !== 2 || alreadyGuessed}>
+          {alreadyGuessed
+            ? en.GameRoomView.waitingForOtherPlayers
+            : en.GameRoomView.guess}
         </Button>
       </form>
     </Container>
