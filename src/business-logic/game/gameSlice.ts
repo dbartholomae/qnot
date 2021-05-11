@@ -112,6 +112,19 @@ const gameSlice = createSlice({
         state.status = Status.GameOver;
       }
     },
+    startNewRound: {
+      reducer: (
+        state,
+        {
+          payload: playersWithWords,
+        }: PayloadAction<Pick<Player, "id" | "word">[]>
+      ) => ({ ...state, status: Status.ChoosingFirstDescription }),
+      prepare: (players: Pick<Player, "id">[]) => {
+        return {
+          payload: players.map((player) => ({ ...player, word: null })),
+        };
+      },
+    },
   },
 });
 
@@ -125,6 +138,7 @@ export const {
   joinRoom,
   leaveRoom,
   startGame,
+  startNewRound,
 } = gameSlice.actions;
 
 export function selectMyWord(state: RootState) {
