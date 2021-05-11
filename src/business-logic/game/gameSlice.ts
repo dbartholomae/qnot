@@ -30,7 +30,7 @@ const gameSlice = createSlice({
       reducer: (state, { payload: players }: PayloadAction<Player[]>) => {
         return {
           ...state,
-          players,
+          players: players.map((player) => ({ ...player, points: 5 })),
           status: Status.ChoosingFirstDescription,
         };
       },

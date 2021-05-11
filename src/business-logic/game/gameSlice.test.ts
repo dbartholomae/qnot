@@ -47,6 +47,13 @@ describe("gameSlice", () => {
         selectPlayers(store.getState()).map((player) => player.word)
       ).toIncludeSameMembers([...wordList, ...wordList, null]);
     });
+
+    it("sets the players points to 0", () => {
+      store.dispatch(startGame({ players, wordList }));
+      expect(
+        selectPlayers(store.getState()).map((player) => player.points)
+      ).toIncludeAllMembers([5]);
+    });
   });
 
   describe("after the game started", () => {
