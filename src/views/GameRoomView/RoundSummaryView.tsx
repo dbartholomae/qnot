@@ -3,6 +3,7 @@ import { usePlayers } from "../../business-logic/game";
 import { MyWord } from "./MyWord";
 import { en } from "../../services/locale";
 import { Page } from "../../components/Page";
+import { PlayerSummary } from "./PlayerSummary";
 
 export const RoundSummaryView: FunctionComponent = () => {
   const players = usePlayers();
@@ -10,7 +11,7 @@ export const RoundSummaryView: FunctionComponent = () => {
     <Page title={en.GameRoomView.title}>
       <MyWord />
       {players.map((player) => (
-        <pre key={player.id}>{JSON.stringify(player)}</pre>
+        <PlayerSummary player={player} players={players} />
       ))}
     </Page>
   );

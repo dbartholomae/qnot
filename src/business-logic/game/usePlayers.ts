@@ -6,6 +6,6 @@ export function usePlayers() {
   const players = useSelector(selectPlayers);
   return players.map((player) => ({
     ...player,
-    points: calculateMyPoints(player, players),
+    pointChange: calculateMyPoints(player, players),
   }));
 }

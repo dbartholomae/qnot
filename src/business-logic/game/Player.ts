@@ -8,6 +8,7 @@ export class Player {
   name: string;
   isOnline: boolean;
   word?: string | null;
+  points?: number;
   descriptions: string[] = [];
   guesses: Guess[] = [];
 
