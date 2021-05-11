@@ -9,6 +9,7 @@ import {
   selectPlayers,
   selectStatus,
   startGame,
+  startNewRound,
 } from "./gameSlice";
 import { Status } from "./Status";
 import { MockChannel } from "../../services/channel/MockChannel";
@@ -243,6 +244,59 @@ describe("gameSlice", () => {
         it("changes the status to GameOver", () => {
           expect(selectStatus(store.getState())).toBe(Status.GameOver);
         });
+      });
+    });
+    describe("startNewRound", () => {
+      beforeEach(() => {
+        store.dispatch(startGame({ players, wordList }));
+        const guess: Guess = [players[0].id, players[1].id];
+        players.forEach((player) => {
+          store.dispatch(
+            addFirstDescriptionToPlayer({
+              description: "Description",
+              id: player.id,
+            })
+          );
+          store.dispatch(
+            addFirstGuessToPlayer({
+              guess,
+              id: player.id,
+            })
+          );
+          store.dispatch(
+            addSecondDescriptionToPlayer({
+              description: "Description",
+              id: player.id,
+            })
+          );
+          store.dispatch(
+            addSecondGuessToPlayer({
+              guess,
+              id: player.id,
+            })
+          );
+        });
+      });
+
+      it("changes the status to ChoosingFirstDescription", () => {
+        store.dispatch(startNewRound(players));
+        expect(selectStatus(store.getState())).toBe(
+          Status.ChoosingFirstDescription
+        );
+      });
+
+      it("resets descriptions for all players", () => {
+        store.dispatch(startNewRound(players));
+        expect(
+          selectPlayers(store.getState()).map((player) => player.descriptions)
+        ).toIncludeAllMembers([[]]);
+      });
+
+      it("resets guesses for all players", () => {
+        store.dispatch(startNewRound(players));
+        expect(
+          selectPlayers(store.getState()).map((player) => player.guesses)
+        ).toIncludeAllMembers([[]]);
       });
     });
   });

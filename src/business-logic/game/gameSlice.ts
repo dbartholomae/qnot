@@ -118,10 +118,18 @@ const gameSlice = createSlice({
         {
           payload: playersWithWords,
         }: PayloadAction<Pick<Player, "id" | "word">[]>
-      ) => ({ ...state, status: Status.ChoosingFirstDescription }),
+      ) => ({
+        ...state,
+        players: state.players.map((player) => ({
+          ...player,
+          descriptions: [],
+          guesses: [],
+        })),
+        status: Status.ChoosingFirstDescription,
+      }),
       prepare: (players: Pick<Player, "id">[]) => {
         return {
-          payload: players.map((player) => ({ ...player, word: null })),
+          payload: players.map((player) => ({ id: player.id, word: null })),
         };
       },
     },
