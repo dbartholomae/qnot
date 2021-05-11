@@ -24,7 +24,7 @@ const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
-    joinRoom: (state, { payload: roomCode }: PayloadAction<string>) => state,
+    joinRoom: (state, { payload: _roomCode }: PayloadAction<string>) => state,
     leaveRoom: (state) => state,
     startGame: {
       reducer: (state, { payload: players }: PayloadAction<Player[]>) => {
