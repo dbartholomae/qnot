@@ -124,12 +124,19 @@ const gameSlice = createSlice({
           ...player,
           descriptions: [],
           guesses: [],
+          word: playersWithWords.find(
+            (playerWithWord) => playerWithWord.id === player.id
+          )!.word,
         })),
         status: Status.ChoosingFirstDescription,
       }),
-      prepare: (players: Pick<Player, "id">[]) => {
+      prepare: (players: Pick<Player, "id">[], wordList: string[]) => {
+        const randomWords = chooseWordsForPlayers(wordList, players.length);
         return {
-          payload: players.map((player) => ({ id: player.id, word: null })),
+          payload: players.map((player, index) => ({
+            id: player.id,
+            word: randomWords[index],
+          })),
         };
       },
     },

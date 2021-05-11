@@ -9,12 +9,13 @@ import { selectIsHost } from "../../business-logic/roomSettings";
 import { Button } from "@material-ui/core";
 import { useDispatch } from "../../business-logic/useDispatch";
 import { startNewRound } from "../../business-logic/game/gameSlice";
+import words from "../../wordLists/german.json";
 
 export const RoundSummaryView: FunctionComponent = () => {
   const players = usePlayers();
   const isHost = useSelector(selectIsHost);
   const dispatch = useDispatch();
-  const startNextRound = () => dispatch(startNewRound(players));
+  const startNextRound = () => dispatch(startNewRound(players, words));
   return (
     <Page title={en.GameRoomView.title}>
       <MyWord />

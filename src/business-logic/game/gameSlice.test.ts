@@ -247,6 +247,8 @@ describe("gameSlice", () => {
       });
     });
     describe("startNewRound", () => {
+      const newWordList = ["apples", "bananas"];
+
       beforeEach(() => {
         store.dispatch(startGame({ players, wordList }));
         const guess: Guess = [players[0].id, players[1].id];
@@ -279,24 +281,31 @@ describe("gameSlice", () => {
       });
 
       it("changes the status to ChoosingFirstDescription", () => {
-        store.dispatch(startNewRound(players));
+        store.dispatch(startNewRound(players, newWordList));
         expect(selectStatus(store.getState())).toBe(
           Status.ChoosingFirstDescription
         );
       });
 
       it("resets descriptions for all players", () => {
-        store.dispatch(startNewRound(players));
+        store.dispatch(startNewRound(players, newWordList));
         expect(
           selectPlayers(store.getState()).map((player) => player.descriptions)
         ).toIncludeAllMembers([[]]);
       });
 
       it("resets guesses for all players", () => {
-        store.dispatch(startNewRound(players));
+        store.dispatch(startNewRound(players, newWordList));
         expect(
           selectPlayers(store.getState()).map((player) => player.guesses)
         ).toIncludeAllMembers([[]]);
+      });
+
+      it("distributes words from the new word list", () => {
+        store.dispatch(startNewRound(players, newWordList));
+        expect(
+          selectPlayers(store.getState()).map((player) => player.word)
+        ).toIncludeAllMembers(newWordList);
       });
     });
   });
