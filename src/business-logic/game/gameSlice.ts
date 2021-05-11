@@ -4,6 +4,7 @@ import { Guess, Player } from "./Player";
 import { chooseWordsForPlayers } from "./chooseWordsForPlayers";
 import { selectId } from "../me/meSlice";
 import { Status } from "./Status";
+import { calculateMyPoints } from "./calculateMyPoints";
 
 interface GameState {
   players: Player[];
@@ -107,6 +108,10 @@ const gameSlice = createSlice({
       }
       playerToUpdate.guesses[1] = guess;
       if (state.players.every((player) => player.guesses.length === 2)) {
+        state.players.forEach(
+          (player) =>
+            (player.points! += calculateMyPoints(player, state.players))
+        );
         state.status = Status.GameOver;
       }
     },

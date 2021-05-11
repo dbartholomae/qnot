@@ -57,14 +57,22 @@ describe("gameSlice", () => {
   });
 
   describe("after the game started", () => {
+    const playersWithWords = [
+      new MockPlayer({ guesses: [], descriptions: [], word: "foo" }),
+      new MockPlayer({ guesses: [], descriptions: [], word: "foo" }),
+      new MockPlayer({ guesses: [], descriptions: [], word: "bar" }),
+      new MockPlayer({ guesses: [], descriptions: [], word: "bar" }),
+      new MockPlayer({ guesses: [], descriptions: [], word: null }),
+    ];
+
     beforeEach(() => {
-      store.dispatch(startGame({ players, wordList }));
+      store.dispatch({ type: startGame.type, payload: playersWithWords });
     });
 
     describe("addFirstDescriptionToPlayer", () => {
       it("adds the description to the player", () => {
         const description = "Description";
-        const id = players[0].id;
+        const id = playersWithWords[0].id;
         store.dispatch(addFirstDescriptionToPlayer({ description, id }));
         expect(
           selectPlayers(store.getState()).find((player) => player.id === id)
@@ -74,7 +82,7 @@ describe("gameSlice", () => {
       it("overwrites an existing description", () => {
         const oldDescription = "Old Description";
         const newDescription = "New Description";
-        const id = players[0].id;
+        const id = playersWithWords[0].id;
         store.dispatch(
           addFirstDescriptionToPlayer({ description: oldDescription, id })
         );
@@ -88,7 +96,7 @@ describe("gameSlice", () => {
 
       describe("when all players have one description", () => {
         beforeEach(() => {
-          players.forEach((player) => {
+          playersWithWords.forEach((player) => {
             store.dispatch(
               addFirstDescriptionToPlayer({
                 description: "Description",
@@ -106,7 +114,7 @@ describe("gameSlice", () => {
 
     describe("addSecondDescriptionToPlayer", () => {
       beforeEach(() => {
-        players.forEach((player) => {
+        playersWithWords.forEach((player) => {
           store.dispatch(
             addFirstDescriptionToPlayer({
               description: "Description",
@@ -118,7 +126,7 @@ describe("gameSlice", () => {
 
       it("adds the description to the player", () => {
         const description = "Description";
-        const id = players[0].id;
+        const id = playersWithWords[0].id;
         store.dispatch(addSecondDescriptionToPlayer({ description, id }));
         expect(
           selectPlayers(store.getState()).find((player) => player.id === id)
@@ -128,7 +136,7 @@ describe("gameSlice", () => {
       it("overwrites an existing description", () => {
         const oldDescription = "Old Description";
         const newDescription = "New Description";
-        const id = players[0].id;
+        const id = playersWithWords[0].id;
         store.dispatch(
           addSecondDescriptionToPlayer({ description: oldDescription, id })
         );
@@ -142,7 +150,7 @@ describe("gameSlice", () => {
 
       describe("when all players have two descriptions", () => {
         beforeEach(() => {
-          players.forEach((player) => {
+          playersWithWords.forEach((player) => {
             store.dispatch(
               addSecondDescriptionToPlayer({
                 description: "Description",
@@ -162,8 +170,8 @@ describe("gameSlice", () => {
 
     describe("addFirstGuessToPlayer", () => {
       it("adds the guess to the player", () => {
-        const guess: Guess = [players[0].id, players[1].id];
-        const id = players[0].id;
+        const guess: Guess = [playersWithWords[0].id, playersWithWords[1].id];
+        const id = playersWithWords[0].id;
         store.dispatch(addFirstGuessToPlayer({ guess, id }));
         expect(
           selectPlayers(store.getState()).find((player) => player.id === id)
@@ -171,9 +179,15 @@ describe("gameSlice", () => {
       });
 
       it("overwrites an existing guess", () => {
-        const oldGuess: Guess = [players[0].id, players[1].id];
-        const newGuess: Guess = [players[2].id, players[3].id];
-        const id = players[0].id;
+        const oldGuess: Guess = [
+          playersWithWords[0].id,
+          playersWithWords[1].id,
+        ];
+        const newGuess: Guess = [
+          playersWithWords[2].id,
+          playersWithWords[3].id,
+        ];
+        const id = playersWithWords[0].id;
         store.dispatch(addFirstGuessToPlayer({ guess: oldGuess, id }));
         store.dispatch(addFirstGuessToPlayer({ guess: newGuess, id }));
         expect(
@@ -183,8 +197,8 @@ describe("gameSlice", () => {
 
       describe("when all players have one guess", () => {
         beforeEach(() => {
-          const guess: Guess = [players[0].id, players[1].id];
-          players.forEach((player) => {
+          const guess: Guess = [playersWithWords[0].id, playersWithWords[1].id];
+          playersWithWords.forEach((player) => {
             store.dispatch(
               addFirstGuessToPlayer({
                 guess,
@@ -204,8 +218,8 @@ describe("gameSlice", () => {
 
     describe("addSecondGuessToPlayer", () => {
       beforeEach(() => {
-        const guess: Guess = [players[0].id, players[1].id];
-        players.forEach((player) => {
+        const guess: Guess = [playersWithWords[0].id, playersWithWords[1].id];
+        playersWithWords.forEach((player) => {
           store.dispatch(
             addFirstGuessToPlayer({
               guess,
@@ -216,8 +230,8 @@ describe("gameSlice", () => {
       });
 
       it("adds the guess to the player", () => {
-        const guess: Guess = [players[0].id, players[1].id];
-        const id = players[0].id;
+        const guess: Guess = [playersWithWords[0].id, playersWithWords[1].id];
+        const id = playersWithWords[0].id;
         store.dispatch(addSecondGuessToPlayer({ guess, id }));
         expect(
           selectPlayers(store.getState()).find((player) => player.id === id)
@@ -225,9 +239,15 @@ describe("gameSlice", () => {
       });
 
       it("overwrites an existing guess", () => {
-        const oldGuess: Guess = [players[0].id, players[1].id];
-        const newGuess: Guess = [players[2].id, players[3].id];
-        const id = players[0].id;
+        const oldGuess: Guess = [
+          playersWithWords[0].id,
+          playersWithWords[1].id,
+        ];
+        const newGuess: Guess = [
+          playersWithWords[2].id,
+          playersWithWords[3].id,
+        ];
+        const id = playersWithWords[0].id;
         store.dispatch(addSecondGuessToPlayer({ guess: oldGuess, id }));
         store.dispatch(addSecondGuessToPlayer({ guess: newGuess, id }));
         expect(
@@ -237,8 +257,8 @@ describe("gameSlice", () => {
 
       describe("when all players have two guesses", () => {
         beforeEach(() => {
-          const guess: Guess = [players[0].id, players[1].id];
-          players.forEach((player) => {
+          const guess: Guess = [playersWithWords[0].id, playersWithWords[1].id];
+          playersWithWords.forEach((player) => {
             store.dispatch(
               addSecondGuessToPlayer({
                 guess,
@@ -250,6 +270,10 @@ describe("gameSlice", () => {
 
         it("changes the status to GameOver", () => {
           expect(selectStatus(store.getState())).toBe(Status.GameOver);
+        });
+
+        it("adds 1 point to a player who guessed another pair correctly", () => {
+          expect(selectPlayers(store.getState())[2].points).toBe(5 + 1);
         });
       });
     });
