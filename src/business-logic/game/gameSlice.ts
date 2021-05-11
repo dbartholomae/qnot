@@ -102,6 +102,9 @@ const gameSlice = createSlice({
         id: Player["id"];
       }>
     ) => {
+      if (state.status !== Status.GuessingSecondTeam) {
+        return;
+      }
       const playerToUpdate = state.players.find((player) => player.id === id);
       if (playerToUpdate === undefined) {
         return;
