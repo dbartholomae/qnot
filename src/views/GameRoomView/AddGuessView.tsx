@@ -43,6 +43,7 @@ export function AddGuessView({
           onChoose(guess as Guess);
           setAlreadyGuessed(true);
         }}
+        style={{ display: "flex", flexDirection: "column" }}
       >
         <FormControl required component="fieldset">
           <FormLabel component="legend">
@@ -65,7 +66,12 @@ export function AddGuessView({
             ))}
           </FormGroup>
         </FormControl>
-        <Button type="submit" disabled={guess.length !== 2 || alreadyGuessed}>
+        <Button
+          type="submit"
+          disabled={guess.length !== 2 || alreadyGuessed}
+          variant="contained"
+          color="primary"
+        >
           {alreadyGuessed
             ? en.GameRoomView.waitingForOtherPlayers
             : en.GameRoomView.guess}
