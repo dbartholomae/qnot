@@ -6,13 +6,11 @@ import { selectId } from "../me/meSlice";
 import { Status } from "./Status";
 
 interface GameState {
-  myWord: string | null;
   players: Player[];
   status: Status;
 }
 
 const initialState: GameState = {
-  myWord: null,
   players: [],
   status: Status.WaitingForGameStart,
 };
