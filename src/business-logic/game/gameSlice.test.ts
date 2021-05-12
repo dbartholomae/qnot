@@ -226,6 +226,13 @@ describe("gameSlice", () => {
               id: player.id,
             })
           );
+
+          store.dispatch(
+            addSecondDescriptionToPlayer({
+              description: "Description",
+              id: player.id,
+            })
+          );
         });
       });
 
