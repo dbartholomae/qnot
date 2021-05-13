@@ -52,24 +52,22 @@ describe("WaitingRoomView", () => {
       expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
 
-    it("starts a game when I click the start game button", async () => {
-      userEvent.click(
-        await screen.findByRole("button", { name: locale.startGame })
-      );
+    describe("when I click the start game button", () => {
+      beforeEach(() => {
+        userEvent.click(screen.getByRole("button", { name: locale.startGame }));
+      });
 
-      expect(selectStatus(store.getState())).toBe(
-        Status.ChoosingFirstDescription
-      );
-    });
+      it("starts a game when I click the start game button", async () => {
+        expect(selectStatus(store.getState())).toBe(
+          Status.ChoosingFirstDescription
+        );
+      });
 
-    it("shows the game view when I start a game", async () => {
-      userEvent.click(
-        await screen.findByRole("button", { name: locale.startGame })
-      );
-
-      expect(
-        await screen.findByText(en.GameRoomView.title)
-      ).toBeInTheDocument();
+      it("shows the game view when I start a game", async () => {
+        expect(
+          await screen.findByText(en.GameRoomView.title)
+        ).toBeInTheDocument();
+      });
     });
 
     describe("with another player offline", () => {
