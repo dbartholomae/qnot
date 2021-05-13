@@ -10,8 +10,6 @@ import { Channel } from "../../services/channel/Channel";
 import { MockChannel } from "../../services/channel/MockChannel";
 import { addOrUpdatePlayer } from "../../business-logic/players/playersSlice";
 import { selectId, setName } from "../../business-logic/me/meSlice";
-import { setHost } from "../../business-logic/roomSettings";
-import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { GameRoomNameGuard } from "../GameRoomView/GameRoomNameGuard";
 import { selectStatus } from "../../business-logic/game/gameSlice";
 import { Player, Status } from "../../business-logic/game";
@@ -111,36 +109,17 @@ describe("WaitingRoomView", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore(() => channel);
-    });
-
-    describe("as a host", () => {
-      beforeEach(() => {
-        store.dispatch(setHost(true));
-        render(<GameRoomNameGuard roomCode={roomCode} />, {
-          wrapper: createTestProviders({ history, store }),
-        });
-      });
-
-      it("redirects to the main page", () => {
-        expect(history.location.pathname).toBe("/");
-      });
-
-      it("keeps the roomCode in the search", () => {
-        expect(history.location.search).toContain(`roomCode=${roomCode}`);
+      render(<GameRoomNameGuard roomCode={roomCode} />, {
+        wrapper: createTestProviders({ history, store }),
       });
     });
 
-    describe("as a non-host", () => {
-      beforeEach(() => {
-        store.dispatch(setHost(false));
-        render(<GameRoomNameGuard roomCode={roomCode} />, {
-          wrapper: createTestProviders({ history, store }),
-        });
-      });
+    it("redirects to the main page", () => {
+      expect(history.location.pathname).toBe("/");
+    });
 
-      it("redirects to the invite page", () => {
-        expect(history.location.pathname).toBe(getInvitePath(roomCode));
-      });
+    it("keeps the roomCode in the search", () => {
+      expect(history.location.search).toContain(`roomCode=${roomCode}`);
     });
   });
 });

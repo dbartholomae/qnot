@@ -4,7 +4,6 @@ import { createStore } from "./business-logic/store";
 import React from "react";
 import { App } from "./App";
 import { createTestProviders } from "./testUtils/createTestProviders";
-import { getInvitePath } from "./views/JoinRoomView/getInvitePath";
 import { en } from "./services/locale";
 import { getRoomPath } from "./views/WaitingRoomView/getRoomPath";
 import { setName } from "./business-logic/me/meSlice";
@@ -21,14 +20,6 @@ describe("App", () => {
   it("renders the main view on root path", async () => {
     history.push("/");
     expect(await screen.findByText("Hi there!")).toBeInTheDocument();
-  });
-
-  it("renders the join room view on the invite path", async () => {
-    const roomCode = "a-room-code";
-    history.push(getInvitePath(roomCode));
-    expect(
-      await screen.findByText(en.JoinRoomView.heading)
-    ).toBeInTheDocument();
   });
 
   describe("with a name set", () => {
