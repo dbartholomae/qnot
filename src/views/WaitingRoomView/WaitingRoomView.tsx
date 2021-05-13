@@ -7,8 +7,6 @@ import { getInvitePath } from "../JoinRoomView/getInvitePath";
 import { convertPathToUrl } from "./convertPathToUrl";
 import { useRoom } from "./useRoom";
 import { useStartGame } from "./useStartGame";
-import { selectIsHost } from "../../business-logic/roomSettings";
-import { useSelector } from "../../business-logic/useSelector";
 import { PlayerList } from "./PlayerList";
 import { Page } from "../../components/Page";
 
@@ -19,7 +17,6 @@ interface Props {
 export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
   useRoom(roomCode);
   const startGame = useStartGame();
-  const isHost = useSelector(selectIsHost);
 
   const players = usePlayers();
   return (
@@ -39,11 +36,9 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
         </Grid>
       </Grid>
       <PlayerList players={players} />
-      {isHost && (
-        <Button onClick={startGame} variant="contained" color="primary">
-          {en.WaitingRoomView.startGame}
-        </Button>
-      )}
+      <Button onClick={startGame} variant="contained" color="primary">
+        {en.WaitingRoomView.startGame}
+      </Button>
     </Page>
   );
 };

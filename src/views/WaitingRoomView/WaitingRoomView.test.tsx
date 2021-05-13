@@ -52,45 +52,24 @@ describe("WaitingRoomView", () => {
       expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
 
-    describe("as a host", () => {
-      beforeEach(() => {
-        store.dispatch(setHost(true));
-      });
+    it("starts a game when I click the start game button", async () => {
+      userEvent.click(
+        await screen.findByRole("button", { name: locale.startGame })
+      );
 
-      it("shows me as host", async () => {
-        expect(await screen.findByLabelText(locale.host)).toBeInTheDocument();
-      });
-
-      it("starts a game when I click the start game button", async () => {
-        userEvent.click(
-          await screen.findByRole("button", { name: locale.startGame })
-        );
-
-        expect(selectStatus(store.getState())).toBe(
-          Status.ChoosingFirstDescription
-        );
-      });
-
-      it("shows the game view when I start a game", async () => {
-        userEvent.click(
-          await screen.findByRole("button", { name: locale.startGame })
-        );
-        expect(
-          await screen.findByText(en.GameRoomView.title)
-        ).toBeInTheDocument();
-      });
+      expect(selectStatus(store.getState())).toBe(
+        Status.ChoosingFirstDescription
+      );
     });
 
-    describe("as a non-host", () => {
-      beforeEach(() => {
-        store.dispatch(setHost(false));
-      });
+    it("shows the game view when I start a game", async () => {
+      userEvent.click(
+        await screen.findByRole("button", { name: locale.startGame })
+      );
 
-      it("does not show the start game button", () => {
-        expect(
-          screen.queryByRole("button", { name: locale.startGame })
-        ).not.toBeInTheDocument();
-      });
+      expect(
+        await screen.findByText(en.GameRoomView.title)
+      ).toBeInTheDocument();
     });
 
     describe("with another player offline", () => {
