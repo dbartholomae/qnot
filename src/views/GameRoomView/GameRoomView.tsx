@@ -12,6 +12,7 @@ import { RoundSummaryView } from "./RoundSummaryView/RoundSummaryView";
 import { WaitingRoomView } from "./WaitingRoomView/WaitingRoomView";
 import { NameGuard } from "./NameGuard";
 import { getMainPath } from "../MainView/getMainPath";
+import { useRoom } from "./useRoom";
 
 interface Props {
   roomCode: string;
@@ -26,6 +27,7 @@ export const GameRoomView: FunctionComponent<Props> = ({ roomCode }: Props) => {
 };
 
 function GameRoomRouter({ roomCode }: Props) {
+  useRoom(roomCode);
   const status = useStatus();
 
   switch (status) {

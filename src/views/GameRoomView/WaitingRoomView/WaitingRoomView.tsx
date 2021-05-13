@@ -4,7 +4,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { en } from "../../../services/locale";
 import { usePlayers } from "../../../business-logic/players";
 import { convertPathToUrl } from "./convertPathToUrl";
-import { useRoom } from "./useRoom";
 import { useStartGame } from "./useStartGame";
 import { PlayerList } from "../shared/PlayerList/PlayerList";
 import { Page } from "../../../components/Page";
@@ -15,7 +14,6 @@ interface Props {
 }
 
 export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
-  useRoom(roomCode);
   const startGame = useStartGame();
 
   const players = usePlayers();

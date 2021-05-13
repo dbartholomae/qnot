@@ -9,7 +9,7 @@ import { MockChannel } from "../../../services/channel/MockChannel";
 import { addOrUpdatePlayer } from "../../../business-logic/players/playersSlice";
 import { setName } from "../../../business-logic/me/meSlice";
 import { selectStatus } from "../../../business-logic/game/gameSlice";
-import { Player, Status } from "../../../business-logic/game";
+import { MockPlayer, Player, Status } from "../../../business-logic/game";
 import { WaitingRoomView } from "./WaitingRoomView";
 
 const locale = en.WaitingRoomView;
@@ -20,12 +20,13 @@ describe("WaitingRoomView", () => {
   const roomCode = "test-room-code";
 
   describe("with a name set", () => {
-    const myName = "Daniel";
+    const name = "Daniel";
 
     beforeEach(() => {
       channel = new MockChannel();
       store = createStore(() => channel);
-      store.dispatch(setName(myName));
+      store.dispatch(setName(name));
+      store.dispatch(addOrUpdatePlayer(new MockPlayer({ name })));
       render(<WaitingRoomView roomCode={roomCode} />, {
         wrapper: createTestProviders({ channel, store }),
       });
@@ -38,7 +39,7 @@ describe("WaitingRoomView", () => {
     });
 
     it("shows my name", async () => {
-      expect(await screen.findByText(myName)).toBeInTheDocument();
+      expect(await screen.findByText(name)).toBeInTheDocument();
     });
 
     it("shows me as online", async () => {
@@ -60,16 +61,11 @@ describe("WaitingRoomView", () => {
     describe("with another player offline", () => {
       const otherPlayerName = "Jill";
       beforeEach(() => {
-        store = createStore(() => channel);
-        store.dispatch(setName(myName));
         store.dispatch(
           addOrUpdatePlayer(
             new Player({ name: otherPlayerName, isOnline: false })
           )
         );
-        render(<WaitingRoomView roomCode={roomCode} />, {
-          wrapper: createTestProviders({ store }),
-        });
       });
 
       it("shows the player", async () => {
