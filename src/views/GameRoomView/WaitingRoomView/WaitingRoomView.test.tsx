@@ -50,13 +50,13 @@ describe("WaitingRoomView", () => {
         userEvent.click(screen.getByRole("button", { name: locale.startGame }));
       });
 
-      it("starts a game when I click the start game button", async () => {
+      it("starts a game", async () => {
         expect(selectStatus(store.getState())).toBe(
           Status.ChoosingFirstDescription
         );
       });
 
-      it("shows the game view when I start a game", async () => {
+      it("shows the game view", async () => {
         expect(
           await screen.findByText(en.GameRoomView.title)
         ).toBeInTheDocument();
