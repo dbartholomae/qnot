@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { createStore, Store } from "../../../business-logic/store";
 import React from "react";
 import { createTestProviders } from "../../../testUtils/createTestProviders";
@@ -7,7 +7,7 @@ import userEvent from "@testing-library/user-event";
 import { Channel } from "../../../services/channel/Channel";
 import { MockChannel } from "../../../services/channel/MockChannel";
 import { addOrUpdatePlayer } from "../../../business-logic/players/playersSlice";
-import { selectId, setName } from "../../../business-logic/me/meSlice";
+import { setName } from "../../../business-logic/me/meSlice";
 import { GameRoomNameGuard } from "../GameRoomNameGuard";
 import { selectStatus } from "../../../business-logic/game/gameSlice";
 import { Player, Status } from "../../../business-logic/game";
@@ -60,15 +60,6 @@ describe("WaitingRoomView", () => {
         expect(
           await screen.findByText(en.GameRoomView.title)
         ).toBeInTheDocument();
-      });
-    });
-
-    it("enters the channel with my id and name", async () => {
-      const name = "Daniel";
-      store.dispatch(setName(name));
-      const id = selectId(store.getState());
-      await waitFor(() => {
-        expect(channel.presence.enterClient).toHaveBeenCalledWith(id, { name });
       });
     });
 
