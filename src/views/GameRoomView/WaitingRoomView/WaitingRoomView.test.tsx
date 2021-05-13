@@ -1,18 +1,18 @@
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen, waitFor } from "@testing-library/react";
-import { createStore, Store } from "../../business-logic/store";
+import { createStore, Store } from "../../../business-logic/store";
 import React from "react";
-import { getRoomPath } from "./getRoomPath";
-import { createTestProviders } from "../../testUtils/createTestProviders";
-import { en } from "../../services/locale";
+import { getRoomPath } from "../getRoomPath";
+import { createTestProviders } from "../../../testUtils/createTestProviders";
+import { en } from "../../../services/locale";
 import userEvent from "@testing-library/user-event";
-import { Channel } from "../../services/channel/Channel";
-import { MockChannel } from "../../services/channel/MockChannel";
-import { addOrUpdatePlayer } from "../../business-logic/players/playersSlice";
-import { selectId, setName } from "../../business-logic/me/meSlice";
-import { GameRoomNameGuard } from "../GameRoomView/GameRoomNameGuard";
-import { selectStatus } from "../../business-logic/game/gameSlice";
-import { Player, Status } from "../../business-logic/game";
+import { Channel } from "../../../services/channel/Channel";
+import { MockChannel } from "../../../services/channel/MockChannel";
+import { addOrUpdatePlayer } from "../../../business-logic/players/playersSlice";
+import { selectId, setName } from "../../../business-logic/me/meSlice";
+import { GameRoomNameGuard } from "../GameRoomNameGuard";
+import { selectStatus } from "../../../business-logic/game/gameSlice";
+import { Player, Status } from "../../../business-logic/game";
 
 const locale = en.WaitingRoomView;
 

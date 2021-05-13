@@ -2,7 +2,7 @@ import React from "react";
 import { MainView } from "./views/MainView/MainView";
 import "fontsource-roboto";
 import { Route, Switch } from "./services/router";
-import { getRoomPath } from "./views/WaitingRoomView/getRoomPath";
+import { getRoomPath } from "./views/GameRoomView/getRoomPath";
 import { getMainPath } from "./views/MainView/getMainPath";
 import { GameRoomNameGuard } from "./views/GameRoomView/GameRoomNameGuard";
 

@@ -1,13 +1,13 @@
-import { startGame } from "../../business-logic/game/gameSlice";
-import { MockPlayer } from "../../business-logic/game";
+import { startGame } from "../../../business-logic/game/gameSlice";
+import { MockPlayer } from "../../../business-logic/game";
 import { render, screen } from "@testing-library/react";
-import { createTestProviders } from "../../testUtils/createTestProviders";
+import { createTestProviders } from "../../../testUtils/createTestProviders";
 import React from "react";
 import { AddGuessView } from "./AddGuessView";
-import { createStore, Store } from "../../business-logic/store";
-import { MockChannel } from "../../services/channel/MockChannel";
+import { createStore, Store } from "../../../business-logic/store";
+import { MockChannel } from "../../../services/channel/MockChannel";
 import userEvent from "@testing-library/user-event";
-import { en } from "../../services/locale";
+import { en } from "../../../services/locale";
 
 describe("AddGuessView", () => {
   let store: Store;

@@ -1,14 +1,17 @@
 import React from "react";
-import { createTestProviders } from "../../testUtils/createTestProviders";
+import { createTestProviders } from "../../../testUtils/createTestProviders";
 import { render, screen } from "@testing-library/react";
-import { createStore, Store } from "../../business-logic/store";
-import { en } from "../../services/locale";
-import { selectMyWord, startGame } from "../../business-logic/game/gameSlice";
-import { MockPlayer, Player } from "../../business-logic/game";
-import { selectId } from "../../business-logic/me/meSlice";
+import { createStore, Store } from "../../../business-logic/store";
+import { en } from "../../../services/locale";
+import {
+  selectMyWord,
+  startGame,
+} from "../../../business-logic/game/gameSlice";
+import { MockPlayer, Player } from "../../../business-logic/game";
+import { selectId } from "../../../business-logic/me/meSlice";
 import { AddDescriptionView } from "./AddDescriptionView";
 import userEvent from "@testing-library/user-event";
-import { MockChannel } from "../../services/channel/MockChannel";
+import { MockChannel } from "../../../services/channel/MockChannel";
 
 describe("AddDescriptionView", () => {
   let store: Store;

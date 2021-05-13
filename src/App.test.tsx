@@ -5,7 +5,7 @@ import React from "react";
 import { App } from "./App";
 import { createTestProviders } from "./testUtils/createTestProviders";
 import { en } from "./services/locale";
-import { getRoomPath } from "./views/WaitingRoomView/getRoomPath";
+import { getRoomPath } from "./views/GameRoomView/getRoomPath";
 import { setName } from "./business-logic/me/meSlice";
 import { MockChannel } from "./services/channel/MockChannel";
 

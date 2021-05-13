@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { PlayerSummary, Props } from "./PlayerSummary";
-import { MockPlayer } from "../../business-logic/game";
+import { MockPlayer } from "../../../business-logic/game";
 
 export default {
   title: "Components/PlayerSummary",

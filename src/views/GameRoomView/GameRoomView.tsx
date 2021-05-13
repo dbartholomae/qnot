@@ -3,10 +3,13 @@ import { Status, useStatus } from "../../business-logic/game";
 import {
   AddFirstDescriptionView,
   AddSecondDescriptionView,
-} from "./AddDescriptionView";
-import { AddFirstGuessView, AddSecondGuessView } from "./AddGuessView";
-import { RoundSummaryView } from "./RoundSummaryView";
-import { WaitingRoomView } from "../WaitingRoomView/WaitingRoomView";
+} from "./AddDescriptionView/AddDescriptionView";
+import {
+  AddFirstGuessView,
+  AddSecondGuessView,
+} from "./AddGuessView/AddGuessView";
+import { RoundSummaryView } from "./RoundSummaryView/RoundSummaryView";
+import { WaitingRoomView } from "./WaitingRoomView/WaitingRoomView";
 
 interface Props {
   roomCode: string;

@@ -3,11 +3,12 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { en } from "../../services/locale";
-import { getRoomPath } from "../WaitingRoomView/getRoomPath";
+import { getRoomPath } from "../GameRoomView/getRoomPath";
 import { createTestProviders } from "../../testUtils/createTestProviders";
 import { RoomCodeForm } from "./RoomCodeForm";
 import { createStore, Store } from "../../business-logic/store";
 import { selectIsHost } from "../../business-logic/roomSettings";
+import { MockChannel } from "../../services/channel/MockChannel";
 
 const locale = en.MainView;
 
@@ -24,7 +25,7 @@ describe("RoomCodeForm", () => {
   describe("on the root path", () => {
     beforeEach(() => {
       history = createMemoryHistory({ initialEntries: ["/"] });
-      store = createStore();
+      store = createStore(() => new MockChannel());
       render(<RoomCodeForm />, {
         wrapper: createTestProviders({ history, store }),
       });

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
-import { en } from "../../services/locale";
+import { en } from "../../../services/locale";
 
 export interface Props {
   onChoose: (description: string) => void;

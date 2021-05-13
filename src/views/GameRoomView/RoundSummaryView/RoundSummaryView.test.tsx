@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { setHost } from "../../business-logic/roomSettings";
-import { createStore, Store } from "../../business-logic/store";
-import { MockChannel } from "../../services/channel/MockChannel";
+import { setHost } from "../../../business-logic/roomSettings";
+import { createStore, Store } from "../../../business-logic/store";
+import { MockChannel } from "../../../services/channel/MockChannel";
 import { RoundSummaryView } from "./RoundSummaryView";
-import { createTestProviders } from "../../testUtils/createTestProviders";
+import { createTestProviders } from "../../../testUtils/createTestProviders";
 import React from "react";
 import userEvent from "@testing-library/user-event";
-import { selectStatus } from "../../business-logic/game/gameSlice";
-import { Status } from "../../business-logic/game";
+import { selectStatus } from "../../../business-logic/game/gameSlice";
+import { Status } from "../../../business-logic/game";
 
 describe("RoundSummaryView", () => {
   let store: Store;

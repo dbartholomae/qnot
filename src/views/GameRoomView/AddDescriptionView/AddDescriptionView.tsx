@@ -3,12 +3,12 @@ import {
   useAddFirstDescription,
   useAddSecondDescription,
   usePlayers,
-} from "../../business-logic/game";
-import { MyWord } from "./MyWord";
+} from "../../../business-logic/game";
+import { MyWord } from "../shared/MyWord/MyWord";
 import { DescriptionForm } from "./DescriptionForm";
-import { PlayerList } from "../WaitingRoomView/PlayerList";
-import { en } from "../../services/locale";
-import { Page } from "../../components/Page";
+import { PlayerList } from "../shared/PlayerList/PlayerList";
+import { en } from "../../../services/locale";
+import { Page } from "../../../components/Page";
 
 export interface Props {
   onChoose: (description: string) => void;

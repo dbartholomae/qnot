@@ -1,6 +1,6 @@
-import { Player } from "../../business-logic/game";
+import { Player } from "../../../../business-logic/game";
 import { List, ListSubheader, Paper } from "@material-ui/core";
-import { en } from "../../services/locale";
+import { en } from "../../../../services/locale";
 import { PlayerListItem } from "./PlayerListItem";
 import React from "react";
 

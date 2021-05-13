@@ -1,6 +1,6 @@
 import { createRandomRoomCode, useRandomRoomCode } from "./useRandomRoomCode";
 import { useHistory, useQuery } from "../../services/router";
-import { getRoomPath } from "../WaitingRoomView/getRoomPath";
+import { getRoomPath } from "../GameRoomView/getRoomPath";
 import { en } from "../../services/locale";
 import React, { useState } from "react";
 import {

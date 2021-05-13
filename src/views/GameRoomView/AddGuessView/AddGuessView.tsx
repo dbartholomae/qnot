@@ -13,11 +13,11 @@ import {
   useAddFirstGuess,
   useAddSecondGuess,
   usePlayers,
-} from "../../business-logic/game";
-import { MyWord } from "./MyWord";
-import { PlayerList } from "../WaitingRoomView/PlayerList";
-import { en } from "../../services/locale";
-import { Page } from "../../components/Page";
+} from "../../../business-logic/game";
+import { MyWord } from "../shared/MyWord/MyWord";
+import { PlayerList } from "../shared/PlayerList/PlayerList";
+import { en } from "../../../services/locale";
+import { Page } from "../../../components/Page";
 
 export function AddGuessView({
   onChoose,

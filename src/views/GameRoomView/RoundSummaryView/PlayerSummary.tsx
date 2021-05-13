@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Player } from "../../business-logic/game";
+import { Player } from "../../../business-logic/game";
 import { Card, CardContent, Typography } from "@material-ui/core";
 
 export interface Props {

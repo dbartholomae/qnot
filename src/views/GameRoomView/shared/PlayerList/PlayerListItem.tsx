@@ -6,9 +6,9 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import { Home, Wifi, WifiOff } from "@material-ui/icons";
-import { en } from "../../services/locale";
+import { en } from "../../../../services/locale";
 import React, { FunctionComponent } from "react";
-import { Player } from "../../business-logic/game";
+import { Player } from "../../../../business-logic/game";
 
 interface Props {
   isHost: boolean;

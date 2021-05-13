@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from "react";
-import { usePlayers } from "../../business-logic/game";
-import { MyWord } from "./MyWord";
-import { en } from "../../services/locale";
-import { Page } from "../../components/Page";
+import { usePlayers } from "../../../business-logic/game";
+import { MyWord } from "../shared/MyWord/MyWord";
+import { en } from "../../../services/locale";
+import { Page } from "../../../components/Page";
 import { PlayerSummary } from "./PlayerSummary";
-import { useSelector } from "../../business-logic/useSelector";
-import { selectIsHost } from "../../business-logic/roomSettings";
+import { useSelector } from "../../../business-logic/useSelector";
+import { selectIsHost } from "../../../business-logic/roomSettings";
 import { Button } from "@material-ui/core";
-import { useDispatch } from "../../business-logic/useDispatch";
-import { startNewRound } from "../../business-logic/game/gameSlice";
-import words from "../../wordLists/german.json";
+import { useDispatch } from "../../../business-logic/useDispatch";
+import { startNewRound } from "../../../business-logic/game/gameSlice";
+import words from "../../../wordLists/german.json";
 
 export const RoundSummaryView: FunctionComponent = () => {
   const players = usePlayers();
