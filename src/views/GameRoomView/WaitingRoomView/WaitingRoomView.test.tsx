@@ -1,8 +1,6 @@
-import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen, waitFor } from "@testing-library/react";
 import { createStore, Store } from "../../../business-logic/store";
 import React from "react";
-import { getRoomPath } from "../getRoomPath";
 import { createTestProviders } from "../../../testUtils/createTestProviders";
 import { en } from "../../../services/locale";
 import userEvent from "@testing-library/user-event";
@@ -18,21 +16,18 @@ const locale = en.WaitingRoomView;
 
 describe("WaitingRoomView", () => {
   let channel: Channel;
-  let history: MemoryHistory;
   let store: Store;
   const roomCode = "test-room-code";
-  const initialPathname = getRoomPath(roomCode);
 
   describe("with a name set", () => {
     const myName = "Daniel";
 
     beforeEach(() => {
       channel = new MockChannel();
-      history = createMemoryHistory({ initialEntries: [initialPathname] });
       store = createStore(() => channel);
       store.dispatch(setName(myName));
       render(<GameRoomNameGuard roomCode={roomCode} />, {
-        wrapper: createTestProviders({ channel, history, store }),
+        wrapper: createTestProviders({ channel, store }),
       });
     });
 
@@ -68,10 +63,18 @@ describe("WaitingRoomView", () => {
       });
     });
 
+    it("enters the channel with my id and name", async () => {
+      const name = "Daniel";
+      store.dispatch(setName(name));
+      const id = selectId(store.getState());
+      await waitFor(() => {
+        expect(channel.presence.enterClient).toHaveBeenCalledWith(id, { name });
+      });
+    });
+
     describe("with another player offline", () => {
       const otherPlayerName = "Jill";
       beforeEach(() => {
-        history = createMemoryHistory({ initialEntries: [initialPathname] });
         store = createStore(() => channel);
         store.dispatch(setName(myName));
         store.dispatch(
@@ -80,7 +83,7 @@ describe("WaitingRoomView", () => {
           )
         );
         render(<GameRoomNameGuard roomCode={roomCode} />, {
-          wrapper: createTestProviders({ history, store }),
+          wrapper: createTestProviders({ store }),
         });
       });
 
@@ -93,33 +96,6 @@ describe("WaitingRoomView", () => {
           await screen.findByLabelText(locale.offline)
         ).toBeInTheDocument();
       });
-    });
-
-    it("enters the channel with my id and name", async () => {
-      const name = "Daniel";
-      store.dispatch(setName(name));
-      const id = selectId(store.getState());
-      await waitFor(() => {
-        expect(channel.presence.enterClient).toHaveBeenCalledWith(id, { name });
-      });
-    });
-  });
-
-  describe("without a name set", () => {
-    beforeEach(() => {
-      history = createMemoryHistory({ initialEntries: [initialPathname] });
-      store = createStore(() => channel);
-      render(<GameRoomNameGuard roomCode={roomCode} />, {
-        wrapper: createTestProviders({ history, store }),
-      });
-    });
-
-    it("redirects to the main page", () => {
-      expect(history.location.pathname).toBe("/");
-    });
-
-    it("keeps the roomCode in the search", () => {
-      expect(history.location.search).toContain(`roomCode=${roomCode}`);
     });
   });
 });
