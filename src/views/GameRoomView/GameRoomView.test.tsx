@@ -54,4 +54,16 @@ describe("GameRoomView", () => {
       expect(history.location.search).toContain(`roomCode=${roomCode}`);
     });
   });
+
+  describe("when unmounting", () => {
+    it("leaves the channel", async () => {
+      store.dispatch(setName(name));
+      const { unmount } = render(<GameRoomView roomCode={roomCode} />, {
+        wrapper: createTestProviders({ channel, store, history }),
+      });
+      unmount();
+      const id = selectId(store.getState());
+      expect(channel.presence.leaveClient).toHaveBeenCalledWith(id);
+    });
+  });
 });
