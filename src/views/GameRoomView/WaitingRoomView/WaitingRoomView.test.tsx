@@ -8,9 +8,9 @@ import { Channel } from "../../../services/channel/Channel";
 import { MockChannel } from "../../../services/channel/MockChannel";
 import { addOrUpdatePlayer } from "../../../business-logic/players/playersSlice";
 import { setName } from "../../../business-logic/me/meSlice";
-import { GameRoomNameGuard } from "../GameRoomNameGuard";
 import { selectStatus } from "../../../business-logic/game/gameSlice";
 import { Player, Status } from "../../../business-logic/game";
+import { WaitingRoomView } from "./WaitingRoomView";
 
 const locale = en.WaitingRoomView;
 
@@ -26,7 +26,7 @@ describe("WaitingRoomView", () => {
       channel = new MockChannel();
       store = createStore(() => channel);
       store.dispatch(setName(myName));
-      render(<GameRoomNameGuard roomCode={roomCode} />, {
+      render(<WaitingRoomView roomCode={roomCode} />, {
         wrapper: createTestProviders({ channel, store }),
       });
     });
@@ -55,12 +55,6 @@ describe("WaitingRoomView", () => {
           Status.ChoosingFirstDescription
         );
       });
-
-      it("shows the game view", async () => {
-        expect(
-          await screen.findByText(en.GameRoomView.title)
-        ).toBeInTheDocument();
-      });
     });
 
     describe("with another player offline", () => {
@@ -73,7 +67,7 @@ describe("WaitingRoomView", () => {
             new Player({ name: otherPlayerName, isOnline: false })
           )
         );
-        render(<GameRoomNameGuard roomCode={roomCode} />, {
+        render(<WaitingRoomView roomCode={roomCode} />, {
           wrapper: createTestProviders({ store }),
         });
       });

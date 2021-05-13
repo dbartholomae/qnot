@@ -10,12 +10,22 @@ import {
 } from "./AddGuessView/AddGuessView";
 import { RoundSummaryView } from "./RoundSummaryView/RoundSummaryView";
 import { WaitingRoomView } from "./WaitingRoomView/WaitingRoomView";
+import { NameGuard } from "./NameGuard";
+import { getMainPath } from "../MainView/getMainPath";
 
 interface Props {
   roomCode: string;
 }
 
 export const GameRoomView: FunctionComponent<Props> = ({ roomCode }: Props) => {
+  return (
+    <NameGuard redirectPath={getMainPath(roomCode)}>
+      <GameRoomRouter roomCode={roomCode} />
+    </NameGuard>
+  );
+};
+
+function GameRoomRouter({ roomCode }: Props) {
   const status = useStatus();
 
   switch (status) {
@@ -32,4 +42,4 @@ export const GameRoomView: FunctionComponent<Props> = ({ roomCode }: Props) => {
     case Status.GameOver:
       return <RoundSummaryView />;
   }
-};
+}
