@@ -4,7 +4,7 @@ import RealtimeChannelCallbacks = Types.RealtimeChannelCallbacks;
 
 export interface Channel {
   presence: Presence;
-  publish: RealtimeChannelCallbacks["publish"];
+  publish: (message: { name: string; data: unknown }) => void;
   subscribe: RealtimeChannelCallbacks["subscribe"];
   unsubscribe: RealtimeChannelCallbacks["unsubscribe"];
 }
