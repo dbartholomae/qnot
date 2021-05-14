@@ -18,17 +18,6 @@ describe("MainView", () => {
     render(<MainView />, { wrapper: createTestProviders({ history }) });
   });
 
-  it("greets you if no name is set", () => {
-    expect(screen.getByText("Hi there!")).toBeInTheDocument();
-  });
-
-  it("greets you with your name if you set it", async () => {
-    await userEvent.type(screen.getByLabelText(locale.nameLabel), name);
-    userEvent.click(screen.getByText(locale.saveName));
-
-    expect(await screen.findByText("Hi Daniel!")).toBeInTheDocument();
-  });
-
   it("shows the choose room view after you set the name", async () => {
     await userEvent.type(screen.getByLabelText(locale.nameLabel), name);
     userEvent.click(screen.getByText(locale.saveName));

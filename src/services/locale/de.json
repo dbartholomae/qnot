@@ -1,5 +1,6 @@
 {
   "MainView": {
+    "title": "Qnot",
     "generateNewRoomCode": "Neuen Raumcode erstellen",
     "nameLabel": "Name",
     "saveName": "Namen speichern",

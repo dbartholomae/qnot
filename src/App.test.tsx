@@ -19,7 +19,7 @@ describe("App", () => {
 
   it("renders the main view on root path", async () => {
     history.push("/");
-    expect(await screen.findByText("Hi there!")).toBeInTheDocument();
+    expect(await screen.findByText(en.MainView.title)).toBeInTheDocument();
   });
 
   describe("with a name set", () => {
