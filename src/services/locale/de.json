@@ -16,7 +16,8 @@
     "playersListHeader": "Spieler",
     "needFivePlayers": "Brauche mindestens 5 Spieler",
     "startGame": "Spiel starten",
-    "title": "Warteraum"
+    "title": "Warteraum",
+    "connectingToRoom" : "Verbinde mit Raum..."
   },
   "GameRoomView": {
     "myWordLabel": "Dein Wort",

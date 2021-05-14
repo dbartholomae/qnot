@@ -13,6 +13,7 @@ import { WaitingRoomView } from "./WaitingRoomView/WaitingRoomView";
 import { NameGuard } from "./NameGuard";
 import { getMainPath } from "../MainView/getMainPath";
 import { useRoom } from "./useRoom";
+import { RoomGuard } from "./RoomGuard";
 
 interface Props {
   roomCode: string;
@@ -21,7 +22,9 @@ interface Props {
 export const GameRoomView: FunctionComponent<Props> = ({ roomCode }: Props) => {
   return (
     <NameGuard redirectPath={getMainPath(roomCode)}>
-      <GameRoomRouter roomCode={roomCode} />
+      <RoomGuard roomCode={roomCode}>
+        <GameRoomRouter roomCode={roomCode} />
+      </RoomGuard>
     </NameGuard>
   );
 };

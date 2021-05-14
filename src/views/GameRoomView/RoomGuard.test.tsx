@@ -6,6 +6,7 @@ import { createStore, Store } from "../../business-logic/store";
 import { Channel } from "../../services/channel/Channel";
 import { MockChannel } from "../../services/channel/MockChannel";
 import { mocked } from "../../testUtils/mocked";
+import { en } from "../../services/locale";
 
 describe("RoomGuard", () => {
   const roomCode = "a-room-code";
@@ -29,6 +30,15 @@ describe("RoomGuard", () => {
         wrapper: createTestProviders({ channel, store }),
       });
       expect(screen.queryByText("The room")).not.toBeInTheDocument();
+    });
+
+    it("shows a loading message", () => {
+      render(<RoomGuard roomCode={roomCode}>The room</RoomGuard>, {
+        wrapper: createTestProviders({ channel, store }),
+      });
+      expect(
+        screen.getByText(en.WaitingRoomView.connectingToRoom)
+      ).toBeInTheDocument();
     });
   });
 
