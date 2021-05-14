@@ -40,16 +40,12 @@ export function* connectToChannel(channel: Channel) {
   ]);
 }
 
-export function* handleAction(
-  action: Action<any> & { received?: boolean },
-  channel: Channel
-) {
-  if (!action.received) {
-    channel.publish({
-      name: "gameEvent",
-      data: action,
-    });
-  }
+export function* handleAction(action: Action<unknown>, channel: Channel) {
+  const myId: string = yield select(selectId);
+  channel.publish({
+    name: "gameEvent",
+    data: { ...action, meta: { clientId: myId } },
+  });
 }
 
 export function* sendingEventsSaga(channel: Channel) {

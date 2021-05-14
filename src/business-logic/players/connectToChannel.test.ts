@@ -84,16 +84,20 @@ describe("handlePresenceMessage", () => {
 });
 
 describe("handleAction", () => {
-  it("sends an event to the event bus", async () => {
+  it("sends an event with the action and my id to the event bus", async () => {
     const channel = new MockChannel();
     const action = {
       type: "TEST-MESSAGE",
       payload: "Payload",
     };
+    const myId = "my-id";
     await expectSaga(handleAction, action, channel)
-      .provide([[select(selectId), "my-id"]])
+      .provide([[select(selectId), myId]])
       .silentRun();
-    expect(channel.publish).toHaveBeenCalled();
+    expect(channel.publish).toHaveBeenCalledWith({
+      name: "gameEvent",
+      data: { ...action, meta: { clientId: myId } },
+    });
   });
 });
 
