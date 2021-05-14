@@ -7,11 +7,13 @@ import { Status } from "./Status";
 import { calculateMyPoints } from "./calculateMyPoints";
 
 interface GameState {
+  connectedToChannel: boolean;
   players: Player[];
   status: Status;
 }
 
 const initialState: GameState = {
+  connectedToChannel: false,
   players: [],
   status: Status.WaitingForGameStart,
 };
@@ -26,7 +28,14 @@ const gameSlice = createSlice({
   initialState: initialState,
   reducers: {
     joinRoom: (state, { payload: _roomCode }: PayloadAction<string>) => state,
-    leaveRoom: (state) => state,
+    joinRoomComplete: (
+      state,
+      { payload: _roomCode }: PayloadAction<string>
+    ) => ({
+      ...state,
+      connectedToChannel: true,
+    }),
+    leaveRoom: (state) => ({ ...state, connectedToChannel: false }),
     startGame: {
       reducer: (state, { payload: players }: PayloadAction<Player[]>) => {
         return {
@@ -158,6 +167,7 @@ export const {
   addSecondDescriptionToPlayer,
   joinRoom,
   leaveRoom,
+  joinRoomComplete,
   startGame,
   startNewRound,
 } = gameSlice.actions;
@@ -173,4 +183,8 @@ export function selectStatus(state: RootState) {
 
 export function selectPlayers(state: RootState) {
   return state.game.players;
+}
+
+export function selectConnectedToChannel(state: RootState) {
+  return state.game.connectedToChannel;
 }

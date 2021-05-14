@@ -1,4 +1,4 @@
-import Ably from "ably";
+import Ably from "ably/promises";
 import { ChannelCreator } from "./ChannelCreator";
 
 const API_KEY: unknown = process.env.REACT_APP_ABLY_API_KEY;

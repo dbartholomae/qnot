@@ -17,9 +17,8 @@ export class MockPresence implements Presence {
   };
   private presentMembers: Member[] = [];
 
-  enterClient = jest
-    .fn()
-    .mockImplementation((clientId: string, data: any): void => {
+  enterClient = jest.fn().mockImplementation(
+    (clientId: string, data: any): Promise<void> => {
       this.presentMembers.push({ clientId, data });
       this.listenerMap["enter"].forEach((listener) =>
         listener(
@@ -30,7 +29,9 @@ export class MockPresence implements Presence {
           })
         )
       );
-    });
+      return Promise.resolve();
+    }
+  );
 
   leaveClient = jest.fn().mockImplementation((clientId: string) => {
     this.presentMembers = this.presentMembers.filter(
