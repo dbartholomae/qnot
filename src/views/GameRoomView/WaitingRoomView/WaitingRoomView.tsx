@@ -34,7 +34,12 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
         </Grid>
       </Grid>
       <PlayerList players={players} />
-      <Button onClick={startGame} variant="contained" color="primary">
+      <Button
+        onClick={startGame}
+        variant="contained"
+        color="primary"
+        disabled={players.length < 5}
+      >
         {en.WaitingRoomView.startGame}
       </Button>
     </Page>

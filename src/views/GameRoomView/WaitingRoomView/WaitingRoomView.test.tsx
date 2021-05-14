@@ -46,16 +46,25 @@ describe("WaitingRoomView", () => {
       expect(await screen.findByLabelText(locale.online)).toBeInTheDocument();
     });
 
-    describe("when I click the start game button", () => {
+    describe("with 4 other players", () => {
       beforeEach(() => {
-        userEvent.click(screen.getByRole("button", { name: locale.startGame }));
+        Array.from(new Array(5)).forEach(() =>
+          store.dispatch(addOrUpdatePlayer(new MockPlayer()))
+        );
       });
 
-      it("starts a game", async () => {
+      it("starts a game when I click the button", async () => {
+        userEvent.click(screen.getByRole("button", { name: locale.startGame }));
         expect(selectStatus(store.getState())).toBe(
           Status.ChoosingFirstDescription
         );
       });
+    });
+
+    it("does not allow me to start the game with less than 5 players", async () => {
+      expect(
+        screen.getByRole("button", { name: locale.startGame })
+      ).toBeDisabled();
     });
 
     describe("with another player offline", () => {
