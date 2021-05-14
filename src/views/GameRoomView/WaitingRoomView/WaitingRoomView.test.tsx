@@ -63,7 +63,7 @@ describe("WaitingRoomView", () => {
 
     it("does not allow me to start the game with less than 5 players", async () => {
       expect(
-        screen.getByRole("button", { name: locale.startGame })
+        screen.getByRole("button", { name: locale.needFivePlayers })
       ).toBeDisabled();
     });
 

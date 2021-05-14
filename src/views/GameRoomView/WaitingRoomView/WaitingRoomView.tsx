@@ -40,7 +40,9 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
         color="primary"
         disabled={players.length < 5}
       >
-        {en.WaitingRoomView.startGame}
+        {players.length < 5
+          ? en.WaitingRoomView.needFivePlayers
+          : en.WaitingRoomView.startGame}
       </Button>
     </Page>
   );
