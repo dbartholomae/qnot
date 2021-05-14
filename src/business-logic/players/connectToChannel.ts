@@ -40,7 +40,13 @@ export function* connectToChannel(channel: Channel) {
   ]);
 }
 
-export function* handleAction(action: Action<unknown>, channel: Channel) {
+export function* handleAction(
+  action: Action<unknown> & { meta?: { received?: boolean } },
+  channel: Channel
+) {
+  if (action.meta?.received) {
+    return;
+  }
   const myId: string = yield select(selectId);
   channel.publish({
     name: "gameEvent",
@@ -57,24 +63,39 @@ export function* sendingEventsSaga(channel: Channel) {
 
 export function* handlePresenceMessage(message: Types.PresenceMessage) {
   if (["enter", "present"].includes(message.action)) {
-    yield put(
-      addOrUpdatePlayer(
+    yield put({
+      ...addOrUpdatePlayer(
         new Player({
           id: message.clientId,
           name: message.data.name,
           isOnline: true,
         })
-      )
-    );
+      ),
+      meta: {
+        received: true,
+      },
+    });
   }
   if (["leave"].includes(message.action)) {
-    yield put(markPlayerOffline(message.clientId));
+    yield put({
+      ...markPlayerOffline(message.clientId),
+      meta: {
+        received: true,
+      },
+    });
   }
 }
 
 export function* handleEvent(event: Types.Message) {
   const myId: string = yield select(selectId);
-  if (event.data?.meta?.clientId !== myId) {
-    yield put({ ...event.data, received: true });
+  const action = event.data;
+  if (action?.meta?.clientId !== myId) {
+    yield put({
+      ...action,
+      meta: {
+        ...action.meta,
+        received: true,
+      },
+    });
   }
 }

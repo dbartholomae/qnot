@@ -24,15 +24,16 @@ describe("handlePresenceMessage", () => {
         data: { name },
       })
     )
-      .put(
-        addOrUpdatePlayer(
+      .put({
+        ...addOrUpdatePlayer(
           new Player({
             id,
             name,
             isOnline: true,
           })
-        )
-      )
+        ),
+        meta: { received: true },
+      })
       .silentRun();
   });
 
@@ -47,15 +48,16 @@ describe("handlePresenceMessage", () => {
         data: { name },
       })
     )
-      .put(
-        addOrUpdatePlayer(
+      .put({
+        ...addOrUpdatePlayer(
           new Player({
             id,
             name,
             isOnline: true,
           })
-        )
-      )
+        ),
+        meta: { received: true },
+      })
       .silentRun();
   });
 
@@ -70,15 +72,16 @@ describe("handlePresenceMessage", () => {
         data: { name },
       })
     )
-      .put(
-        addOrUpdatePlayer(
+      .put({
+        ...addOrUpdatePlayer(
           new Player({
             id,
             name,
             isOnline: true,
           })
-        )
-      )
+        ),
+        meta: { received: true },
+      })
       .silentRun();
   });
 });
@@ -103,12 +106,11 @@ describe("handleAction", () => {
 
 describe("handleEvent", () => {
   it("passes an event with a different clientId from the event bus to the store", async () => {
+    const clientId = "a-different-id";
     const action = {
       type: "TEST-MESSAGE",
       payload: "Payload",
-      meta: {
-        clientId: "a-different-id",
-      },
+      meta: { clientId },
     };
     await expectSaga(
       handleEvent,
@@ -118,7 +120,7 @@ describe("handleEvent", () => {
       })
     )
       .provide([[select(selectId), "my-id"]])
-      .put({ ...action, received: true })
+      .put({ ...action, meta: { clientId, received: true } })
       .silentRun();
   });
 
