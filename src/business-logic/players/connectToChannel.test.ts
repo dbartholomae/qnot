@@ -4,6 +4,8 @@ import { expectSaga } from "redux-saga-test-plan";
 import { Player } from "../game";
 import { MockPresenceMessage } from "../../services/channel/MockPresenceMessage";
 import { MockMessage } from "../../services/channel/MockMessage";
+import { select } from "redux-saga-test-plan/matchers";
+import { selectId } from "../me/meSlice";
 
 describe("handlePresenceMessage", () => {
   it("adds a player who joins to the players list", async () => {
@@ -77,10 +79,13 @@ describe("handlePresenceMessage", () => {
 });
 
 describe("handleEvent", () => {
-  it("passes all events from the event bus to the store", async () => {
+  it("passes an event with a different clientId from the event bus to the store", async () => {
     const action = {
       type: "TEST-MESSAGE",
       payload: "Payload",
+      meta: {
+        clientId: "a-different-id",
+      },
     };
     await expectSaga(
       handleEvent,
@@ -89,7 +94,29 @@ describe("handleEvent", () => {
         data: action,
       })
     )
+      .provide([[select(selectId), "my-id"]])
       .put({ ...action, received: true })
+      .silentRun();
+  });
+
+  it("does not pass an event with my clientId from the event bus to the store", async () => {
+    const myId = "my-id";
+    const action = {
+      type: "TEST-MESSAGE",
+      payload: "Payload",
+      meta: {
+        clientId: myId,
+      },
+    };
+    await expectSaga(
+      handleEvent,
+      new MockMessage({
+        name: "gameEvent",
+        data: action,
+      })
+    )
+      .provide([[select(selectId), myId]])
+      .not.put({ ...action, received: true })
       .silentRun();
   });
 });

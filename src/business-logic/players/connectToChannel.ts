@@ -2,9 +2,10 @@ import { Channel } from "../../services/channel/Channel";
 import { Player } from "../game";
 import { Types } from "ably";
 import { addOrUpdatePlayer, markPlayerOffline } from "./playersSlice";
-import { all, call, put, take } from "redux-saga/effects";
+import { all, call, put, select, take } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
 import { Action } from "@reduxjs/toolkit";
+import { selectId } from "../me/meSlice";
 
 function* presenceSaga(channel: Channel) {
   const presence = eventChannel((emitter) => {
@@ -69,5 +70,8 @@ export function* handlePresenceMessage(message: Types.PresenceMessage) {
 }
 
 export function* handleEvent(event: Types.Message) {
-  yield put({ ...event.data, received: true });
+  const myId: string = yield select(selectId);
+  if (event.data?.meta?.clientId !== myId) {
+    yield put({ ...event.data, received: true });
+  }
 }
