@@ -59,7 +59,7 @@ export function RoomCodeForm() {
         }}
       />
       <Button type="submit" variant="contained" color="primary">
-        {en.MainView.createRoom}
+        {roomCodeFromQuery ? en.MainView.joinRoom : en.MainView.createRoom}
       </Button>
     </form>
   );

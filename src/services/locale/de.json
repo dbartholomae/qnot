@@ -4,7 +4,8 @@
     "nameLabel": "Name",
     "saveName": "Namen speichern",
     "roomCodeLabel": "Raumcode",
-    "createRoom": "Raum erstellen"
+    "createRoom": "Raum erstellen",
+    "joinRoom": "Raum beitreten"
   },
   "WaitingRoomView": {
     "copyInviteLink": "Einladungslink kopieren",
@@ -15,10 +16,6 @@
     "needFivePlayers": "Brauche mindestens 5 Spieler",
     "startGame": "Spiel starten",
     "title": "Warteraum"
-  },
-  "JoinRoomView": {
-    "heading": "Willkommen zu Qnot!",
-    "joinGame": "Spiel beitreten"
   },
   "GameRoomView": {
     "myWordLabel": "Dein Wort",
