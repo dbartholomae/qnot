@@ -1,11 +1,16 @@
 import { addOrUpdatePlayer } from "./playersSlice";
-import { handleEvent, handlePresenceMessage } from "./connectToChannel";
+import {
+  handleAction,
+  handleEvent,
+  handlePresenceMessage,
+} from "./connectToChannel";
 import { expectSaga } from "redux-saga-test-plan";
 import { Player } from "../game";
 import { MockPresenceMessage } from "../../services/channel/MockPresenceMessage";
 import { MockMessage } from "../../services/channel/MockMessage";
 import { select } from "redux-saga-test-plan/matchers";
 import { selectId } from "../me/meSlice";
+import { MockChannel } from "../../services/channel/MockChannel";
 
 describe("handlePresenceMessage", () => {
   it("adds a player who joins to the players list", async () => {
@@ -75,6 +80,20 @@ describe("handlePresenceMessage", () => {
         )
       )
       .silentRun();
+  });
+});
+
+describe("handleAction", () => {
+  it("sends an event to the event bus", async () => {
+    const channel = new MockChannel();
+    const action = {
+      type: "TEST-MESSAGE",
+      payload: "Payload",
+    };
+    await expectSaga(handleAction, action, channel)
+      .provide([[select(selectId), "my-id"]])
+      .silentRun();
+    expect(channel.publish).toHaveBeenCalled();
   });
 });
 
