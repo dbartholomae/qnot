@@ -21,6 +21,7 @@
   },
   "GameRoomView": {
     "myWordLabel": "Dein Wort",
+    "myFirstGuess": "Dein erster Rateversuch",
     "youReTheQuestionMark": "Du bist ein Fragezeichen",
     "chooseThisDescription": "Wähle diese Beschreibung",
     "waitingForOtherPlayers": "Warte auf andere Spieler",

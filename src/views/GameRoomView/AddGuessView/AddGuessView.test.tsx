@@ -8,6 +8,7 @@ import { createStore, Store } from "../../../business-logic/store";
 import { MockChannel } from "../../../services/channel/MockChannel";
 import userEvent from "@testing-library/user-event";
 import { en } from "../../../services/locale";
+import { selectId } from "../../../business-logic/me/meSlice";
 
 describe("AddGuessView", () => {
   let store: Store;
@@ -18,13 +19,14 @@ describe("AddGuessView", () => {
 
   it("shows the descriptions of other players", async () => {
     const description = "a description";
+    const myId = selectId(store.getState());
     store.dispatch(
       startGame({
         players: [
           new MockPlayer({
             descriptions: [description],
           }),
-          new MockPlayer(),
+          new MockPlayer({ id: myId }),
           new MockPlayer(),
         ],
         wordList: ["foo", "bar", "baz"],
@@ -40,9 +42,14 @@ describe("AddGuessView", () => {
 
   describe("after I made a guess", () => {
     beforeEach(() => {
+      const myId = selectId(store.getState());
       store.dispatch(
         startGame({
-          players: [new MockPlayer(), new MockPlayer(), new MockPlayer()],
+          players: [
+            new MockPlayer({ id: myId }),
+            new MockPlayer(),
+            new MockPlayer(),
+          ],
           wordList: ["foo", "bar", "baz"],
         })
       );
