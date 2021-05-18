@@ -6,7 +6,7 @@ import { MockPlayer } from "./MockPlayer";
 import { Player } from "./Player";
 import { calculateMyPoints } from "./calculateMyPoints";
 
-describe("calculatePointsForPlayer", () => {
+describe("calculateMyPoints", () => {
   describe("when I'm in a team", () => {
     it("returns 3 if you only picked yourself and your partner", () => {
       const teamOneWord = "team1";
