@@ -104,7 +104,7 @@ describe("calculatePointsForPlayer", () => {
       expect(calculateMyPoints(players[0], players)).toBe(2);
     });
 
-    it("returns 4 if you picked yourself and your partner and another team", () => {
+    it("returns 5 if you picked yourself and your partner and another team", () => {
       const teamOneWord = "team1";
       const teamTwoWord = "team2";
       const ids = ["id1", "id2", "id3", "id4", "id5"];
@@ -150,7 +150,7 @@ describe("calculatePointsForPlayer", () => {
           ],
         }),
       ];
-      expect(calculateMyPoints(players[0], players)).toBe(4);
+      expect(calculateMyPoints(players[0], players)).toBe(5);
     });
 
     it("returns -2 if I only picked the question mark twice", () => {

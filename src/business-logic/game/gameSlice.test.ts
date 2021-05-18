@@ -279,8 +279,8 @@ describe("gameSlice", () => {
           expect(selectStatus(store.getState())).toBe(Status.GameOver);
         });
 
-        it("adds 1 point to a player who guessed another pair correctly", () => {
-          expect(selectPlayers(store.getState())[2].points).toBe(5 + 1);
+        it("adds 2 point to a player who guessed another pair correctly", () => {
+          expect(selectPlayers(store.getState())[2].points).toBe(5 + 2);
         });
       });
     });

@@ -8,7 +8,7 @@ export function calculateMyPoints(me: Player, players: Player[]) {
   const teamsByWords = getTeamsByWords(players);
 
   let points = 0;
-  points += countGuessedTeams(me, teamsByWords);
+  points += 2 * countGuessedTeams(me, teamsByWords);
   points -= countGuessedQuestionMarks(me, teamsByWords);
 
   if (me.word === null) {
