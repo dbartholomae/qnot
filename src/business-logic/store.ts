@@ -1,7 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { reducer as meReducer } from "./me/";
 import { reducer as playersReducer } from "./players";
-import { reducer as roomSettingsReducer } from "./roomSettings";
 import { reducer as gameReducer } from "./game";
 import createSagaMiddleware from "redux-saga";
 import { gameSaga } from "./game/gameSaga";
@@ -23,7 +22,6 @@ export function createStore(createChannel: ChannelCreator) {
       game: gameReducer,
       me: meReducer,
       players: playersReducer,
-      roomSettings: roomSettingsReducer,
     },
   });
   sagaMiddleware.run(gameSaga);

@@ -11,14 +11,11 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import { Cached } from "@material-ui/icons";
-import { useDispatch } from "../../business-logic/useDispatch";
-import { setHost } from "../../business-logic/roomSettings";
 
 export function RoomCodeForm() {
   const { push } = useHistory();
   const randomRoomCode = useRandomRoomCode();
   const query = useQuery();
-  const dispatch = useDispatch();
 
   const roomCodeFromQuery = query.get("roomCode");
   const [roomCode, setRoomCode] = useState(roomCodeFromQuery ?? randomRoomCode);
@@ -27,7 +24,6 @@ export function RoomCodeForm() {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        dispatch(setHost(true));
         push(getRoomPath(roomCode));
       }}
       style={{

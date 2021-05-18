@@ -7,7 +7,6 @@ import { getRoomPath } from "../GameRoomView/getRoomPath";
 import { createTestProviders } from "../../testUtils/createTestProviders";
 import { RoomCodeForm } from "./RoomCodeForm";
 import { createStore, Store } from "../../business-logic/store";
-import { selectIsHost } from "../../business-logic/roomSettings";
 import { MockChannel } from "../../services/channel/MockChannel";
 
 const locale = en.MainView;
@@ -55,11 +54,6 @@ describe("RoomCodeForm", () => {
       userEvent.click(await screen.findByText(locale.createRoom));
 
       expect(history.location.pathname).toEqual(getRoomPath(roomCode));
-    });
-
-    it("marks you as host when creating a room", async () => {
-      userEvent.click(await screen.findByText(locale.createRoom));
-      expect(selectIsHost(store.getState())).toBe(true);
     });
   });
 
