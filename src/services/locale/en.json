@@ -8,7 +8,6 @@
   },
   "WaitingRoomView": {
     "copyInviteLink": "Copy invite link",
-    "host": "This is the host",
     "offline": "offline",
     "online": "online",
     "playersListHeader": "Players",

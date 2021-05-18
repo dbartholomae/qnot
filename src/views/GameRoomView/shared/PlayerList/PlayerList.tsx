@@ -17,7 +17,7 @@ export function PlayerList({ players }: Props) {
         }
       >
         {players.map((player) => (
-          <PlayerListItem key={player.name} player={player} isHost />
+          <PlayerListItem key={player.name} player={player} />
         ))}
       </List>
     </Paper>
