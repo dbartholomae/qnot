@@ -101,37 +101,51 @@ export function* handlePresenceMessage(
 }
 
 export function* handleEvent(event: Types.Message, channel: Channel) {
-  const myId: string = yield select(selectId);
   switch (event.name) {
     case "gameEvent":
-      const action = event.data;
-      if (action?.meta?.clientId !== myId) {
-        yield put({
-          ...action,
-          meta: {
-            ...action.meta,
-            received: true,
-          },
-        });
-      }
+      yield handleGameEvent(event);
       return;
     case "requestGameState":
-      if (event.data.from !== myId) {
-        return;
-      }
-      yield delay(500);
-      const state: GameState = yield select(selectGameState);
-      channel.publish({
-        name: "syncGameState",
-        data: { state, for: event.data.for },
-      });
+      yield handleRequestGameState(event, channel);
       return;
     case "syncGameState":
-      if (event.data.for !== myId) {
-        return;
-      }
-
-      yield put({ ...setState(event.data.state), meta: { received: true } });
+      yield handleSyncGameState(event);
       return;
   }
+}
+
+function* handleGameEvent(event: Types.Message) {
+  const myId: string = yield select(selectId);
+  const action = event.data;
+  if (action?.meta?.clientId !== myId) {
+    yield put({
+      ...action,
+      meta: {
+        ...action.meta,
+        received: true,
+      },
+    });
+  }
+}
+
+function* handleRequestGameState(event: Types.Message, channel: Channel) {
+  const myId: string = yield select(selectId);
+  if (event.data.from !== myId) {
+    return;
+  }
+  yield delay(500);
+  const state: GameState = yield select(selectGameState);
+  channel.publish({
+    name: "syncGameState",
+    data: { state, for: event.data.for },
+  });
+}
+
+function* handleSyncGameState(event: Types.Message) {
+  const myId: string = yield select(selectId);
+  if (event.data.for !== myId) {
+    return;
+  }
+
+  yield put({ ...setState(event.data.state), meta: { received: true } });
 }
