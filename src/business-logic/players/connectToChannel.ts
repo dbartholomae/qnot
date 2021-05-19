@@ -2,11 +2,12 @@ import { Channel } from "../../services/channel/Channel";
 import { Player } from "../game";
 import { Types } from "ably";
 import { addOrUpdatePlayer, markPlayerOffline } from "./playersSlice";
-import { all, call, delay, fork, put, select, take } from "redux-saga/effects";
+import { all, call, fork, put, select, take } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
 import { Action } from "@reduxjs/toolkit";
 import { selectId } from "../me/meSlice";
 import { GameState, selectGameState, setState } from "../game/gameSlice";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 function* presenceSaga(channel: Channel) {
   const presence = eventChannel((emitter) => {
@@ -17,7 +18,6 @@ function* presenceSaga(channel: Channel) {
   while (true) {
     const message: Types.PresenceMessage = yield take(presence);
     yield fork(handlePresenceMessage, message, channel);
-    yield delay(500);
   }
 }
 
@@ -119,6 +119,7 @@ export function* handleEvent(event: Types.Message, channel: Channel) {
       if (event.data.clientId !== myId) {
         return;
       }
+      yield wait(500);
       const state: GameState = yield select(selectGameState);
       channel.publish({
         name: "syncGameState",
