@@ -11,8 +11,15 @@ import { MockMessage } from "../../services/channel/MockMessage";
 import { select } from "redux-saga-test-plan/matchers";
 import { selectId } from "../me/meSlice";
 import { MockChannel } from "../../services/channel/MockChannel";
+import { Channel } from "../../services/channel/Channel";
 
 describe("handlePresenceMessage", () => {
+  let channel: Channel;
+
+  beforeEach(() => {
+    channel = new MockChannel();
+  });
+
   it("adds a player who joins to the players list", async () => {
     const name = "Daniel";
     const id = "550e8400-e29b-11d4-a716-446655440000";
@@ -22,7 +29,8 @@ describe("handlePresenceMessage", () => {
         action: "enter",
         clientId: id,
         data: { name },
-      })
+      }),
+      channel
     )
       .put({
         ...addOrUpdatePlayer(
@@ -46,7 +54,8 @@ describe("handlePresenceMessage", () => {
         action: "present",
         clientId: id,
         data: { name },
-      })
+      }),
+      channel
     )
       .put({
         ...addOrUpdatePlayer(
@@ -61,6 +70,26 @@ describe("handlePresenceMessage", () => {
       .silentRun();
   });
 
+  it("asks a player who already was in the room for the game state", async () => {
+    const name = "Daniel";
+    const clientId = "550e8400-e29b-11d4-a716-446655440000";
+    await expectSaga(
+      handlePresenceMessage,
+      new MockPresenceMessage({
+        action: "present",
+        clientId,
+        data: { name },
+      }),
+      channel
+    ).silentRun();
+    expect(channel.publish).toHaveBeenCalledWith({
+      name: "requestGameState",
+      data: {
+        clientId,
+      },
+    });
+  });
+
   it("marks a player who leaves as offline", async () => {
     const name = "Daniel";
     const id = "550e8400-e29b-11d4-a716-446655440000";
@@ -70,7 +99,8 @@ describe("handlePresenceMessage", () => {
         action: "enter",
         clientId: id,
         data: { name },
-      })
+      }),
+      channel
     )
       .put({
         ...addOrUpdatePlayer(
@@ -105,6 +135,28 @@ describe("handleAction", () => {
 });
 
 describe("handleEvent", () => {
+  let channel: Channel;
+
+  beforeEach(() => {
+    channel = new MockChannel();
+  });
+
+  it("ignores an event that is not a gameEvent", async () => {
+    const clientId = "a-different-id";
+    const action = { type: "not-an-action", meta: { clientId } };
+    await expectSaga(
+      handleEvent,
+      new MockMessage({
+        name: "notAGameEvent",
+        data: action,
+      }),
+      channel
+    )
+      .provide([[select(selectId), "my-id"]])
+      .not.put({ ...action, meta: { clientId, received: true } })
+      .silentRun();
+  });
+
   it("passes an event with a different clientId from the event bus to the store", async () => {
     const clientId = "a-different-id";
     const action = {
@@ -117,7 +169,8 @@ describe("handleEvent", () => {
       new MockMessage({
         name: "gameEvent",
         data: action,
-      })
+      }),
+      channel
     )
       .provide([[select(selectId), "my-id"]])
       .put({ ...action, meta: { clientId, received: true } })
@@ -138,7 +191,8 @@ describe("handleEvent", () => {
       new MockMessage({
         name: "gameEvent",
         data: action,
-      })
+      }),
+      channel
     )
       .provide([[select(selectId), myId]])
       .not.put({ ...action, received: true })

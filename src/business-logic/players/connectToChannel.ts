@@ -16,7 +16,7 @@ function* presenceSaga(channel: Channel) {
 
   while (true) {
     const message: Types.PresenceMessage = yield take(presence);
-    yield call(handlePresenceMessage, message);
+    yield call(handlePresenceMessage, message, channel);
   }
 }
 
@@ -28,7 +28,7 @@ function* receivingEventsSaga(channel: Channel) {
 
   while (true) {
     const message: Types.Message = yield take(events);
-    yield call(handleEvent, message);
+    yield call(handleEvent, message, channel);
   }
 }
 
@@ -61,7 +61,10 @@ export function* sendingEventsSaga(channel: Channel) {
   }
 }
 
-export function* handlePresenceMessage(message: Types.PresenceMessage) {
+export function* handlePresenceMessage(
+  message: Types.PresenceMessage,
+  channel: Channel
+) {
   if (["enter", "present"].includes(message.action)) {
     yield put({
       ...addOrUpdatePlayer(
@@ -76,6 +79,12 @@ export function* handlePresenceMessage(message: Types.PresenceMessage) {
       },
     });
   }
+  if (["present"].includes(message.action)) {
+    channel.publish({
+      name: "requestGameState",
+      data: { clientId: message.clientId },
+    });
+  }
   if (["leave"].includes(message.action)) {
     yield put({
       ...markPlayerOffline(message.clientId),
@@ -86,16 +95,20 @@ export function* handlePresenceMessage(message: Types.PresenceMessage) {
   }
 }
 
-export function* handleEvent(event: Types.Message) {
-  const myId: string = yield select(selectId);
-  const action = event.data;
-  if (action?.meta?.clientId !== myId) {
-    yield put({
-      ...action,
-      meta: {
-        ...action.meta,
-        received: true,
-      },
-    });
+export function* handleEvent(event: Types.Message, channel: Channel) {
+  switch (event.name) {
+    case "gameEvent":
+      const myId: string = yield select(selectId);
+      const action = event.data;
+      if (action?.meta?.clientId !== myId) {
+        yield put({
+          ...action,
+          meta: {
+            ...action.meta,
+            received: true,
+          },
+        });
+      }
+      return;
   }
 }
