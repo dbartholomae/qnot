@@ -225,4 +225,26 @@ describe("handleEvent", () => {
       data: { state: mockState },
     });
   });
+
+  it("does not publish the game state on a requestGameState event with a different id", async () => {
+    const data = {
+      clientId: "a-different-id",
+    };
+    const mockState = { players: [] };
+    await expectSaga(
+      handleEvent,
+      new MockMessage({
+        name: "requestGameState",
+        data: data,
+      }),
+      channel
+    )
+      .provide([
+        [select(selectId), "my-id"],
+        [select(selectGameState), mockState],
+      ])
+      .silentRun();
+
+    expect(channel.publish).not.toHaveBeenCalled();
+  });
 });

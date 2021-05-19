@@ -97,9 +97,9 @@ export function* handlePresenceMessage(
 }
 
 export function* handleEvent(event: Types.Message, channel: Channel) {
+  const myId: string = yield select(selectId);
   switch (event.name) {
     case "gameEvent":
-      const myId: string = yield select(selectId);
       const action = event.data;
       if (action?.meta?.clientId !== myId) {
         yield put({
@@ -112,6 +112,9 @@ export function* handleEvent(event: Types.Message, channel: Channel) {
       }
       return;
     case "requestGameState":
+      if (event.data.clientId !== myId) {
+        return;
+      }
       const state: GameState = yield select(selectGameState);
       channel.publish({
         name: "syncGameState",
