@@ -5,14 +5,14 @@ import {
   handlePresenceMessage,
 } from "./connectToChannel";
 import { expectSaga } from "redux-saga-test-plan";
-import { Player } from "../game";
+import { Player, Status } from "../game";
 import { MockPresenceMessage } from "../../services/channel/MockPresenceMessage";
 import { MockMessage } from "../../services/channel/MockMessage";
 import { select } from "redux-saga-test-plan/matchers";
 import { selectId } from "../me/meSlice";
 import { MockChannel } from "../../services/channel/MockChannel";
 import { Channel } from "../../services/channel/Channel";
-import { selectGameState } from "../game/gameSlice";
+import { selectGameState, setState } from "../game/gameSlice";
 
 describe("handlePresenceMessage", () => {
   let channel: Channel;
@@ -155,6 +155,25 @@ describe("handleEvent", () => {
     )
       .provide([[select(selectId), "my-id"]])
       .not.put({ ...action, meta: { clientId, received: true } })
+      .silentRun();
+  });
+
+  it("syncs the game state", async () => {
+    const state = {
+      players: [],
+      status: Status.WaitingForGameStart,
+      connectedToChannel: true,
+    };
+    await expectSaga(
+      handleEvent,
+      new MockMessage({
+        name: "syncGameState",
+        data: { state },
+      }),
+      channel
+    )
+      .provide([[select(selectId), "my-id"]])
+      .put({ ...setState(state), meta: { received: true } })
       .silentRun();
   });
 

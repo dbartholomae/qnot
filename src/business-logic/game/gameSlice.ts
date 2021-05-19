@@ -27,6 +27,8 @@ const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
+    setState: (state, { payload: newState }: PayloadAction<GameState>) =>
+      newState,
     joinRoom: (state, { payload: _roomCode }: PayloadAction<string>) => state,
     joinRoomComplete: (
       state,
@@ -168,6 +170,7 @@ export const {
   joinRoom,
   leaveRoom,
   joinRoomComplete,
+  setState,
   startGame,
   startNewRound,
 } = gameSlice.actions;

@@ -6,8 +6,10 @@ import {
   addFirstGuessToPlayer,
   addSecondDescriptionToPlayer,
   addSecondGuessToPlayer,
+  selectGameState,
   selectPlayers,
   selectStatus,
+  setState,
   startGame,
   startNewRound,
 } from "./gameSlice";
@@ -284,6 +286,19 @@ describe("gameSlice", () => {
         });
       });
     });
+
+    describe("setState", () => {
+      it("overwrites the game state", () => {
+        const state = {
+          connectedToChannel: true,
+          players: [],
+          status: Status.WaitingForGameStart,
+        };
+        store.dispatch(setState(state));
+        expect(selectGameState(store.getState())).toEqual(state);
+      });
+    });
+
     describe("startNewRound", () => {
       const newWordList = ["apples", "bananas"];
 
