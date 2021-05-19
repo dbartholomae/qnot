@@ -12,6 +12,7 @@ import { select } from "redux-saga-test-plan/matchers";
 import { selectId } from "../me/meSlice";
 import { MockChannel } from "../../services/channel/MockChannel";
 import { Channel } from "../../services/channel/Channel";
+import { selectGameState } from "../game/gameSlice";
 
 describe("handlePresenceMessage", () => {
   let channel: Channel;
@@ -197,5 +198,31 @@ describe("handleEvent", () => {
       .provide([[select(selectId), myId]])
       .not.put({ ...action, received: true })
       .silentRun();
+  });
+
+  it("publishes the game state on a requestGameState event with my id", async () => {
+    const myId = "my-id";
+    const data = {
+      clientId: myId,
+    };
+    const mockState = { players: [] };
+    await expectSaga(
+      handleEvent,
+      new MockMessage({
+        name: "requestGameState",
+        data: data,
+      }),
+      channel
+    )
+      .provide([
+        [select(selectId), myId],
+        [select(selectGameState), mockState],
+      ])
+      .silentRun();
+
+    expect(channel.publish).toHaveBeenCalledWith({
+      name: "syncGameState",
+      data: { state: mockState },
+    });
   });
 });

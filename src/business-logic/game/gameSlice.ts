@@ -6,7 +6,7 @@ import { selectId } from "../me/meSlice";
 import { Status } from "./Status";
 import { calculateMyPoints } from "./calculateMyPoints";
 
-interface GameState {
+export interface GameState {
   connectedToChannel: boolean;
   players: Player[];
   status: Status;
@@ -172,19 +172,24 @@ export const {
   startNewRound,
 } = gameSlice.actions;
 
+export function selectGameState(state: RootState) {
+  return state.game;
+}
+
 export function selectMyWord(state: RootState) {
-  return state.game.players.find((player) => player.id === selectId(state))
-    ?.word;
+  return selectGameState(state).players.find(
+    (player) => player.id === selectId(state)
+  )?.word;
 }
 
 export function selectStatus(state: RootState) {
-  return state.game.status;
+  return selectGameState(state).status;
 }
 
 export function selectPlayers(state: RootState) {
-  return state.game.players;
+  return selectGameState(state).players;
 }
 
 export function selectConnectedToChannel(state: RootState) {
-  return state.game.connectedToChannel;
+  return selectGameState(state).connectedToChannel;
 }

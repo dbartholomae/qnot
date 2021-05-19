@@ -6,6 +6,7 @@ import { all, call, put, select, take } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
 import { Action } from "@reduxjs/toolkit";
 import { selectId } from "../me/meSlice";
+import { GameState, selectGameState } from "../game/gameSlice";
 
 function* presenceSaga(channel: Channel) {
   const presence = eventChannel((emitter) => {
@@ -109,6 +110,13 @@ export function* handleEvent(event: Types.Message, channel: Channel) {
           },
         });
       }
+      return;
+    case "requestGameState":
+      const state: GameState = yield select(selectGameState);
+      channel.publish({
+        name: "syncGameState",
+        data: { state },
+      });
       return;
   }
 }
