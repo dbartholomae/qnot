@@ -58,6 +58,7 @@ describe("handlePresenceMessage", () => {
       }),
       channel
     )
+      .provide([[select(selectId), id]])
       .put({
         ...addOrUpdatePlayer(
           new Player({
@@ -74,6 +75,7 @@ describe("handlePresenceMessage", () => {
   it("asks a player who already was in the room for the game state", async () => {
     const name = "Daniel";
     const clientId = "550e8400-e29b-11d4-a716-446655440000";
+    const myId = "my-id";
     await expectSaga(
       handlePresenceMessage,
       new MockPresenceMessage({
@@ -82,11 +84,14 @@ describe("handlePresenceMessage", () => {
         data: { name },
       }),
       channel
-    ).silentRun();
+    )
+      .provide([[select(selectId), myId]])
+      .silentRun();
     expect(channel.publish).toHaveBeenCalledWith({
       name: "requestGameState",
       data: {
-        clientId,
+        from: clientId,
+        for: myId,
       },
     });
   });
@@ -158,7 +163,27 @@ describe("handleEvent", () => {
       .silentRun();
   });
 
-  it("syncs the game state", async () => {
+  it("syncs the game state if it is for me", async () => {
+    const state = {
+      players: [],
+      status: Status.WaitingForGameStart,
+      connectedToChannel: true,
+    };
+    const myId = "my-id";
+    await expectSaga(
+      handleEvent,
+      new MockMessage({
+        name: "syncGameState",
+        data: { state, for: myId },
+      }),
+      channel
+    )
+      .provide([[select(selectId), myId]])
+      .put({ ...setState(state), meta: { received: true } })
+      .silentRun();
+  });
+
+  it("does not sync the game state if it is for someone else", async () => {
     const state = {
       players: [],
       status: Status.WaitingForGameStart,
@@ -168,12 +193,12 @@ describe("handleEvent", () => {
       handleEvent,
       new MockMessage({
         name: "syncGameState",
-        data: { state },
+        data: { state, for: "another-id" },
       }),
       channel
     )
       .provide([[select(selectId), "my-id"]])
-      .put({ ...setState(state), meta: { received: true } })
+      .not.put({ ...setState(state), meta: { received: true } })
       .silentRun();
   });
 
@@ -221,8 +246,10 @@ describe("handleEvent", () => {
 
   it("publishes the game state on a requestGameState event with my id", async () => {
     const myId = "my-id";
+    const otherId = "other-id";
     const data = {
-      clientId: myId,
+      from: myId,
+      for: otherId,
     };
     const mockState = { players: [] };
     await expectSaga(
@@ -235,19 +262,21 @@ describe("handleEvent", () => {
     )
       .provide([
         [select(selectId), myId],
+        { call: () => null },
         [select(selectGameState), mockState],
       ])
       .silentRun();
 
     expect(channel.publish).toHaveBeenCalledWith({
       name: "syncGameState",
-      data: { state: mockState },
+      data: { state: mockState, for: otherId },
     });
   });
 
   it("does not publish the game state on a requestGameState event with a different id", async () => {
     const data = {
-      clientId: "a-different-id",
+      from: "a-different-id",
+      for: "a-third-id",
     };
     const mockState = { players: [] };
     await expectSaga(

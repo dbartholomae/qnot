@@ -2,12 +2,11 @@ import { Channel } from "../../services/channel/Channel";
 import { Player } from "../game";
 import { Types } from "ably";
 import { addOrUpdatePlayer, markPlayerOffline } from "./playersSlice";
-import { all, call, fork, put, select, take } from "redux-saga/effects";
+import { all, call, delay, fork, put, select, take } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
 import { Action } from "@reduxjs/toolkit";
 import { selectId } from "../me/meSlice";
 import { GameState, selectGameState, setState } from "../game/gameSlice";
-import { wait } from "@testing-library/user-event/dist/utils";
 
 function* presenceSaga(channel: Channel) {
   const presence = eventChannel((emitter) => {
@@ -62,10 +61,11 @@ export function* sendingEventsSaga(channel: Channel) {
   }
 }
 
-function requestGameState(channel: Channel, message: Types.PresenceMessage) {
+function* requestGameState(channel: Channel, message: Types.PresenceMessage) {
+  const myId: string = yield select(selectId);
   channel.publish({
     name: "requestGameState",
-    data: { clientId: message.clientId },
+    data: { from: message.clientId, for: myId },
   });
 }
 
@@ -88,7 +88,7 @@ export function* handlePresenceMessage(
     });
   }
   if (["present"].includes(message.action)) {
-    requestGameState(channel, message);
+    yield requestGameState(channel, message);
   }
   if (["leave"].includes(message.action)) {
     yield put({
@@ -116,17 +116,21 @@ export function* handleEvent(event: Types.Message, channel: Channel) {
       }
       return;
     case "requestGameState":
-      if (event.data.clientId !== myId) {
+      if (event.data.from !== myId) {
         return;
       }
-      yield wait(500);
+      yield delay(500);
       const state: GameState = yield select(selectGameState);
       channel.publish({
         name: "syncGameState",
-        data: { state },
+        data: { state, for: event.data.for },
       });
       return;
     case "syncGameState":
+      if (event.data.for !== myId) {
+        return;
+      }
+
       yield put({ ...setState(event.data.state), meta: { received: true } });
       return;
   }
