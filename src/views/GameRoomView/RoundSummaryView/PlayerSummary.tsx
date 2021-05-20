@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { Player } from "../../../business-logic/game";
+import { PlayerWithPoints } from "../../../business-logic/game";
 import { Card, CardContent, Typography } from "@material-ui/core";
 
 export interface Props {
-  player: Player & { pointChange: number };
-  players: Pick<Player, "id" | "name">[];
+  player: PlayerWithPoints;
+  players: Pick<PlayerWithPoints, "id" | "name">[];
 }
 
 export const PlayerSummary: FunctionComponent<Props> = ({

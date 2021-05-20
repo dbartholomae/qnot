@@ -2,6 +2,7 @@ export { reducer } from "./gameSlice";
 
 export { MockPlayer } from "./MockPlayer";
 export * from "./Player";
+export * from "./PlayerWithPoints";
 export * from "./Status";
 
 export { useAddFirstDescription } from "./useAddFirstDescription";

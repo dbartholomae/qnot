@@ -5,6 +5,7 @@ import { chooseWordsForPlayers } from "./chooseWordsForPlayers";
 import { selectId } from "../me/meSlice";
 import { Status } from "./Status";
 import { calculateMyPoints } from "./calculateMyPoints";
+import { PlayerWithPoints } from "./PlayerWithPoints";
 
 export interface GameState {
   connectedToChannel: boolean;
@@ -189,8 +190,12 @@ export function selectStatus(state: RootState) {
   return selectGameState(state).status;
 }
 
-export function selectPlayers(state: RootState) {
-  return selectGameState(state).players;
+export function selectPlayers(state: RootState): PlayerWithPoints[] {
+  const players = selectGameState(state).players;
+  return players.map((player) => ({
+    ...player,
+    pointChange: calculateMyPoints(player, players),
+  }));
 }
 
 export function selectConnectedToChannel(state: RootState) {
