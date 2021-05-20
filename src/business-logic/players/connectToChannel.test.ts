@@ -12,7 +12,11 @@ import { select } from "redux-saga-test-plan/matchers";
 import { selectId } from "../me/meSlice";
 import { MockChannel } from "../../services/channel/MockChannel";
 import { Channel } from "../../services/channel/Channel";
-import { selectGameState, setState } from "../game/gameSlice";
+import {
+  selectGameState,
+  selectWaitingForSync,
+  syncState,
+} from "../game/gameSlice";
 
 describe("handlePresenceMessage", () => {
   let channel: Channel;
@@ -58,7 +62,10 @@ describe("handlePresenceMessage", () => {
       }),
       channel
     )
-      .provide([[select(selectId), id]])
+      .provide([
+        [select(selectId), id],
+        [select(selectWaitingForSync), false],
+      ])
       .put({
         ...addOrUpdatePlayer(
           new Player({
@@ -85,7 +92,10 @@ describe("handlePresenceMessage", () => {
       }),
       channel
     )
-      .provide([[select(selectId), myId]])
+      .provide([
+        [select(selectId), myId],
+        [select(selectWaitingForSync), false],
+      ])
       .silentRun();
     expect(channel.publish).toHaveBeenCalledWith({
       name: "requestGameState",
@@ -179,7 +189,7 @@ describe("handleEvent", () => {
       channel
     )
       .provide([[select(selectId), myId]])
-      .put({ ...setState(state), meta: { received: true } })
+      .put({ ...syncState(state), meta: { received: true } })
       .silentRun();
   });
 
@@ -198,7 +208,7 @@ describe("handleEvent", () => {
       channel
     )
       .provide([[select(selectId), "my-id"]])
-      .not.put({ ...setState(state), meta: { received: true } })
+      .not.put({ ...syncState(state), meta: { received: true } })
       .silentRun();
   });
 

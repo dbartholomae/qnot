@@ -9,9 +9,9 @@ import {
   selectGameState,
   selectPlayers,
   selectStatus,
-  setState,
   startGame,
   startNewRound,
+  syncState,
 } from "./gameSlice";
 import { Status } from "./Status";
 import { MockChannel } from "../../services/channel/MockChannel";
@@ -293,8 +293,9 @@ describe("gameSlice", () => {
           connectedToChannel: true,
           players: [],
           status: Status.WaitingForGameStart,
+          waitingForSync: false,
         };
-        store.dispatch(setState(state));
+        store.dispatch(syncState(state));
         expect(selectGameState(store.getState())).toEqual(state);
       });
     });

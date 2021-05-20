@@ -11,12 +11,14 @@ export interface GameState {
   connectedToChannel: boolean;
   players: Player[];
   status: Status;
+  waitingForSync: boolean;
 }
 
-const initialState: GameState = {
+export const initialState: GameState = {
   connectedToChannel: false,
   players: [],
   status: Status.WaitingForGameStart,
+  waitingForSync: false,
 };
 
 interface GameConfig {
@@ -28,8 +30,11 @@ const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
-    setState: (state, { payload: newState }: PayloadAction<GameState>) =>
-      newState,
+    requestGameState: (state) => ({ ...state, waitingForSync: true }),
+    syncState: (state, { payload: newState }: PayloadAction<GameState>) => ({
+      ...newState,
+      waitingForSync: false,
+    }),
     joinRoom: (state, { payload: _roomCode }: PayloadAction<string>) => state,
     joinRoomComplete: (
       state,
@@ -171,7 +176,8 @@ export const {
   joinRoom,
   leaveRoom,
   joinRoomComplete,
-  setState,
+  requestGameState,
+  syncState,
   startGame,
   startNewRound,
 } = gameSlice.actions;
@@ -200,4 +206,8 @@ export function selectPlayers(state: RootState): PlayerWithPoints[] {
 
 export function selectConnectedToChannel(state: RootState) {
   return selectGameState(state).connectedToChannel;
+}
+
+export function selectWaitingForSync(state: RootState) {
+  return selectGameState(state).waitingForSync;
 }
