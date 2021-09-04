@@ -1,6 +1,6 @@
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render, screen } from "@testing-library/react";
-import { createStore } from "./business-logic/store";
+import { createStore, Store } from "./business-logic/store";
 import React from "react";
 import { App } from "./App";
 import { createTestProviders } from "./testUtils/createTestProviders";
@@ -14,26 +14,27 @@ describe("App", () => {
 
   beforeEach(() => {
     history = createMemoryHistory();
-    render(<App />, { wrapper: createTestProviders({ history }) });
   });
 
   it("renders the main view on root path", async () => {
     history.push("/");
+    render(<App />, { wrapper: createTestProviders({ history }) });
     expect(await screen.findByText(en.MainView.title)).toBeInTheDocument();
   });
 
   describe("with a name set", () => {
+    let store: Store;
     const name = "Daniel";
 
     beforeEach(() => {
       history = createMemoryHistory();
-      const store = createStore(() => new MockChannel());
+      store = createStore(() => new MockChannel());
       store.dispatch(setName(name));
-      render(<App />, { wrapper: createTestProviders({ history, store }) });
     });
 
     it("renders the room lobby on lobby path", async () => {
       history.push(getRoomPath("test-room-code"));
+      render(<App />, { wrapper: createTestProviders({ history, store }) });
       expect(
         await screen.findByText(en.WaitingRoomView.title)
       ).toBeInTheDocument();
