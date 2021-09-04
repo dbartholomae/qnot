@@ -1,7 +1,7 @@
 {
   "name": "qnot",
   "version": "0.1.0",
-  "homepage": "https://dbartholomae.github.io/qnot/",
+  "homepage": "https://dbartholomae.github.io/qnot",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
@@ -32,8 +32,8 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html reports/bundle-size.html",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "node ./scripts/start.js",
+    "build": "node ./scripts/build.js",
     "pretest": "npm run lint:dependencies",
     "test": "react-scripts test",
     "lint:dependencies": "dependency-cruiser --config .dependency-cruiser.js ./src",
@@ -80,13 +80,17 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/uuid": "^8.3.1",
     "dependency-cruiser": "^10.2.0",
+    "dotenv": "^6.2.0",
+    "esbuild": "^0.12.25",
     "faker": "^5.5.3",
     "fast-check": "^2.17.0",
+    "fs-extra": "^9.1.0",
     "history": "^5.0.1",
     "jest-extended": "^0.11.5",
     "jest-localstorage-mock": "^2.4.17",
     "prettier": "^2.3.2",
     "redux-saga-test-plan": "^4.0.3",
+    "servor": "^4.0.2",
     "source-map-explorer": "^2.5.2",
     "utility-types": "^3.10.0",
     "wait-for-expect": "^3.0.2"
