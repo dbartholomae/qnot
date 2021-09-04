@@ -2,6 +2,9 @@ module.exports = {
   setupFilesAfterEnv: ["jest-extended", "@testing-library/jest-dom"],
   transform: {
     "^.+\\.tsx?$": "esbuild-jest",
-    "^.+\\.css$": "jest-transform-css",
+  },
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node", "css"],
+  moduleNameMapper: {
+    "fontsource-roboto": "identity-obj-proxy",
   },
 };
