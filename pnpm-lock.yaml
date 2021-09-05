@@ -39,6 +39,7 @@ specifiers:
   identity-obj-proxy: ^3.0.0
   jest: ^27.1.0
   jest-extended: ^0.11.5
+  jest-junit: ^12.2.0
   jest-localstorage-mock: ^2.4.17
   prettier: ^2.3.2
   ramda: ^0.27.1
@@ -108,6 +109,7 @@ devDependencies:
   identity-obj-proxy: 3.0.0
   jest: 27.1.0
   jest-extended: 0.11.5
+  jest-junit: 12.2.0
   jest-localstorage-mock: 2.4.17
   prettier: 2.3.2
   redux-saga-test-plan: 4.0.3_redux-saga@1.1.3
@@ -9550,6 +9552,16 @@ packages:
       - supports-color
     dev: true
 
+  /jest-junit/12.2.0:
+    resolution: {integrity: sha512-ecGzF3KEQwLbMP5xMO7wqmgmyZlY/5yWDvgE/vFa+/uIT0KsU5nluf0D2fjIlOKB+tb6DiuSSpZuGpsmwbf7Fw==}
+    engines: {node: '>=10.12.0'}
+    dependencies:
+      mkdirp: 1.0.4
+      strip-ansi: 5.2.0
+      uuid: 8.3.2
+      xml: 1.0.1
+    dev: true
+
   /jest-leak-detector/27.1.0:
     resolution: {integrity: sha512-oHvSkz1E80VyeTKBvZNnw576qU+cVqRXUD3/wKXh1zpaki47Qty2xeHg2HKie9Hqcd2l4XwircgNOWb/NiGqdA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
@@ -13955,7 +13967,6 @@ packages:
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
-    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
@@ -14306,6 +14317,10 @@ packages:
 
   /xml-name-validator/3.0.0:
     resolution: {integrity: sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==}
+    dev: true
+
+  /xml/1.0.1:
+    resolution: {integrity: sha1-eLpyAgApxbyHuKgaPPzXS0ovweU=}
     dev: true
 
   /xmlchars/2.2.0:
