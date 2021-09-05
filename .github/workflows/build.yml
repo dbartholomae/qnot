@@ -19,6 +19,11 @@ jobs:
         run: pnpm install
       - name: Test
         run: npm test
+      - uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: test-results
+          path: reports/junit.xml
       - name: Build page
         run: npm run build
         env:

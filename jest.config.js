@@ -1,4 +1,5 @@
 module.exports = {
+  reporters: ["default", ["jest-junit", { outputFile: "./reports/junit.xml" }]],
   projects: [
     {
       displayName: "Unit",
