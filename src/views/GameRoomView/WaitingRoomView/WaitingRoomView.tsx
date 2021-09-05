@@ -19,7 +19,7 @@ export const WaitingRoomView: FunctionComponent<Props> = ({ roomCode }) => {
   const players = usePlayers();
   return (
     <Page>
-      <Grid container justify="space-between" alignItems="center">
+      <Grid container justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h3" gutterBottom>
             {en.WaitingRoomView.title}
