@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@fontsource/roboto': ^4.5.0
   '@material-ui/core': ^4.12.3
   '@material-ui/icons': ^4.11.2
   '@reduxjs/toolkit': ^1.6.1
@@ -33,7 +34,6 @@ specifiers:
   eslint: ^7.32.0
   faker: ^5.5.3
   fast-check: ^2.17.0
-  fontsource-roboto: ^4.0.0
   fs-extra: ^10.0.0
   history: ^5.0.1
   identity-obj-proxy: ^3.0.0
@@ -58,6 +58,7 @@ specifiers:
   wait-for-expect: ^3.0.2
 
 dependencies:
+  '@fontsource/roboto': 4.5.0
   '@material-ui/core': 4.12.3_6a88e7f1db8ec87ba2f5d7a905ae46ed
   '@material-ui/icons': 4.11.2_027681546e7bd150c3405bb123bf327e
   '@reduxjs/toolkit': 1.6.1_react-redux@7.2.5+react@17.0.2
@@ -70,7 +71,6 @@ dependencies:
   '@types/react-dom': 17.0.9
   '@types/react-redux': 7.1.18
   ably: 1.2.13
-  fontsource-roboto: 4.0.0
   ramda: 0.27.1
   random-words: 1.1.1
   react: 17.0.2
@@ -2513,6 +2513,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fontsource/roboto/4.5.0:
+    resolution: {integrity: sha512-ja4XYw/9kNRFM5Ndk9vwzHWsdBMXczyBazFkTXJQ74QQBnT0BbSsHn0pF60AU0Iznig1Wt9x3rADfG8LANvMpw==}
+    dev: false
 
   /@gar/promisify/1.1.2:
     resolution: {integrity: sha512-82cpyJyKRoQoRi+14ibCeGPu0CwypgtBAdBhq1WfvagpCZNKqwXbKwXllYSMG91DhmG4jt9gN8eP6lGOtozuaw==}
@@ -7880,11 +7884,6 @@ packages:
       inherits: 2.0.4
       readable-stream: 2.3.7
     dev: true
-
-  /fontsource-roboto/4.0.0:
-    resolution: {integrity: sha512-zD6L8nvdWRcwSgp4ojxFchG+MPj8kXXQKDEAH9bfhbxy+lkpvpC1WgAK0lCa4dwobv+hvAe0uyHaawcgH7WH/g==}
-    deprecated: Package relocated. Please install and migrate to @fontsource/roboto.
-    dev: false
 
   /for-in/1.0.2:
     resolution: {integrity: sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=}

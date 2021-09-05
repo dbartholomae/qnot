@@ -13,7 +13,7 @@ module.exports = {
       displayName: "DOM",
       moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node", "css"],
       moduleNameMapper: {
-        "fontsource-roboto": "identity-obj-proxy",
+        "@fontsource/roboto": "identity-obj-proxy",
       },
       setupFilesAfterEnv: ["./src/setupTests.ts"],
       testEnvironment: "jsdom",
