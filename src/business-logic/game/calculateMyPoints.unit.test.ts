@@ -37,7 +37,7 @@ describe("calculateMyPoints", () => {
           ],
         }),
       ];
-      expect(calculateMyPoints(players[0], players)).toBe(3);
+      expect(calculateMyPoints(players[0], players)).toBe(4);
     });
 
     it("returns 0 if you only picked yourself and your partner did not pick you", () => {
