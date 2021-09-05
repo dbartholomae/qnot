@@ -1,10 +1,10 @@
-/* node_modules/fontsource-roboto/index.css */
+/* node_modules/.pnpm/@fontsource+roboto@4.5.0/node_modules/@fontsource/roboto/index.css */
 @font-face {
   font-family: "Roboto";
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-cyrillic-ext-400-normal-W4B5WAR4.woff2) format("woff2"), url(./roboto-all-400-normal-OHNS3C2A.woff) format("woff");
+  src: url(./roboto-cyrillic-ext-400-normal-P2R3MDOK.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range:
     U+0460-052F,
     U+1C80-1C88,
@@ -18,7 +18,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-cyrillic-400-normal-VFI5E6FP.woff2) format("woff2"), url(./roboto-all-400-normal-OHNS3C2A.woff) format("woff");
+  src: url(./roboto-cyrillic-400-normal-XIMUJLHS.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range:
     U+0400-045F,
     U+0490-0491,
@@ -30,7 +30,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-greek-ext-400-normal-AQHJPYOG.woff2) format("woff2"), url(./roboto-all-400-normal-OHNS3C2A.woff) format("woff");
+  src: url(./roboto-greek-ext-400-normal-JZQ2T4LU.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range: U+1F00-1FFF;
 }
 @font-face {
@@ -38,7 +38,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-greek-400-normal-W2QQDIJN.woff2) format("woff2"), url(./roboto-all-400-normal-OHNS3C2A.woff) format("woff");
+  src: url(./roboto-greek-400-normal-OATLPXF3.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range: U+0370-03FF;
 }
 @font-face {
@@ -46,7 +46,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-vietnamese-400-normal-SJDOJTXX.woff2) format("woff2"), url(./roboto-all-400-normal-OHNS3C2A.woff) format("woff");
+  src: url(./roboto-vietnamese-400-normal-B6N6IV4E.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range:
     U+0102-0103,
     U+0110-0111,
@@ -62,7 +62,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-latin-ext-400-normal-A4A4SWOJ.woff2) format("woff2"), url(./roboto-all-400-normal-OHNS3C2A.woff) format("woff");
+  src: url(./roboto-latin-ext-400-normal-Z46XPCK7.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range:
     U+0100-024F,
     U+0259,
@@ -79,7 +79,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-latin-400-normal-DYWU2ORH.woff2) format("woff2"), url(./roboto-all-400-normal-OHNS3C2A.woff) format("woff");
+  src: url(./roboto-latin-400-normal-POGXOGF2.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range:
     U+0000-00FF,
     U+0131,
