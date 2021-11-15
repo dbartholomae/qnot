@@ -1,4 +1,4 @@
-/* node_modules/.pnpm/@fontsource+roboto@4.5.0/node_modules/@fontsource/roboto/index.css */
+/* node_modules/@fontsource/roboto/index.css */
 @font-face {
   font-family: "Roboto";
   font-style: normal;
@@ -30,7 +30,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(./roboto-greek-ext-400-normal-JZQ2T4LU.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
+  src: url(./roboto-greek-ext-400-normal-O4PNPLYW.woff2) format("woff2"), url(./roboto-all-400-normal-ELEMG2VN.woff) format("woff");
   unicode-range: U+1F00-1FFF;
 }
 @font-face {
