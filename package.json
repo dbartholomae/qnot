@@ -57,7 +57,7 @@
     "@storybook/addon-links": "^6.3.8",
     "@storybook/node-logger": "^6.3.8",
     "@storybook/react": "^6.3.12",
-    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/jest-dom": "^5.15.1",
     "@types/faker": "^5.5.8",
     "@types/history": "^4.7.9",
     "@types/ramda": "^0.27.50",
