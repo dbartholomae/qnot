@@ -62,7 +62,7 @@
     "@types/history": "^4.7.9",
     "@types/ramda": "^0.27.62",
     "@types/react-copy-to-clipboard": "^5.0.1",
-    "@types/react-router-dom": "^5.1.8",
+    "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^8.3.4",
     "concurrently": "^7.0.0",
     "dependency-cruiser": "^11.2.1",
