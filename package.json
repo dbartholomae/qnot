@@ -56,7 +56,7 @@
     "@storybook/addon-essentials": "^6.4.18",
     "@storybook/addon-links": "^6.4.18",
     "@storybook/node-logger": "^6.4.18",
-    "@storybook/react": "^6.4.19",
+    "@storybook/react": "^6.4.20",
     "@testing-library/jest-dom": "^5.16.2",
     "@types/faker": "^6.6.9",
     "@types/history": "^5.0.0",
