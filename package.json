@@ -71,7 +71,7 @@
     "esbuild-jest": "^0.5.0",
     "eslint": "^8.8.0",
     "faker": "^5.5.3",
-    "fast-check": "^2.21.0",
+    "fast-check": "^2.24.0",
     "fs-extra": "^10.0.0",
     "history": "^5.2.0",
     "identity-obj-proxy": "^3.0.0",
